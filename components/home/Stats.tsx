@@ -97,11 +97,11 @@ function Stats() {
         </div>
 
         {/* 4 High-Impact Metric Cards Grid */}
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-white p-7 shadow-[0_10px_30px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_22px_45px_rgba(15,23,42,0.12)]"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_22px_45px_rgba(15,23,42,0.12)] sm:p-7"
             >
               {/* Top Accent Gradient Line on Hover */}
               <div
@@ -110,42 +110,43 @@ function Stats() {
 
               <div>
                 {/* Header Icon & Badge */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-2">
                   <div
-                    className={`flex h-12 w-12 items-center justify-center rounded-2xl ${stat.bgSoft} ${stat.textCol} border ${stat.borderSoft} shadow-2xs transition-transform duration-300 group-hover:scale-110 group-hover:rotate-2`}
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ${stat.bgSoft} ${stat.textCol} border ${stat.borderSoft} shadow-2xs transition-transform duration-300 group-hover:scale-110 group-hover:rotate-2 sm:h-12 sm:w-12`}
                   >
                     {stat.icon}
                   </div>
 
-                  <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-bold text-slate-600 border border-slate-200/70">
+                  <span className="rounded-full border border-slate-200/70 bg-slate-100 px-2 py-1 text-[9px] font-bold text-slate-600 sm:px-3 sm:text-[11px]">
                     {stat.badge}
                   </span>
                 </div>
 
-                {/* Big Metric Value with Gradient Accent */}
-                <div className="mt-6">
+                {/* Big Metric Value */}
+                <div className="mt-5 sm:mt-6">
                   <p
-                    className={`font-heading text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent`}
+                    className={`font-heading text-3xl font-extrabold tracking-tight bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent sm:text-5xl`}
                   >
                     {stat.value}
                   </p>
                 </div>
 
                 {/* Label Title */}
-                <h4 className="mt-3 font-heading text-base font-bold text-slate-900 transition group-hover:text-blue-600">
+                <h4 className="mt-2 font-heading text-sm font-bold text-slate-900 transition group-hover:text-blue-600 sm:mt-3 sm:text-base">
                   {stat.label}
                 </h4>
 
                 {/* Subtext Description */}
-                <p className="mt-2 text-xs leading-relaxed text-slate-500">
+                <p className="mt-2 text-[11px] leading-relaxed text-slate-500 sm:text-xs">
                   {stat.subtext}
                 </p>
               </div>
 
-              {/* Bottom live indicator */}
-              <div className="mt-6 flex items-center gap-1.5 border-t border-slate-100 pt-3">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
-                <span className="text-[11px] font-mono text-slate-400">
+              {/* Bottom Live Indicator */}
+              <div className="mt-5 flex items-center gap-1.5 border-t border-slate-100 pt-3 sm:mt-6">
+                <span className="h-1.5 w-1.5 animate-ping rounded-full bg-emerald-500" />
+
+                <span className="text-[9px] font-mono text-slate-400 sm:text-[11px]">
                   Verified Metric
                 </span>
               </div>

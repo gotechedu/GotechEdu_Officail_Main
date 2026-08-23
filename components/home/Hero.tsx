@@ -56,17 +56,17 @@ function Hero() {
         {/* Centered Action Buttons (Mobile-friendly responsive stack / row) */}
         <div className="mt-7 sm:mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 w-full">
           <Link
-            href="/contact"
+            href="/solution"
             className="w-full sm:w-auto inline-flex items-center justify-center rounded-full bg-[#38bdf8] px-7 py-3 sm:py-3.5 text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.18em] text-white shadow-[0_12px_30px_rgba(56,189,248,0.35)] transition duration-300 hover:scale-[1.03] hover:bg-[#0ea5e9] active:scale-100"
           >
-            Book a Consultation
+            Explore Solutions
           </Link>
 
           <Link
-            href="/solution"
+            href="/learninghub"
             className="w-full sm:w-auto inline-flex items-center justify-center rounded-full border border-white/30 bg-black/40 px-7 py-3 sm:py-3.5 text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.18em] text-white shadow-lg backdrop-blur-md transition duration-300 hover:scale-[1.03] hover:border-white/50 hover:bg-white/20 active:scale-100"
           >
-            Explore Solutions
+            Explore Learning Hub
           </Link>
         </div>
       </div>

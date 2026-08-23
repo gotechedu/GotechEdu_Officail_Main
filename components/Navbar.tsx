@@ -47,7 +47,6 @@ function Navbar() {
               <span className="font-heading text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 transition-colors duration-300 group-hover:text-blue-600">
                 GOTECH<span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">EDU</span>
               </span>
-              <span className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse" />
             </div>
             <span className="text-[10px] font-mono font-semibold uppercase tracking-[0.16em] text-slate-400 transition-colors group-hover:text-slate-600">
               IT Solutions & EdTech
@@ -63,11 +62,10 @@ function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`relative px-3.5 py-2 rounded-xl text-sm font-bold transition-all duration-200 ${
-                  isActive
+                className={`relative px-3.5 py-2 rounded-xl text-sm font-bold transition-all duration-200 ${isActive
                     ? "text-blue-600 bg-blue-50/80 font-extrabold shadow-2xs"
                     : "text-slate-600 hover:text-blue-600 hover:bg-slate-50"
-                }`}
+                  }`}
               >
                 {link.name}
                 {isActive && (
@@ -127,11 +125,10 @@ function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`rounded-xl px-4 py-2.5 text-base font-bold transition-colors ${
-                    isActive
+                  className={`rounded-xl px-4 py-2.5 text-base font-bold transition-colors ${isActive
                       ? "bg-blue-50 text-blue-600"
                       : "text-slate-700 hover:bg-slate-50 hover:text-blue-600"
-                  }`}
+                    }`}
                 >
                   {link.name}
                 </Link>
