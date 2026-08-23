@@ -223,9 +223,16 @@ const programs = [
 ];
 
 const categories = ["All", "Development", "AI & Data", "Cloud & DevOps", "Cybersecurity", "Business"];
+const experienceLevels = ["All Levels", "Beginner to Advanced", "Intermediate"];
+const durations = ["All Durations", "10-12 Weeks", "14-16 Weeks"];
 
 export default function LearningHubPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedLevel, setSelectedLevel] = useState("All Levels");
+  const [selectedDuration, setSelectedDuration] = useState("All Durations");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("popular");
+  const [showFilterPanel, setShowFilterPanel] = useState(false);
   const [selectedProgram, setSelectedProgram] = useState<any>(null);
   const [isApplying, setIsApplying] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -240,10 +247,64 @@ export default function LearningHubPage() {
     batchPreference: "Weekend Batch (Sat & Sun)",
   });
 
-  const filteredPrograms =
-    selectedCategory === "All"
-      ? programs
-      : programs.filter((p) => p.category === selectedCategory);
+  // Calculate active filter count
+  const activeFiltersCount =
+    (selectedCategory !== "All" ? 1 : 0) +
+    (selectedLevel !== "All Levels" ? 1 : 0) +
+    (selectedDuration !== "All Durations" ? 1 : 0) +
+    (searchQuery.trim() !== "" ? 1 : 0);
+
+  const resetFilters = () => {
+    setSelectedCategory("All");
+    setSelectedLevel("All Levels");
+    setSelectedDuration("All Durations");
+    setSearchQuery("");
+    setSortBy("popular");
+  };
+
+  const filteredPrograms = programs
+    .filter((program) => {
+      // Category filter
+      if (selectedCategory !== "All" && program.category !== selectedCategory) {
+        return false;
+      }
+      // Level filter
+      if (selectedLevel !== "All Levels" && !program.level.toLowerCase().includes(selectedLevel.toLowerCase())) {
+        return false;
+      }
+      // Duration filter
+      if (selectedDuration === "10-12 Weeks") {
+        const weeks = parseInt(program.duration);
+        if (weeks > 12) return false;
+      } else if (selectedDuration === "14-16 Weeks") {
+        const weeks = parseInt(program.duration);
+        if (weeks < 14) return false;
+      }
+      // Search query
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        const matchesTitle = program.title.toLowerCase().includes(q);
+        const matchesDesc = program.description.toLowerCase().includes(q);
+        const matchesTech = program.techStack.some((t) => t.toLowerCase().includes(q));
+        const matchesCat = program.category.toLowerCase().includes(q);
+        if (!matchesTitle && !matchesDesc && !matchesTech && !matchesCat) {
+          return false;
+        }
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      if (sortBy === "duration-asc") {
+        return parseInt(a.duration) - parseInt(b.duration);
+      }
+      if (sortBy === "duration-desc") {
+        return parseInt(b.duration) - parseInt(a.duration);
+      }
+      if (sortBy === "title") {
+        return a.title.localeCompare(b.title);
+      }
+      return 0;
+    });
 
   const openApplyModal = (program?: any) => {
     if (program) {
@@ -268,117 +329,305 @@ export default function LearningHubPage() {
 
   return (
     <main className="min-h-screen bg-slate-50">
-
-
-      {/* =====================================================
-          2. PROGRAM CATALOG SECTION
-      ====================================================== */}
       <section className="py-12 lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <div>
               <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-600">
-                Tech Bootcamps
+                Tech Bootcamps & Academies
               </span>
               <h2 className="mt-2 font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950">
                 Explore All Programs
               </h2>
+              <p className="mt-1 text-xs sm:text-sm text-slate-500">
+                Showing <strong className="text-blue-600 font-bold">{filteredPrograms.length}</strong> of{" "}
+                {programs.length} industry-led curriculums
+              </p>
             </div>
 
-            <button
-              type="button"
-              onClick={() => openApplyModal()}
-              className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm hover:bg-blue-700 transition"
-            >
-              Apply for Admission →
-            </button>
-          </div>
-
-          {/* Category Filter Tabs */}
-          <div className="mt-6 flex flex-wrap items-center gap-1.5 border-b border-slate-200 pb-3">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                className={`rounded-full px-3.5 py-1.5 text-xs font-bold transition-all ${selectedCategory === cat
-                    ? "bg-blue-600 text-white shadow-xs"
-                    : "bg-white text-slate-600 border border-slate-200 hover:border-blue-300"
-                  }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Programs Grid */}
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredPrograms.map((program) => (
-              <div
-                key={program.id}
-                className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 shadow-2xs transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-bold text-slate-700">
-                      {program.category}
-                    </span>
-                    <span
-                      className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${program.bgSoft} ${program.textCol} border ${program.borderCol}`}
-                    >
-                      {program.badge}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-4 font-heading text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition">
-                    {program.title}
-                  </h3>
-
-                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-3">
-                    {program.description}
-                  </p>
-
-                  {/* Specs */}
-                  <div className="mt-4 grid grid-cols-2 gap-2 rounded-xl bg-slate-50 p-2.5 text-xs border border-slate-100">
-                    <div>
-                      <span className="text-slate-400 block text-[10px] uppercase font-bold">Duration</span>
-                      <span className="font-semibold text-slate-800">{program.duration}</span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 block text-[10px] uppercase font-bold">Mode</span>
-                      <span className="font-semibold text-slate-800">{program.mode}</span>
-                    </div>
-                  </div>
-
-                  <div className="mt-3 flex flex-wrap gap-1">
-                    {program.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-700"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-6 border-t border-slate-100 pt-3.5 flex items-center justify-between">
+            {/* Search & Actions Control Bar */}
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+              {/* Search Bar Input */}
+              <div className="relative flex-1 sm:w-64 sm:flex-none">
+                <input
+                  type="text"
+                  placeholder="Search skills, stack, topic..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full rounded-xl border border-slate-300 bg-white pl-9 pr-8 py-2.5 text-xs sm:text-sm text-slate-900 shadow-2xs placeholder:text-slate-400 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20"
+                />
+                <svg
+                  className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+                {searchQuery && (
                   <button
                     type="button"
-                    onClick={() => openApplyModal(program)}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 group-hover:text-blue-700"
+                    onClick={() => setSearchQuery("")}
+                    aria-label="Clear search"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-slate-600"
                   >
-                    <span>View Syllabus & Apply</span>
-                    <span>→</span>
+                    ✕
                   </button>
+                )}
+              </div>
 
-                  <span className="text-[11px] font-mono text-emerald-600 font-semibold">
-                    Admissions Open
+              {/* Filter Toggle Button */}
+              <button
+                type="button"
+                onClick={() => setShowFilterPanel(!showFilterPanel)}
+                className={`inline-flex items-center gap-2 rounded-xl border px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition shadow-2xs ${showFilterPanel || activeFiltersCount > 0
+                    ? "border-blue-500 bg-blue-50 text-blue-700 font-extrabold"
+                    : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-400"
+                  }`}
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+                </svg>
+                <span>Filter</span>
+                {activeFiltersCount > 0 && (
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-[10px] font-bold text-white">
+                    {activeFiltersCount}
+                  </span>
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => openApplyModal()}
+                className="inline-flex items-center justify-center gap-1 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-blue-500/25 transition hover:opacity-95 active:scale-95"
+              >
+                <span>Apply for Admission</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Expandable Advanced Filter Options Panel (Including Category Filter) */}
+          {showFilterPanel && (
+            <div className="mt-5 rounded-2xl border border-blue-200/90 bg-white p-5 sm:p-6 shadow-sm animate-fadeIn">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-800">
+                    Filter Programs By Category & Requirements
                   </span>
                 </div>
+                {activeFiltersCount > 0 && (
+                  <button
+                    type="button"
+                    onClick={resetFilters}
+                    className="text-xs font-semibold text-rose-600 hover:text-rose-700 hover:underline"
+                  >
+                    Reset All Filters
+                  </button>
+                )}
               </div>
-            ))}
-          </div>
+
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {/* Category Filter */}
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    Category / Track
+                  </label>
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-xs text-slate-900 focus:border-blue-600 focus:bg-white focus:outline-none"
+                  >
+                    {categories.map((cat) => (
+                      <option key={cat} value={cat}>
+                        {cat}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Experience Level Filter */}
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    Experience Level
+                  </label>
+                  <select
+                    value={selectedLevel}
+                    onChange={(e) => setSelectedLevel(e.target.value)}
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-xs text-slate-900 focus:border-blue-600 focus:bg-white focus:outline-none"
+                  >
+                    <option value="All Levels">All Levels</option>
+                    <option value="Beginner to Advanced">Beginner to Advanced</option>
+                    <option value="Intermediate">Intermediate / Advanced</option>
+                  </select>
+                </div>
+
+                {/* Duration Filter */}
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    Duration
+                  </label>
+                  <select
+                    value={selectedDuration}
+                    onChange={(e) => setSelectedDuration(e.target.value)}
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-xs text-slate-900 focus:border-blue-600 focus:bg-white focus:outline-none"
+                  >
+                    <option value="All Durations">All Durations</option>
+                    <option value="10-12 Weeks">Fast Track (10 - 12 Weeks)</option>
+                    <option value="14-16 Weeks">Comprehensive (14 - 16 Weeks)</option>
+                  </select>
+                </div>
+
+                {/* Sort Order */}
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    Sort Curriculums
+                  </label>
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-xs text-slate-900 focus:border-blue-600 focus:bg-white focus:outline-none"
+                  >
+                    <option value="popular">Most Popular</option>
+                    <option value="duration-asc">Duration: Shortest First</option>
+                    <option value="duration-desc">Duration: Longest First</option>
+                    <option value="title">Alphabetical (A - Z)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Active Filters Tag Pills (if any applied) */}
+          {activeFiltersCount > 0 && (
+            <div className="mt-4 flex flex-wrap items-center gap-2 pt-1">
+              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+                Active Filters:
+              </span>
+              {selectedCategory !== "All" && (
+                <span className="inline-flex items-center gap-1 rounded-lg bg-blue-50 border border-blue-200 px-2.5 py-1 text-xs font-semibold text-blue-700">
+                  Category: {selectedCategory}
+                  <button type="button" onClick={() => setSelectedCategory("All")} className="hover:text-blue-900 font-bold ml-1">✕</button>
+                </span>
+              )}
+              {selectedLevel !== "All Levels" && (
+                <span className="inline-flex items-center gap-1 rounded-lg bg-indigo-50 border border-indigo-200 px-2.5 py-1 text-xs font-semibold text-indigo-700">
+                  Level: {selectedLevel}
+                  <button type="button" onClick={() => setSelectedLevel("All Levels")} className="hover:text-indigo-900 font-bold ml-1">✕</button>
+                </span>
+              )}
+              {selectedDuration !== "All Durations" && (
+                <span className="inline-flex items-center gap-1 rounded-lg bg-cyan-50 border border-cyan-200 px-2.5 py-1 text-xs font-semibold text-cyan-700">
+                  Duration: {selectedDuration}
+                  <button type="button" onClick={() => setSelectedDuration("All Durations")} className="hover:text-cyan-900 font-bold ml-1">✕</button>
+                </span>
+              )}
+              {searchQuery && (
+                <span className="inline-flex items-center gap-1 rounded-lg bg-amber-50 border border-amber-200 px-2.5 py-1 text-xs font-semibold text-amber-700">
+                  Search: "{searchQuery}"
+                  <button type="button" onClick={() => setSearchQuery("")} className="hover:text-amber-900 font-bold ml-1">✕</button>
+                </span>
+              )}
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="text-xs font-bold text-slate-500 hover:text-rose-600 transition underline ml-1"
+              >
+                Clear all
+              </button>
+            </div>
+          )}
+
+          {/* Programs Grid or Empty State */}
+          {filteredPrograms.length === 0 ? (
+            <div className="mt-12 rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center shadow-xs">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-2xl text-slate-400">
+                🔍
+              </div>
+              <h3 className="mt-4 font-heading text-lg font-bold text-slate-900">
+                No bootcamps match your criteria
+              </h3>
+              <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-sm mx-auto">
+                We couldn't find any courses matching your search and filter parameters. Try resetting your filters.
+              </p>
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="mt-5 inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-2 text-xs font-bold uppercase tracking-wider text-white shadow-sm hover:bg-blue-700 transition"
+              >
+                Reset All Filters
+              </button>
+            </div>
+          ) : (
+            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredPrograms.map((program) => (
+                <div
+                  key={program.id}
+                  className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 shadow-2xs transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg"
+                >
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-bold text-slate-700">
+                        {program.category}
+                      </span>
+                      <span
+                        className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${program.bgSoft} ${program.textCol} border ${program.borderCol}`}
+                      >
+                        {program.badge}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-4 font-heading text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition">
+                      {program.title}
+                    </h3>
+
+                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-3">
+                      {program.description}
+                    </p>
+
+                    {/* Specs */}
+                    <div className="mt-4 grid grid-cols-2 gap-2 rounded-xl bg-slate-50 p-2.5 text-xs border border-slate-100">
+                      <div>
+                        <span className="text-slate-400 block text-[10px] uppercase font-bold">Duration</span>
+                        <span className="font-semibold text-slate-800">{program.duration}</span>
+                      </div>
+                      <div>
+                        <span className="text-slate-400 block text-[10px] uppercase font-bold">Level</span>
+                        <span className="font-semibold text-slate-800 truncate block">{program.level}</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 flex flex-wrap gap-1">
+                      {program.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-700"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-6 border-t border-slate-100 pt-3.5 flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => openApplyModal(program)}
+                      className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700"
+                    >
+                      <span>View Syllabus & Apply</span>
+                      <span>→</span>
+                    </button>
+
+                    <span className="text-[11px] font-mono text-emerald-600 font-semibold">
+                      Admissions Open
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
