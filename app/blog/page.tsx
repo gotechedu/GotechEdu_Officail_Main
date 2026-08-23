@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { officialApi } from "@/lib/api";
 
 const blogPosts = [
   {
@@ -136,18 +137,55 @@ const blogPosts = [
 const categories = ["All", "AI", "Cloud", "Technology", "Cybersecurity", "Education", "Marketing"];
 
 export default function BlogPage() {
+  const [allBlogs, setAllBlogs] = useState<any[]>(blogPosts);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [emailSubscribed, setEmailSubscribed] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
 
-  const filteredPosts = blogPosts.filter((post) => {
+  // Fetch live blogs from Backend API
+  useEffect(() => {
+    const fetchLiveBlogs = async () => {
+      try {
+        const data = await officialApi.getBlogs();
+        if (data && data.blogs && data.blogs.length > 0) {
+          const formatted = data.blogs.map((b: any) => ({
+            title: b.title,
+            slug: b.slug || b._id,
+            category: b.category || "Technology",
+            date: b.date || "Aug 2026",
+            readTime: b.readTime || "5 min read",
+            coverImage: b.coverImage || "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80",
+            author: b.author || {
+              name: "Editorial Team",
+              role: "Tech Author",
+              initials: "ET",
+              avatarBg: "bg-blue-600",
+            },
+            badge: b.badge || "Featured Insight",
+            description: b.description,
+            tags: b.tags || [],
+          }));
+
+          // Merge dynamic blogs
+          const slugs = new Set(formatted.map((f: any) => f.slug));
+          const uniqueStatic = blogPosts.filter((p) => !slugs.has(p.slug));
+          setAllBlogs([...formatted, ...uniqueStatic]);
+        }
+      } catch (err) {
+        console.log("Using static blogPosts cache");
+      }
+    };
+    fetchLiveBlogs();
+  }, []);
+
+  const filteredPosts = allBlogs.filter((post) => {
     const matchesCategory =
       selectedCategory === "All" || post.category === selectedCategory;
     const matchesSearch =
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      (post.tags || []).some((t: string) => t.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
 
@@ -296,7 +334,7 @@ export default function BlogPage() {
                     </p>
 
                     <div className="mt-3 flex flex-wrap gap-1">
-                      {post.tags.slice(0, 3).map((tag) => (
+                      {(post.tags || []).slice(0, 3).map((tag: string) => (
                         <span
                           key={tag}
                           className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-600"

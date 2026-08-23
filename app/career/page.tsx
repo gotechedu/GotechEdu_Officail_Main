@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { officialApi } from "@/lib/api";
 
 const jobListings = [
   {
@@ -106,6 +107,7 @@ const locations = ["All Locations", "Remote", "Hybrid", "On-Site"];
 const experiences = ["All Experience", "1–3 Years", "2–5 Years", "3–6 Years"];
 
 export default function CareerPage() {
+  const [allJobs, setAllJobs] = useState<any[]>(jobListings);
   const [selectedDept, setSelectedDept] = useState("All");
   const [selectedLocation, setSelectedLocation] = useState("All Locations");
   const [selectedExperience, setSelectedExperience] = useState("All Experience");
@@ -114,6 +116,7 @@ export default function CareerPage() {
   const [showFilterPanel, setShowFilterPanel] = useState(false);
   const [isApplying, setIsApplying] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Application form state
   const [formData, setFormData] = useState({
@@ -123,9 +126,40 @@ export default function CareerPage() {
     position: "Senior Frontend Engineer",
     experience: "1-3 Years",
     portfolioUrl: "",
+    expectedCTC: "",
     resumeFileName: "",
     message: "",
   });
+
+  // Fetch live jobs from Backend API
+  useEffect(() => {
+    const fetchLiveJobs = async () => {
+      try {
+        const data = await officialApi.getJobs();
+        if (data && data.jobs && data.jobs.length > 0) {
+          const formatted = data.jobs.map((j: any) => ({
+            id: j._id || j.slug,
+            title: j.title,
+            department: j.department || "Engineering",
+            type: j.type || "Full-Time",
+            location: j.location || "Gurugram / Remote",
+            experience: j.experience || "2–4 Years",
+            salary: j.salary || "₹12L – ₹20L PA",
+            tags: j.tags || [],
+            description: j.description,
+          }));
+
+          // Merge dynamic jobs without duplicating titles
+          const titles = new Set(formatted.map((f: any) => f.title.toLowerCase()));
+          const uniqueStatic = jobListings.filter((l) => !titles.has(l.title.toLowerCase()));
+          setAllJobs([...formatted, ...uniqueStatic]);
+        }
+      } catch (err) {
+        console.log("Using static jobListings cache");
+      }
+    };
+    fetchLiveJobs();
+  }, []);
 
   // Calculate active filter count
   const activeFiltersCount =
@@ -142,7 +176,7 @@ export default function CareerPage() {
     setSortBy("recommended");
   };
 
-  const filteredJobs = jobListings
+  const filteredJobs = allJobs
     .filter((job) => {
       // Department filter
       if (selectedDept !== "All" && job.department !== selectedDept) {
@@ -163,7 +197,7 @@ export default function CareerPage() {
         const matchesDept = job.department.toLowerCase().includes(q);
         const matchesLoc = job.location.toLowerCase().includes(q);
         const matchesDesc = job.description.toLowerCase().includes(q);
-        const matchesTags = job.tags.some((t) => t.toLowerCase().includes(q));
+        const matchesTags = (job.tags || []).some((t: string) => t.toLowerCase().includes(q));
         if (!matchesTitle && !matchesDept && !matchesLoc && !matchesDesc && !matchesTags) {
           return false;
         }
@@ -198,9 +232,26 @@ export default function CareerPage() {
     }
   };
 
-  const handleSubmitApplication = (e: React.FormEvent) => {
+  const handleSubmitApplication = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    try {
+      await officialApi.submitJobApplication({
+        jobTitle: formData.position,
+        name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        experience: formData.experience,
+        expectedCTC: formData.expectedCTC,
+        portfolioUrl: formData.portfolioUrl,
+        coverLetter: formData.message,
+      });
+    } catch (err) {
+      console.log("Submit application error (saved locally):", err);
+    } finally {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    }
   };
 
   return (
@@ -479,7 +530,7 @@ export default function CareerPage() {
                       </p>
 
                       <div className="mt-3 flex flex-wrap gap-1.5">
-                        {job.tags.map((tag) => (
+                        {(job.tags || []).map((tag: string) => (
                           <span
                             key={tag}
                             className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-600"

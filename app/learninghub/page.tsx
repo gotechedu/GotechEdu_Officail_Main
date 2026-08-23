@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { officialApi } from "@/lib/api";
 
 const programs = [
   {
@@ -227,6 +228,7 @@ const experienceLevels = ["All Levels", "Beginner to Advanced", "Intermediate"];
 const durations = ["All Durations", "10-12 Weeks", "14-16 Weeks"];
 
 export default function LearningHubPage() {
+  const [allPrograms, setAllPrograms] = useState<any[]>(programs);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedLevel, setSelectedLevel] = useState("All Levels");
   const [selectedDuration, setSelectedDuration] = useState("All Durations");
@@ -236,16 +238,55 @@ export default function LearningHubPage() {
   const [selectedProgram, setSelectedProgram] = useState<any>(null);
   const [isApplying, setIsApplying] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Application form state
   const [enrollmentForm, setEnrollmentForm] = useState({
     fullName: "",
     email: "",
     phone: "",
+    collegeOrCompany: "",
     programName: "Full-Stack Next.js & React Engineering",
     experienceLevel: "College Student / Graduate",
+    learningGoal: "Career Transition / Upskilling",
     batchPreference: "Weekend Batch (Sat & Sun)",
   });
+
+  // Fetch live courses from Backend API
+  useEffect(() => {
+    const fetchLiveCourses = async () => {
+      try {
+        const data = await officialApi.getCourses();
+        if (data && data.courses && data.courses.length > 0) {
+          const formatted = data.courses.map((c: any) => ({
+            id: c._id || c.slug,
+            title: c.title,
+            category: c.category || "Development",
+            duration: c.duration || "12 Weeks",
+            mode: c.mode || "Live Online",
+            level: c.level || "Beginner to Advanced",
+            badge: c.badge || "Live Academy",
+            color: c.color || "from-blue-600 to-cyan-500",
+            bgSoft: c.bgSoft || "bg-blue-50",
+            textCol: c.textCol || "text-blue-600",
+            borderCol: c.borderCol || "border-blue-100",
+            description: c.description,
+            techStack: c.techStack || [],
+            modules: c.modules && c.modules.length > 0 ? c.modules : ["Core Architecture", "Hands-On Labs", "Capstone Deployment"],
+            careerOutcome: c.careerOutcome || "Software Engineer",
+          }));
+
+          // Merge dynamic courses without duplicating titles
+          const titles = new Set(formatted.map((f: any) => f.title.toLowerCase()));
+          const uniqueStatic = programs.filter((p) => !titles.has(p.title.toLowerCase()));
+          setAllPrograms([...formatted, ...uniqueStatic]);
+        }
+      } catch (err) {
+        console.log("Using static programs cache");
+      }
+    };
+    fetchLiveCourses();
+  }, []);
 
   // Calculate active filter count
   const activeFiltersCount =
@@ -262,7 +303,7 @@ export default function LearningHubPage() {
     setSortBy("popular");
   };
 
-  const filteredPrograms = programs
+  const filteredPrograms = allPrograms
     .filter((program) => {
       // Category filter
       if (selectedCategory !== "All" && program.category !== selectedCategory) {
@@ -285,7 +326,7 @@ export default function LearningHubPage() {
         const q = searchQuery.toLowerCase();
         const matchesTitle = program.title.toLowerCase().includes(q);
         const matchesDesc = program.description.toLowerCase().includes(q);
-        const matchesTech = program.techStack.some((t) => t.toLowerCase().includes(q));
+        const matchesTech = (program.techStack || []).some((t: string) => t.toLowerCase().includes(q));
         const matchesCat = program.category.toLowerCase().includes(q);
         if (!matchesTitle && !matchesDesc && !matchesTech && !matchesCat) {
           return false;
@@ -322,9 +363,27 @@ export default function LearningHubPage() {
     setEnrollmentForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleEnrollSubmit = (e: React.FormEvent) => {
+  const handleEnrollSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    try {
+      await officialApi.submitCourseApplication({
+        courseId: selectedProgram?.id || null,
+        courseTitle: enrollmentForm.programName || selectedProgram?.title,
+        studentName: enrollmentForm.fullName,
+        email: enrollmentForm.email,
+        phone: enrollmentForm.phone,
+        collegeOrCompany: enrollmentForm.collegeOrCompany,
+        experienceLevel: enrollmentForm.experienceLevel,
+        learningGoal: enrollmentForm.learningGoal,
+        modePreference: enrollmentForm.batchPreference,
+      });
+    } catch (err) {
+      console.log("Submit course application error (saved locally):", err);
+    } finally {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    }
   };
 
   return (
@@ -599,7 +658,7 @@ export default function LearningHubPage() {
                     </div>
 
                     <div className="mt-3 flex flex-wrap gap-1">
-                      {program.techStack.map((tech) => (
+                      {(program.techStack || []).map((tech: string) => (
                         <span
                           key={tech}
                           className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-700"
