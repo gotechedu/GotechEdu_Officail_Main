@@ -1,230 +1,191 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 
 const services = [
   {
-    id: "software",
-    category: "Development",
-    number: "01",
-    icon: "💻",
-    title: "Enterprise Software Solutions",
+    id: "tech-solutions",
+    title: "Tech Solutions",
     description:
-      "Full-cycle custom software engineering, ERP, CRM, HRMS, POS, and high-performance web & mobile applications tailored to business logic.",
-    href: "/solution",
-    items: [
-      "Custom ERP & CRM",
-      "SaaS Platforms",
-      "Mobile Apps",
-      "API Integration",
-    ],
-    badge: "Popular",
+      "Custom web, mobile & enterprise ERP/CRM systems built for performance, scale and reliability.",
+    href: "/solution#software",
+    badge: "Full-Cycle",
+    color: "from-blue-500 to-indigo-600",
+    bgSoft: "bg-blue-50",
+    textCol: "text-blue-600",
+    borderCol: "border-blue-100",
+    glowCol: "from-blue-400/30 to-indigo-400/30",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l-2 2 2 2m8-4l2 2-2 2" />
+      </svg>
+    ),
   },
   {
-    id: "ai",
-    category: "Artificial Intelligence",
-    number: "02",
-    icon: "🤖",
-    title: "AI & Intelligent Automation",
+    id: "ai-solutions",
+    title: "AI Solutions",
     description:
-      "Accelerate workflows with custom LLM agents, retrieval-augmented generation (RAG), predictive analytics, and automated decision engines.",
-    href: "/solution",
-    items: [
-      "AI Autonomous Agents",
-      "Custom LLMs",
-      "RAG Search",
-      "Process Automation",
-    ],
-    badge: "High Growth",
+      "Autonomous AI agents, enterprise RAG search pipelines, and custom fine-tuned LLMs.",
+    href: "/solution#ai",
+    badge: "Next-Gen",
+    color: "from-purple-500 to-indigo-600",
+    bgSoft: "bg-purple-50",
+    textCol: "text-purple-600",
+    borderCol: "border-purple-100",
+    glowCol: "from-purple-400/30 to-indigo-400/30",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m16-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+      </svg>
+    ),
   },
   {
-    id: "cloud",
-    category: "Infrastructure",
-    number: "03",
-    icon: "☁️",
-    title: "Cloud Services & DevOps",
+    id: "cloud-services",
+    title: "Cloud & DevOps",
     description:
-      "Build resilient cloud architecture, automated CI/CD pipelines, Kubernetes orchestration, and 24/7 security monitoring on AWS, Azure, & GCP.",
-    href: "/solution",
-    items: [
-      "AWS & Azure",
-      "DevOps Pipelines",
-      "Kubernetes",
-      "Disaster Recovery",
-    ],
-    badge: "Enterprise",
+      "Scalable multi-cloud architecture (AWS/Azure/GCP) with Kubernetes & 99.99% uptime SLA.",
+    href: "/solution#cloud",
+    badge: "99.99% SLA",
+    color: "from-sky-500 to-blue-600",
+    bgSoft: "bg-sky-50",
+    textCol: "text-sky-600",
+    borderCol: "border-sky-100",
+    glowCol: "from-sky-400/30 to-blue-400/30",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
+      </svg>
+    ),
   },
   {
-    id: "marketing",
-    category: "Growth",
-    number: "04",
-    icon: "📈",
-    title: "Data-Driven Digital Marketing",
+    id: "cybersecurity",
+    title: "Cybersecurity",
     description:
-      "Scale brand reach and acquisition through SEO, conversion rate optimization (CRO), performance marketing, and target audience engagement.",
-    href: "/solution",
-    items: [
-      "Search Engine Optimization",
-      "Performance Ads",
-      "Growth Analytics",
-      "Brand Strategy",
-    ],
-    badge: "ROI Focused",
+      "Zero-Trust security architecture, SOC 2 compliance, penetration testing & 24/7 SIEM monitoring.",
+    href: "/solution#cybersecurity",
+    badge: "Zero-Trust",
+    color: "from-emerald-500 to-teal-600",
+    bgSoft: "bg-emerald-50",
+    textCol: "text-emerald-600",
+    borderCol: "border-emerald-100",
+    glowCol: "from-emerald-400/30 to-teal-400/30",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    ),
   },
   {
-    id: "education",
-    category: "Education",
-    number: "05",
-    icon: "🎓",
-    title: "Technology Education & Upskilling",
+    id: "digital-marketing",
+    title: "Digital Growth",
     description:
-      "Industry-aligned technology courses, corporate training bootcamps, AI engineering certifications, and hands-on developer mentorship.",
-    href: "/solution",
-    items: [
-      "Corporate Training",
-      "Full-Stack Bootcamps",
-      "AI Certifications",
-      "Hands-on Projects",
-    ],
-    badge: "Career Impact",
+      "Data-driven SEO, performance marketing funnels, CRO, and B2B growth acquisition.",
+    href: "/solution#marketing",
+    badge: "Growth",
+    color: "from-fuchsia-500 to-pink-600",
+    bgSoft: "bg-fuchsia-50",
+    textCol: "text-fuchsia-600",
+    borderCol: "border-fuchsia-100",
+    glowCol: "from-fuchsia-400/30 to-pink-400/30",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+      </svg>
+    ),
   },
   {
-    id: "consulting",
-    category: "Strategy",
-    number: "06",
-    icon: "💡",
-    title: "Technology & Product Consulting",
+    id: "tech-education",
+    title: "Tech Academy",
     description:
-      "Strategic technical advisory, legacy system modernization, security audit, microservices refactoring, and digital transformation roadmaps.",
-    href: "/solution",
-    items: [
-      "System Architecture",
-      "Tech Audit",
-      "Digital Roadmap",
-      "CTO-as-a-Service",
-    ],
-    badge: "Strategic",
+      "Industry-aligned bootcamps, corporate engineering upskilling, and 1-on-1 career mentorship.",
+    href: "/learninghub",
+    badge: "Upskilling",
+    color: "from-amber-500 to-orange-600",
+    bgSoft: "bg-amber-50",
+    textCol: "text-amber-600",
+    borderCol: "border-amber-100",
+    glowCol: "from-amber-400/30 to-orange-400/30",
+    icon: (
+      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6" />
+      </svg>
+    ),
   },
-];
-
-const categories = [
-  "All",
-  "Development",
-  "Artificial Intelligence",
-  "Infrastructure",
-  "Growth",
-  "Education",
-  "Strategy",
 ];
 
 function Services() {
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const filteredServices =
-    activeCategory === "All"
-      ? services
-      : services.filter((s) => s.category === activeCategory);
-
   return (
-    <section className="bg-slate-50/60 py-20 lg:py-28 relative">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="services" className="relative bg-slate-50/60 py-12 lg:py-16 overflow-hidden">
+      {/* Background Ambient Glow Orbs */}
+      <div className="absolute left-[10%] top-20 h-72 w-72 rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
+      <div className="absolute right-[10%] bottom-20 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none" />
+
+      <div className="mx-auto max-w-[1560px] px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-bold uppercase tracking-widest text-blue-600">
-              Core Capabilities
-            </span>
+        <div className="text-center max-w-3xl mx-auto">
+          <p className="font-mono text-xs sm:text-sm font-bold uppercase tracking-[0.22em] text-blue-600">
+            WHAT WE DO
+          </p>
 
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-              End-to-End Technology Solutions Designed for Scale.
-            </h2>
+          <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
+            End-to-End Solutions for Every Growth Stage
+          </h2>
 
-            <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
-              From building custom enterprise software and deployable AI engines
-              to cloud infrastructure, growth marketing, and tech
-              training—GotechEdu is your full-spectrum technology partner.
-            </p>
-          </div>
-
-          <Link
-            href="/solution"
-            className="inline-flex items-center text-sm font-bold text-blue-600 hover:text-blue-700 transition"
-          >
-            Explore All Solutions & Services
-            <span className="ml-2">→</span>
-          </Link>
+          <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600">
+            From software engineering and AI automation to multi-cloud infrastructure, cybersecurity defense, and tech training—we are your full-spectrum technology partner.
+          </p>
         </div>
 
-        {/* Services Cards Grid */}
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredServices.map((service) => (
+        {/* 6 Services Cards in Single Responsive Grid Row */}
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+          {services.map((service) => (
             <div
               key={service.id}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl"
+              className="group relative flex flex-col justify-between items-center text-center overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-white p-6 sm:p-5 lg:p-6 shadow-[0_10px_30px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_22px_45px_rgba(15,23,42,0.12)]"
             >
-              <div>
-                {/* Top Info Header */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-xl text-blue-600 border border-blue-100">
-                      {service.icon}
-                    </span>
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                      {service.number}
-                    </span>
-                  </div>
+              {/* Subtle Top Hover Gradient Line */}
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-                  <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600 border border-slate-200">
-                    {service.badge}
-                  </span>
+              {/* Main Card Content */}
+              <div className="flex flex-col items-center w-full">
+                {/* Circular Icon with Radiant Soft Glow */}
+                <div className="relative mt-2">
+                  <div
+                    className={`absolute -inset-1.5 rounded-full bg-gradient-to-r ${service.glowCol} blur-md opacity-40 transition-all duration-300 group-hover:opacity-90 group-hover:scale-110`}
+                  />
+                  <div
+                    className={`relative flex h-16 w-16 items-center justify-center rounded-full ${service.bgSoft} ${service.textCol} border ${service.borderCol} shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}
+                  >
+                    {service.icon}
+                  </div>
                 </div>
 
                 {/* Title */}
-                <h3 className="mt-6 text-xl font-bold text-slate-900 transition group-hover:text-blue-600">
+                <h3 className="mt-5 font-heading text-lg font-bold text-slate-900 transition-colors duration-200 group-hover:text-blue-600">
                   {service.title}
                 </h3>
 
                 {/* Description */}
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                <p className="mt-3 text-xs leading-relaxed text-slate-500">
                   {service.description}
                 </p>
-
-                {/* Tags */}
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {service.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-lg bg-slate-100/80 px-2.5 py-1 text-xs font-medium text-slate-700 border border-slate-200/60"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
               </div>
 
-              {/* Bottom Link Action */}
-              <div className="mt-8 border-t border-slate-100 pt-4 flex items-center justify-between">
+              {/* Bottom "Learn More →" Link */}
+              <div className="mt-6 pt-4 border-t border-slate-100/90 w-full">
                 <Link
                   href={service.href}
-                  className="inline-flex items-center text-sm font-semibold text-blue-600 group-hover:text-blue-700"
+                  className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-blue-600 transition-all duration-200 group-hover:text-blue-700 group-hover:gap-2"
                 >
-                  Learn More
-                  <svg
-                    className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2.5"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                    />
-                  </svg>
+                  <span>Learn More</span>
+                  <span className="transition-transform duration-200 group-hover:translate-x-0.5">
+                    →
+                  </span>
                 </Link>
-                <span className="text-xs text-slate-400">Enterprise Ready</span>
               </div>
             </div>
           ))}
