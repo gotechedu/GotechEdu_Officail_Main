@@ -638,7 +638,9 @@ export default function LearningHubPage() {
                     </div>
 
                     <h3 className="mt-4 font-heading text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition">
-                      {program.title}
+                      <Link href={`/learninghub/${program.id || program.slug || program._id}`}>
+                        {program.title}
+                      </Link>
                     </h3>
 
                     <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-3">
@@ -670,14 +672,13 @@ export default function LearningHubPage() {
                   </div>
 
                   <div className="mt-6 border-t border-slate-100 pt-3.5 flex items-center justify-between">
-                    <button
-                      type="button"
-                      onClick={() => openApplyModal(program)}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700"
+                    <Link
+                      href={`/learninghub/${program.id || program.slug || program._id}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform"
                     >
                       <span>View Syllabus & Apply</span>
                       <span>→</span>
-                    </button>
+                    </Link>
 
                     <span className="text-[11px] font-mono text-emerald-600 font-semibold">
                       Admissions Open

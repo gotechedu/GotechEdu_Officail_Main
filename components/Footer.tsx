@@ -14,12 +14,11 @@ const solutionLinks = [
 ];
 
 const learningLinks = [
-  { name: "Full-Stack Next.js & React", href: "/learninghub" },
-  { name: "Generative AI & LLM Systems", href: "/learninghub" },
-  { name: "AWS & Azure Cloud DevOps", href: "/learninghub" },
-  { name: "Cybersecurity & SOC Analyst", href: "/learninghub" },
-  { name: "Data Science & Machine Learning", href: "/learninghub" },
-  { name: "Enterprise MERN Masterclass", href: "/learninghub" },
+  { name: "Full-Stack Next.js & React", href: "/learninghub/fullstack-nextjs" },
+  { name: "Generative AI & LLM Systems", href: "/learninghub/gen-ai-agentic" },
+  { name: "AWS & Azure Cloud DevOps", href: "/learninghub/cloud-devops" },
+  { name: "Cybersecurity & SOC Analyst", href: "/learninghub/cybersecurity-soc" },
+  { name: "Enterprise MERN Masterclass", href: "/learninghub/mern-stack" },
 ];
 
 const companyLinks = [
@@ -185,7 +184,7 @@ function Footer() {
                   href="tel:+919876543210"
                   className="font-bold text-white hover:text-cyan-300 transition"
                 >
-                  +91 98765 43210
+                  +91 9608094827
                 </a>
               </div>
 
