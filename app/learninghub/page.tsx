@@ -28,204 +28,45 @@ const programs = [
       "Capstone Project: Multi-Tenant Enterprise SaaS Platform",
     ],
     careerOutcome: "Frontend / Full-Stack Engineer (₹8L – ₹18L PA)",
-  },
-  {
-    id: "mern-stack",
-    title: "Enterprise MERN Stack Architecture",
-    category: "Development",
-    duration: "16 Weeks",
-    mode: "Live Interactive",
-    level: "Intermediate",
-    badge: "High Demand",
-    color: "from-emerald-600 to-teal-500",
-    bgSoft: "bg-emerald-50",
-    textCol: "text-emerald-600",
-    borderCol: "border-emerald-100",
-    description:
-      "Deep dive into full-cycle JavaScript development. Build high-throughput REST APIs with Node.js and Express, architect MongoDB schemas, and integrate microservices with Redis caching.",
-    techStack: ["MongoDB", "Express.js", "React", "Node.js", "Redis", "Docker"],
-    modules: [
-      "Advanced Node.js Event Loop & Asynchronous Architecture",
-      "MongoDB Indexing, Aggregation Pipelines & Atlas",
-      "JWT Authentication, Role-Based Access & Security",
-      "Redis Caching & Real-Time WebSockets Architecture",
-      "Capstone Project: Real-Time Omnichannel ERP & Chat System",
-    ],
-    careerOutcome: "Full-Stack Node/React Developer (₹9L – ₹20L PA)",
-  },
-  {
-    id: "gen-ai-agentic",
-    title: "Generative AI & Agentic Systems Engineering",
-    category: "AI & Data",
-    duration: "14 Weeks",
-    mode: "Live Labs + Research Project",
-    level: "Intermediate to Advanced",
-    badge: "Flagship AI",
-    color: "from-purple-600 to-indigo-600",
-    bgSoft: "bg-purple-50",
-    textCol: "text-purple-600",
-    borderCol: "border-purple-100",
-    description:
-      "Learn to architect autonomous multi-agent systems, build enterprise RAG pipelines with vector databases, and fine-tune open-source LLMs using PyTorch and Hugging Face.",
-    techStack: ["Python", "PyTorch", "LangChain", "LlamaIndex", "ChromaDB", "FastAPI"],
-    modules: [
-      "Prompt Engineering & Foundation Model Paradigms",
-      "Enterprise RAG Architecture & Vector Embeddings",
-      "Multi-Agent Orchestration with LangGraph & CrewAI",
-      "LLM Fine-Tuning with LoRA & QLoRA on Custom Data",
-      "Capstone Project: Autonomous Enterprise Research Agent",
-    ],
-    careerOutcome: "AI Engineer / LLM Architect (₹14L – ₹28L PA)",
-  },
-  {
-    id: "cloud-devops",
-    title: "Multi-Cloud (AWS & Azure) + Kubernetes DevOps",
-    category: "Cloud & DevOps",
-    duration: "16 Weeks",
-    mode: "Live Cloud Labs",
-    level: "Beginner to Advanced",
-    badge: "Enterprise SLA",
-    color: "from-sky-600 to-blue-600",
-    bgSoft: "bg-sky-50",
-    textCol: "text-sky-600",
-    borderCol: "border-sky-100",
-    description:
-      "Learn to provision multi-cloud environments with Terraform, orchestrate Kubernetes clusters with Helm, build automated CI/CD pipelines, and manage 24/7 cloud security monitoring.",
-    techStack: ["AWS", "Azure", "Docker", "Kubernetes", "Terraform", "GitHub Actions"],
-    modules: [
-      "Linux Systems & Shell Automation for Cloud Engineers",
-      "AWS Core Compute, VPC, IAM, S3, and Serverless Lambda",
-      "Docker Containerization & Kubernetes (EKS/AKS) Clustering",
-      "Infrastructure as Code (IaC) with Terraform & Ansible",
-      "Capstone Project: Zero-Downtime Multi-Region Production Deploy",
-    ],
-    careerOutcome: "Cloud / DevOps Engineer (₹12L – ₹24L PA)",
-  },
-  {
-    id: "cybersecurity-soc",
-    title: "Cybersecurity, Ethical Hacking & SOC Defense",
-    category: "Cybersecurity",
-    duration: "14 Weeks",
-    mode: "Live Cyber Range Labs",
-    level: "Beginner to Advanced",
-    badge: "High Security",
-    color: "from-indigo-600 to-violet-600",
-    bgSoft: "bg-indigo-50",
-    textCol: "text-indigo-600",
-    borderCol: "border-indigo-100",
-    description:
-      "Understand attack surfaces, conduct penetration testing (OWASP Top 10), configure firewalls, and analyze threat telemetry in realistic SOC incident response simulations.",
-    techStack: ["Wireshark", "Burp Suite", "Kali Linux", "SIEM (Splunk)", "Nmap", "Metasploit"],
-    modules: [
-      "Network Protocols, Packet Analysis & Firewalls",
-      "Web Application Security & OWASP Top 10 Exploitation",
-      "Penetration Testing & Ethical Hacking Toolsets",
-      "SOC Telemetry, Log Analysis & Incident Response",
-      "Capstone Project: Full Cyber Range Penetration Test & Audit",
-    ],
-    careerOutcome: "Cybersecurity / SOC Analyst (₹8L – ₹18L PA)",
-  },
-  {
-    id: "python-backend",
-    title: "Python, FastAPI & Microservices Architecture",
-    category: "Development",
-    duration: "12 Weeks",
-    mode: "Live Online",
-    level: "Beginner to Intermediate",
-    badge: "Fast Track",
-    color: "from-amber-600 to-orange-500",
-    bgSoft: "bg-amber-50",
-    textCol: "text-amber-600",
-    borderCol: "border-amber-100",
-    description:
-      "Build high-performance asynchronous backends using Python 3, FastAPI, asyncpg, and Celery. Implement message queuing with RabbitMQ and deploy on cloud infrastructure.",
-    techStack: ["Python", "FastAPI", "PostgreSQL", "Celery", "RabbitMQ", "Docker"],
-    modules: [
-      "Modern Python 3 Type Hints & Asyncio Concurrency",
-      "High-Performance API Design with FastAPI & Pydantic",
-      "Asynchronous Database ORMs & Raw SQL Optimization",
-      "Background Workers & Message Brokers with Celery & RabbitMQ",
-      "Capstone Project: High-Throughput Fintech Transaction API",
-    ],
-    careerOutcome: "Backend Python Engineer (₹8L – ₹16L PA)",
-  },
-  {
-    id: "java-spring",
-    title: "Java Spring Boot & Enterprise Systems",
-    category: "Development",
-    duration: "16 Weeks",
-    mode: "Live Interactive",
-    level: "Intermediate",
-    badge: "Enterprise Standard",
-    color: "from-rose-600 to-red-500",
-    bgSoft: "bg-rose-50",
-    textCol: "text-rose-600",
-    borderCol: "border-rose-100",
-    description:
-      "Enterprise software engineering with Java 21, Spring Boot 3, Spring Security, Hibernate JPA, Kafka event streaming, and distributed microservices design patterns.",
-    techStack: ["Java 21", "Spring Boot", "Hibernate", "Kafka", "PostgreSQL", "JUnit"],
-    modules: [
-      "Object-Oriented Design & Clean Architecture Patterns in Java",
-      "Spring Boot 3 REST APIs, Dependency Injection & Security",
-      "Database Persistence with Hibernate & JPA Transactions",
-      "Event-Driven Microservices Architecture with Apache Kafka",
-      "Capstone Project: Distributed Banking & Payment Gateway",
-    ],
-    careerOutcome: "Enterprise Java Developer (₹10L – ₹22L PA)",
-  },
-  {
-    id: "data-science-ai",
-    title: "Data Science, Machine Learning & Analytics",
-    category: "AI & Data",
-    duration: "16 Weeks",
-    mode: "Live Practical Sessions",
-    level: "Beginner to Advanced",
-    badge: "Data Leader",
-    color: "from-teal-600 to-cyan-600",
-    bgSoft: "bg-teal-50",
-    textCol: "text-teal-600",
-    borderCol: "border-teal-100",
-    description:
-      "Master end-to-end data science: exploratory data analysis, statistical modeling, machine learning algorithms with Scikit-learn, and interactive dashboarding with Power BI and Tableau.",
-    techStack: ["Python", "Pandas", "Scikit-learn", "SQL", "Tableau", "Power BI"],
-    modules: [
-      "Statistical Methods, Hypothesis Testing & Advanced SQL",
-      "Data Wrangling & Feature Engineering with Pandas & NumPy",
-      "Supervised & Unsupervised Machine Learning Algorithms",
-      "Interactive Dashboard Storytelling with Power BI",
-      "Capstone Project: Customer Churn & Lifetime Value AI Model",
-    ],
-    careerOutcome: "Data Scientist / Analytics Lead (₹10L – ₹20L PA)",
-  },
-  {
-    id: "digital-marketing-growth",
-    title: "Data-Driven Digital Marketing & Growth",
-    category: "Business",
-    duration: "10 Weeks",
-    mode: "Live Real-Budget Campaigns",
-    level: "All Levels",
-    badge: "High ROI",
-    color: "from-pink-600 to-rose-500",
-    bgSoft: "bg-pink-50",
-    textCol: "text-pink-600",
-    borderCol: "border-pink-100",
-    description:
-      "Learn SEO, Google Ads, Meta advertising, conversion rate optimization (CRO), and growth hacking strategies with live budget execution and analytics.",
-    techStack: ["Google Ads", "Meta Ads", "GA4", "SEMrush", "HubSpot", "Canva"],
-    modules: [
-      "Technical & On-Page SEO Architecture for Top Rankings",
-      "Performance Marketing across Google Search & Display Ads",
-      "Paid Social Media Strategy & Meta Ad Funnels",
-      "Conversion Rate Optimization & Funnel Telemetry with GA4",
-      "Capstone Project: Live Real-Budget B2B Lead Gen Campaign",
-    ],
-    careerOutcome: "Digital Marketing Lead / Growth Marketer (₹7L – ₹15L PA)",
-  },
+  }
 ];
 
 const categories = ["All", "Development", "AI & Data", "Cloud & DevOps", "Cybersecurity", "Business"];
 const experienceLevels = ["All Levels", "Beginner to Advanced", "Intermediate"];
 const durations = ["All Durations", "10-12 Weeks", "14-16 Weeks"];
+
+const specialOffers = [
+  {
+    id: "early-bird-50",
+    title: "50% Early Bird Scholarship",
+    code: "GOTECH50",
+    discount: "50% FLAT OFF",
+    validity: "Limited Cohort Seats",
+    badge: "Top Offer",
+    description: "Get 50% flat fee discount on all Full-Stack, MERN, and Generative AI cohorts.",
+    bgGradient: "from-blue-600 via-indigo-600 to-cyan-600",
+  },
+  {
+    id: "scholarship-5000",
+    title: "Tech Career Grant",
+    code: "EARLYBIRD",
+    discount: "₹5,000 INSTANT OFF",
+    validity: "Active for September Cohort",
+    badge: "Instant Grant",
+    description: "Flat ₹5,000 fee waiver for final year college students and working professionals.",
+    bgGradient: "from-emerald-600 via-teal-600 to-cyan-600",
+  },
+  {
+    id: "free-demo-pass",
+    title: "3-Day Live Demo Pass",
+    code: "FREEDEMO",
+    discount: "100% FREE DEMO",
+    validity: "No Payment Required",
+    badge: "Free Trial",
+    description: "Attend live weekend masterclasses and code audits with lead tech mentors.",
+    bgGradient: "from-purple-600 via-indigo-600 to-blue-600",
+  },
+];
 
 export default function LearningHubPage() {
   const [allPrograms, setAllPrograms] = useState<any[]>(programs);
@@ -239,6 +80,35 @@ export default function LearningHubPage() {
   const [isApplying, setIsApplying] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Automatic Offers Popup State & Dynamic Portal Offer
+  const [showOffersPopup, setShowOffersPopup] = useState(true);
+  const [portalOffer, setPortalOffer] = useState<any>({
+    title: 'RHCSA T & E — 50% OFF Today!',
+    code: 'RHCSA50',
+    description: 'Master RHCSA with expert-led training and save 50% on your Training & Exam bundle—limited-time offer! ⭐',
+    badgeText: '50% OFF ON TRAINING + EXAM',
+    ctaText: 'Grab This Offer',
+    bannerImage: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
+  });
+
+  useEffect(() => {
+    const fetchPortalOffer = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+        const res = await fetch(`${API_URL}/offers/portal-popup`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.offer) {
+            setPortalOffer(data.offer);
+          }
+        }
+      } catch (err) {
+        console.warn("Failed to fetch portal popup offer:", err);
+      }
+    };
+    fetchPortalOffer();
+  }, []);
 
   // Application form state
   const [enrollmentForm, setEnrollmentForm] = useState({
@@ -387,7 +257,78 @@ export default function LearningHubPage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-slate-50 relative">
+      {/* =====================================================
+          1. AUTOMATIC OFFERS POPUP MODAL (ACCURATE IMAGE UI)
+      ====================================================== */}
+      {showOffersPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-xs animate-fadeIn">
+          <div className="relative w-full max-w-lg overflow-hidden rounded-3xl bg-white text-slate-900 shadow-2xl border border-slate-100 my-8">
+            {/* Top Red Hero Graphic Banner */}
+            <div className="relative bg-gradient-to-r from-red-600 via-rose-600 to-red-700 p-6 text-white text-center">
+              {/* Close Button on Top Right */}
+              <button
+                type="button"
+                onClick={() => setShowOffersPopup(false)}
+                className="absolute top-3 right-3 flex h-7 w-7 items-center justify-center rounded-full bg-black/30 text-white hover:bg-black/50 transition font-bold text-xs cursor-pointer z-10"
+                aria-label="Close modal"
+              >
+                ✕
+              </button>
+
+              <div className="inline-flex items-center gap-1.5 rounded-md bg-black/40 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-white border border-white/20">
+                LIMITED TIME OFFER
+              </div>
+
+              <h2 className="mt-2 text-2xl sm:text-3xl font-black uppercase tracking-tight text-white font-heading">
+                Become Certified
+              </h2>
+              <p className="text-xs text-red-100 font-medium">
+                Advance Your IT Career with Professional Certification
+              </p>
+
+              {/* Red Discount Pill Graphic */}
+              <div className="mt-3 inline-block bg-white text-red-700 font-black px-4 py-1.5 rounded-full text-base sm:text-lg shadow-lg tracking-wide border border-red-200 font-mono">
+                {portalOffer.badgeText || '50% OFF ON TRAINING + EXAM'}
+              </div>
+            </div>
+
+            {/* Modal Body Info */}
+            <div className="p-6 text-center space-y-4">
+              <h3 className="font-heading text-lg sm:text-xl font-extrabold text-slate-900 leading-snug">
+                {portalOffer.title || '🎉 RHCSA T & E — 50% OFF Today!'}
+              </h3>
+
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-md mx-auto font-medium">
+                {portalOffer.description || 'Master RHCSA with expert-led training and save 50% on your Training & Exam bundle—limited-time offer! ⭐'}
+              </p>
+
+              {/* Coupon Code Pill */}
+              <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-200 rounded-xl px-4 py-2 text-xs font-mono">
+                <span className="text-slate-500 font-bold">Coupon Code:</span>
+                <span className="font-bold text-red-600 text-sm tracking-wider">{portalOffer.code || 'RHCSA50'}</span>
+              </div>
+
+              {/* Full-Width Vibrant Red Action Button */}
+              <div className="pt-2">
+                <Link
+                  href={`/learninghub/fullstack-nextjs/enroll?coupon=${portalOffer.code || 'RHCSA50'}`}
+                  onClick={() => setShowOffersPopup(false)}
+                  className="w-full inline-flex items-center justify-center rounded-2xl bg-red-600 hover:bg-red-700 py-3.5 text-sm sm:text-base font-extrabold uppercase tracking-wider text-white shadow-xl shadow-red-600/30 transition active:scale-98 cursor-pointer"
+                >
+                  {portalOffer.ctaText || 'Grab This Offer'}
+                </Link>
+              </div>
+
+              <p className="text-[11px] text-slate-500 font-medium pt-1">
+                🛡️ Trusted by 25,000+ learners • No spam
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+
       <section className="py-12 lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
@@ -441,8 +382,8 @@ export default function LearningHubPage() {
                 type="button"
                 onClick={() => setShowFilterPanel(!showFilterPanel)}
                 className={`inline-flex items-center gap-2 rounded-xl border px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition shadow-2xs ${showFilterPanel || activeFiltersCount > 0
-                    ? "border-blue-500 bg-blue-50 text-blue-700 font-extrabold"
-                    : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-400"
+                  ? "border-blue-500 bg-blue-50 text-blue-700 font-extrabold"
+                  : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-400"
                   }`}
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
@@ -456,14 +397,13 @@ export default function LearningHubPage() {
                 )}
               </button>
 
-              <button
-                type="button"
-                onClick={() => openApplyModal()}
-                className="inline-flex items-center justify-center gap-1 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-blue-500/25 transition hover:opacity-95 active:scale-95"
+              <Link
+                href="/learninghub/fullstack-nextjs/enroll"
+                className="inline-flex items-center justify-center gap-1 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-blue-500/25 transition hover:opacity-95 active:scale-95 cursor-pointer"
               >
-                <span>Apply for Admission</span>
+                <span>Enroll & Pay Fees</span>
                 <span>→</span>
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -625,6 +565,9 @@ export default function LearningHubPage() {
                   key={program.id}
                   className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 shadow-2xs transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg"
                 >
+                  <div className="my-2">
+                    <img src="https://www.udgamschool.com/wp-content/uploads/2023/05/dummy-image-grey-e1398449111870.jpg" className="rounded-xl " />
+                  </div>
                   <div>
                     <div className="flex items-center justify-between">
                       <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-bold text-slate-700">
@@ -671,18 +614,22 @@ export default function LearningHubPage() {
                     </div>
                   </div>
 
-                  <div className="mt-6 border-t border-slate-100 pt-3.5 flex items-center justify-between">
+                  <div className="mt-6 border-t border-slate-100 pt-3.5 flex items-center justify-between gap-2">
                     <Link
                       href={`/learninghub/${program.id || program.slug || program._id}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-blue-600 transition"
                     >
-                      <span>View Syllabus & Apply</span>
+                      <span>Syllabus</span>
                       <span>→</span>
                     </Link>
 
-                    <span className="text-[11px] font-mono text-emerald-600 font-semibold">
-                      Admissions Open
-                    </span>
+                    <Link
+                      href={`/learninghub/${program.id || program.slug || program._id}/enroll`}
+                      className="inline-flex items-center gap-1 rounded-xl bg-blue-600 hover:bg-blue-700 px-3.5 py-1.5 text-xs font-bold text-white shadow-xs transition active:scale-95"
+                    >
+                      <span>Enroll & Pay</span>
+                      <span>⚡</span>
+                    </Link>
                   </div>
                 </div>
               ))}
