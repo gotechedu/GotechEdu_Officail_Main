@@ -75,48 +75,41 @@ function Testimonials() {
   const [isPaused, setIsPaused] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -380, behavior: "smooth" });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 380, behavior: "smooth" });
-    }
-  };
-
   return (
     <section className="relative overflow-hidden bg-white py-20 lg:py-28 border-t border-slate-200/80">
       {/* Background ambient lighting */}
-      <div className="absolute -left-20 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
-      <div className="absolute -right-20 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-indigo-400/10 blur-3xl pointer-events-none" />
+      <div className="absolute -left-20 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
+      <div className="absolute -right-20 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full bg-indigo-400/10 blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex justify-center">
           <div className="max-w-3xl text-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-blue-600">
-              Client Success
-            </span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/90 px-4 py-1.5 backdrop-blur-sm shadow-2xs">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-500 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-600" />
+              </span>
+              <span className="font-mono text-xs font-extrabold uppercase tracking-[0.2em] text-blue-700">
+                Client Success
+              </span>
+            </div>
 
             <h2 className="mt-4 font-heading text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
               Trusted by Engineering & Executive Leaders.
             </h2>
 
-            <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base">
-              See how our software solutions, AI automation, and training
-              programs drive real enterprise impact.
+            <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600 font-medium">
+              See how our custom software solutions, autonomous AI systems, and workforce training programs drive measurable impact.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Infinite Smooth Moving Marquee (Left to Right) */}
+      {/* Infinite Smooth Moving Marquee */}
       <div
         ref={scrollContainerRef}
-        className="relative mt-12 w-full overflow-x-hidden py-4"
+        className="relative mt-14 w-full overflow-x-hidden py-4"
         style={{
           maskImage:
             "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
@@ -132,7 +125,7 @@ function Testimonials() {
           {[...testimonials, ...testimonials].map((t, idx) => (
             <div
               key={`${t.id}-${idx}`}
-              className="group relative flex w-[340px] sm:w-[400px] shrink-0 flex-col justify-between overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-slate-50/70 p-7 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:bg-white hover:shadow-xl"
+              className="group relative flex w-[340px] sm:w-[410px] shrink-0 flex-col justify-between overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-slate-50/60 p-7 shadow-xs transition-all duration-300 hover:-translate-y-2.5 hover:border-blue-300 hover:bg-white hover:shadow-[0_22px_45px_rgba(15,23,42,0.12)]"
             >
               {/* Top Accent line on hover */}
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -140,7 +133,7 @@ function Testimonials() {
               <div>
                 {/* 5 Stars Rating & Metric Badge */}
                 <div className="flex items-center justify-between gap-2">
-                  <div className="flex text-amber-400 tracking-tight">
+                  <div className="flex text-amber-400 tracking-tight drop-shadow-xs">
                     {[...Array(t.rating)].map((_, i) => (
                       <span key={i} className="text-base">
                         ★
@@ -148,29 +141,28 @@ function Testimonials() {
                     ))}
                   </div>
 
-                  <span className="rounded-full bg-blue-50 px-3 py-1 text-[11px] font-bold text-blue-700 border border-blue-100 shadow-2xs">
+                  <span className="rounded-full bg-blue-50/90 px-3 py-1 text-[11px] font-extrabold text-blue-700 border border-blue-200/60 shadow-2xs">
                     {t.metrics}
                   </span>
                 </div>
 
                 {/* Quote */}
-                <p className="mt-5 text-sm leading-relaxed text-slate-700 italic">
+                <p className="mt-5 text-xs sm:text-sm leading-relaxed text-slate-700 italic font-medium">
                   "{t.quote}"
                 </p>
               </div>
 
               {/* Author Info */}
-              <div className="mt-7 flex items-center gap-3.5 border-t border-slate-200/70 pt-4">
+              <div className="mt-7 flex items-center gap-3.5 border-t border-slate-200/80 pt-4">
                 <div
-                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full font-extrabold text-sm shadow-sm transition-transform duration-300 group-hover:scale-105 ${t.avatarBg}`}
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl font-black text-sm shadow-md transition-transform duration-300 group-hover:scale-105 ${t.avatarBg}`}
                 >
                   {t.initials}
                 </div>
                 <div>
-                  <h4 className="font-heading text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                  <h4 className="font-heading text-sm font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors">
                     {t.author}
                   </h4>
-                  <p className="text-xs text-slate-500 font-medium">{t.role}</p>
                 </div>
               </div>
             </div>

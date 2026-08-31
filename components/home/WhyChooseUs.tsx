@@ -144,7 +144,7 @@ function WhyChooseUs() {
   return (
     <section
       id="why-choose-us"
-      className="relative overflow-hidden bg-slate-50/70 py-20 lg:py-28 border-t border-slate-200/80"
+      className="relative overflow-hidden bg-gradient-to-b from-slate-50/70 via-white to-slate-50/70 py-20 lg:py-28 border-t border-slate-200/80"
     >
       {/* Background ambient lighting */}
       <div className="absolute left-[5%] top-1/4 h-80 w-80 rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
@@ -158,7 +158,7 @@ function WhyChooseUs() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-500 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-600" />
             </span>
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-blue-700">
+            <span className="font-mono text-xs font-extrabold uppercase tracking-[0.2em] text-blue-700">
               Why GotechEdu
             </span>
           </div>
@@ -167,17 +167,17 @@ function WhyChooseUs() {
             Empowering Your Digital Transformation.
           </h2>
 
-          <p className="mt-4 text-sm sm:text-base lg:text-lg leading-relaxed text-slate-600">
+          <p className="mt-4 text-sm sm:text-base lg:text-lg leading-relaxed text-slate-600 font-medium">
             We combine deep technical expertise with strategic execution to help enterprises outpace competitors and innovate faster.
           </p>
         </div>
 
         {/* 6 Interactive Cards Grid */}
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredProps.map((prop) => (
             <div
               key={prop.id}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-white p-7 sm:p-8 shadow-[0_10px_30px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_24px_50px_rgba(15,23,42,0.12)]"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-white p-7 sm:p-8 shadow-[0_8px_25px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-2.5 hover:border-blue-300 hover:shadow-[0_24px_50px_rgba(15,23,42,0.12)]"
             >
               {/* Top Accent Gradient Line on Hover */}
               <div
@@ -185,7 +185,7 @@ function WhyChooseUs() {
               />
 
               {/* Watermark Step Number in Background */}
-              <span className="absolute right-6 top-5 font-heading text-5xl font-extrabold text-slate-100/80 select-none pointer-events-none transition-colors group-hover:text-blue-50">
+              <span className="absolute right-6 top-5 font-heading text-5xl font-black text-slate-100/90 select-none pointer-events-none transition-colors group-hover:text-blue-50">
                 {prop.number}
               </span>
 
@@ -203,26 +203,26 @@ function WhyChooseUs() {
                     </div>
                   </div>
 
-                  <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-bold text-slate-700 border border-slate-200/70">
+                  <span className="rounded-full bg-slate-100/90 px-3 py-1 text-[11px] font-extrabold text-slate-700 border border-slate-200/80">
                     {prop.tag}
                   </span>
                 </div>
 
                 {/* Metric Highlight Pill */}
                 <div className="mt-5">
-                  <span className="inline-flex items-center gap-1.5 rounded-md bg-blue-50/80 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-blue-700 border border-blue-200/60">
-                    <span className="h-1 w-1 rounded-full bg-blue-600" />
+                  <span className={`inline-flex items-center gap-1.5 rounded-lg ${prop.bgSoft} px-2.5 py-1 text-[11px] font-mono font-bold ${prop.textCol} border ${prop.borderCol}`}>
+                    <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
                     {prop.metricBadge}
                   </span>
                 </div>
 
                 {/* Title */}
-                <h3 className="mt-3 font-heading text-xl font-bold text-slate-900 transition-colors duration-200 group-hover:text-blue-600">
+                <h3 className="mt-3.5 font-heading text-xl font-bold text-slate-900 transition-colors duration-200 group-hover:text-blue-600">
                   {prop.title}
                 </h3>
 
                 {/* Description */}
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                <p className="mt-3 text-sm leading-relaxed text-slate-600 font-medium">
                   {prop.description}
                 </p>
               </div>
@@ -233,7 +233,7 @@ function WhyChooseUs() {
                   {prop.highlights.map((h, hIdx) => (
                     <span
                       key={hIdx}
-                      className="rounded-lg bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-600 border border-slate-200/60"
+                      className="rounded-lg bg-slate-50 px-2.5 py-1 text-[11px] font-semibold text-slate-700 border border-slate-200/70 transition-colors group-hover:bg-blue-50/50 group-hover:border-blue-200/70 group-hover:text-blue-700"
                     >
                       ✓ {h}
                     </span>

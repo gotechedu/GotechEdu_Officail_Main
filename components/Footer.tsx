@@ -191,9 +191,10 @@ function Footer() {
               <div className="pt-2">
                 <Link
                   href="/contact"
-                  className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-blue-500/20 transition hover:opacity-95"
+                  className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 px-5 py-3 text-xs font-extrabold uppercase tracking-wider text-white shadow-lg shadow-blue-500/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-cyan-500/35 active:scale-100"
                 >
-                  Schedule Consultation →
+                  <span>Schedule Consultation</span>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </Link>
               </div>
             </div>
@@ -201,23 +202,23 @@ function Footer() {
         </div>
 
         {/* Security & Compliance Badges Banner */}
-        <div className="mt-12 rounded-2xl border border-slate-800 bg-slate-900/60 p-4 sm:p-5 backdrop-blur-md">
+        <div className="mt-12 rounded-2xl border border-slate-800 bg-slate-900/80 p-4 sm:p-5 backdrop-blur-md shadow-lg">
           <div className="flex flex-wrap items-center justify-between gap-4 text-xs">
-            <span className="font-mono text-[11px] uppercase tracking-wider text-slate-400 font-semibold">
+            <span className="font-mono text-[11px] uppercase tracking-wider text-slate-400 font-extrabold">
               Enterprise Compliance & Standards:
             </span>
             <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-slate-300 font-mono text-[11px]">
-              <span className="flex items-center gap-1.5 text-cyan-300 font-bold">
+              <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
                 ✓ SOC 2 Type II
               </span>
-              <span className="flex items-center gap-1.5 text-cyan-300 font-bold">
+              <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
                 ✓ ISO 27001 Certified
               </span>
-              <span className="flex items-center gap-1.5 text-cyan-300 font-bold">
+              <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
                 ✓ GDPR & HIPAA Ready
               </span>
               <span className="flex items-center gap-1.5 text-cyan-300 font-bold">
-                ✓ 99.99% Cloud SLA
+                ⚡ 99.99% Cloud SLA
               </span>
             </div>
           </div>

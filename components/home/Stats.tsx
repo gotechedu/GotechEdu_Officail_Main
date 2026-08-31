@@ -77,31 +77,32 @@ const partners = [
 
 function Stats() {
   return (
-    <section className="relative overflow-hidden bg-white py-4 border-b border-slate-200/80">
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50 py-12 lg:py-16 border-b border-slate-200/80">
       {/* Background ambient lighting */}
-      <div className="absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 rounded-full bg-blue-400/8 blur-3xl pointer-events-none" />
+      <div className="absolute left-1/4 top-0 h-72 w-72 rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
+      <div className="absolute right-1/4 bottom-0 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Partner Logos / Trust Banner */}
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50/80 px-4 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-slate-500 shadow-2xs">
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-ping" />
+        <div className="text-center max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/90 px-4 py-1 text-[11px] font-mono font-extrabold uppercase tracking-[0.2em] text-blue-700 shadow-2xs">
+            <span className="h-2 w-2 rounded-full bg-blue-600 animate-ping" />
             Strategic Partner Ecosystem
           </div>
 
-          <h3 className="mt-3 font-heading text-lg sm:text-xl font-bold text-slate-800 tracking-tight">
-            Trusted by Leaders Across Enterprise, Startup & Education Sectors
+          <h3 className="mt-3.5 font-heading text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-950 tracking-tight">
+            Trusted by Enterprise Leaders, Startups & Tech Academies
           </h3>
 
 
         </div>
 
         {/* 4 High-Impact Metric Cards Grid */}
-        <div className="mt-16 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+        <div className="mt-12 lg:mt-16 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_22px_45px_rgba(15,23,42,0.12)] sm:p-7"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-white p-6 sm:p-7 shadow-[0_8px_25px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_22px_45px_rgba(15,23,42,0.12)]"
             >
               {/* Top Accent Gradient Line on Hover */}
               <div
@@ -112,12 +113,12 @@ function Stats() {
                 {/* Header Icon & Badge */}
                 <div className="flex items-center justify-between gap-2">
                   <div
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ${stat.bgSoft} ${stat.textCol} border ${stat.borderSoft} shadow-2xs transition-transform duration-300 group-hover:scale-110 group-hover:rotate-2 sm:h-12 sm:w-12`}
+                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${stat.bgSoft} ${stat.textCol} border ${stat.borderSoft} shadow-xs transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 sm:h-12 sm:w-12`}
                   >
                     {stat.icon}
                   </div>
 
-                  <span className="rounded-full border border-slate-200/70 bg-slate-100 px-2 py-1 text-[9px] font-bold text-slate-600 sm:px-3 sm:text-[11px]">
+                  <span className="rounded-full border border-slate-200/80 bg-slate-100/90 px-2.5 py-1 text-[10px] sm:text-[11px] font-extrabold text-slate-700">
                     {stat.badge}
                   </span>
                 </div>
@@ -125,30 +126,21 @@ function Stats() {
                 {/* Big Metric Value */}
                 <div className="mt-5 sm:mt-6">
                   <p
-                    className={`font-heading text-3xl font-extrabold tracking-tight bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent sm:text-5xl`}
+                    className={`font-heading text-3xl font-black tracking-tight bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent sm:text-5xl`}
                   >
                     {stat.value}
                   </p>
                 </div>
 
                 {/* Label Title */}
-                <h4 className="mt-2 font-heading text-sm font-bold text-slate-900 transition group-hover:text-blue-600 sm:mt-3 sm:text-base">
+                <h4 className="mt-2.5 font-heading text-sm font-bold text-slate-900 transition-colors group-hover:text-blue-600 sm:mt-3 sm:text-base">
                   {stat.label}
                 </h4>
 
                 {/* Subtext Description */}
-                <p className="mt-2 text-[11px] leading-relaxed text-slate-500 sm:text-xs">
+                <p className="mt-2 text-[11px] leading-relaxed text-slate-500 sm:text-xs font-medium">
                   {stat.subtext}
                 </p>
-              </div>
-
-              {/* Bottom Live Indicator */}
-              <div className="mt-5 flex items-center gap-1.5 border-t border-slate-100 pt-3 sm:mt-6">
-                <span className="h-1.5 w-1.5 animate-ping rounded-full bg-emerald-500" />
-
-                <span className="text-[9px] font-mono text-slate-400 sm:text-[11px]">
-                  Verified Metric
-                </span>
               </div>
             </div>
           ))}

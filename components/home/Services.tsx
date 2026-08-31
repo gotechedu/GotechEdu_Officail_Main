@@ -119,58 +119,73 @@ const services = [
 
 function Services() {
   return (
-    <section id="services" className="relative bg-slate-50/60 py-12 lg:py-16 overflow-hidden">
+    <section id="services" className="relative bg-slate-50/60 py-16 lg:py-24 overflow-hidden border-b border-slate-200/80">
       {/* Background Ambient Glow Orbs */}
-      <div className="absolute left-[10%] top-20 h-72 w-72 rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
-      <div className="absolute right-[10%] bottom-20 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl pointer-events-none" />
+      <div className="absolute left-[10%] top-20 h-80 w-80 rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
+      <div className="absolute right-[10%] bottom-20 h-80 w-80 rounded-full bg-purple-400/10 blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-[1560px] px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto">
-          <p className="font-mono text-xs sm:text-sm font-bold uppercase tracking-[0.22em] text-blue-600">
-            WHAT WE DO
-          </p>
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/90 px-4 py-1.5 backdrop-blur-sm shadow-2xs">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-500 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-600" />
+            </span>
+            <span className="font-mono text-xs font-extrabold uppercase tracking-[0.2em] text-blue-700">
+              What We Do
+            </span>
+          </div>
 
-          <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
+          <h2 className="mt-4 font-heading text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
             End-to-End Solutions for Every Growth Stage
           </h2>
 
-          <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600">
-            From software engineering and AI automation to multi-cloud infrastructure, cybersecurity defense, and tech training—we are your full-spectrum technology partner.
+          <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600 font-medium">
+            From custom software engineering and AI automation to multi-cloud infrastructure, cybersecurity defense, and tech training—we are your full-spectrum technology partner.
           </p>
         </div>
 
-        {/* 6 Services Cards in Single Responsive Grid Row */}
+        {/* 6 Services Cards in Responsive Grid */}
         <div className="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
           {services.map((service) => (
             <div
               key={service.id}
-              className="group relative flex flex-col justify-between items-center text-center overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-white p-6 sm:p-5 lg:p-6 shadow-[0_10px_30px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_22px_45px_rgba(15,23,42,0.12)]"
+              className="group relative flex flex-col justify-between items-center text-center overflow-hidden rounded-[1.75rem] border border-slate-200/90 bg-white p-6 sm:p-5 lg:p-6 shadow-[0_8px_25px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-2.5 hover:border-blue-300 hover:shadow-[0_24px_50px_rgba(15,23,42,0.12)]"
             >
               {/* Subtle Top Hover Gradient Line */}
-              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div
+                className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${service.color} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
+              />
 
               {/* Main Card Content */}
               <div className="flex flex-col items-center w-full">
+                {/* Badge Tag */}
+                <span
+                  className={`rounded-full px-2.5 py-0.5 text-[10px] font-extrabold tracking-wider uppercase ${service.bgSoft} ${service.textCol} border ${service.borderCol} shadow-2xs mb-3`}
+                >
+                  {service.badge}
+                </span>
+
                 {/* Circular Icon with Radiant Soft Glow */}
-                <div className="relative mt-2">
+                <div className="relative mt-1">
                   <div
-                    className={`absolute -inset-1.5 rounded-full bg-gradient-to-r ${service.glowCol} blur-md opacity-40 transition-all duration-300 group-hover:opacity-90 group-hover:scale-110`}
+                    className={`absolute -inset-2 rounded-full bg-gradient-to-r ${service.glowCol} blur-md opacity-40 transition-all duration-300 group-hover:opacity-90 group-hover:scale-115`}
                   />
                   <div
-                    className={`relative flex h-16 w-16 items-center justify-center rounded-full ${service.bgSoft} ${service.textCol} border ${service.borderCol} shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}
+                    className={`relative flex h-16 w-16 items-center justify-center rounded-2xl ${service.bgSoft} ${service.textCol} border ${service.borderCol} shadow-xs transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}
                   >
                     {service.icon}
                   </div>
                 </div>
 
                 {/* Title */}
-                <h3 className="mt-5 font-heading text-lg font-bold text-slate-900 transition-colors duration-200 group-hover:text-blue-600">
+                <h3 className="mt-4 font-heading text-base sm:text-lg font-extrabold text-slate-900 transition-colors duration-200 group-hover:text-blue-600">
                   {service.title}
                 </h3>
 
                 {/* Description */}
-                <p className="mt-3 text-xs leading-relaxed text-slate-500">
+                <p className="mt-2.5 text-xs leading-relaxed text-slate-500 font-medium">
                   {service.description}
                 </p>
               </div>
@@ -179,7 +194,7 @@ function Services() {
               <div className="mt-6 pt-4 border-t border-slate-100/90 w-full">
                 <Link
                   href={service.href}
-                  className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-blue-600 transition-all duration-200 group-hover:text-blue-700 group-hover:gap-2"
+                  className="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-blue-600 transition-all duration-200 group-hover:text-blue-700 group-hover:gap-2.5"
                 >
                   <span>Learn More</span>
                   <span className="transition-transform duration-200 group-hover:translate-x-0.5">

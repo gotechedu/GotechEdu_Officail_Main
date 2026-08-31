@@ -18,7 +18,7 @@ export default function HomePage() {
       <Hero />
       <Stats />
       <Services />
-      {/* <TechStack /> */}
+      <TechStack />
       <WhyChooseUs />
       <Testimonials />
       <CTASection />

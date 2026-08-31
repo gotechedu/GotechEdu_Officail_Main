@@ -34,41 +34,58 @@ function Hero() {
       <div className="absolute left-1/2 top-0 h-px w-[85%] -translate-x-1/2 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent pointer-events-none" />
 
       {/* Centered Hero Content */}
-      <div className="relative z-10 mx-auto max-w-4xl px-2 sm:px-4">
+      <div className="relative z-10 mx-auto max-w-5xl px-2 sm:px-4">
+        {/* Animated Top Pill Badge */}
+        <div className="mb-5 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-950/40 px-4 py-1.5 backdrop-blur-md shadow-lg transition-transform duration-300 hover:scale-105">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-400" />
+          </span>
+          <span className="font-mono text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.2em] text-cyan-300">
+            Enterprise Solutions & Tech Academy
+          </span>
+        </div>
+
         {/* Main Headline */}
-        <h1 className="mx-auto max-w-4xl font-heading text-[1.95rem] font-bold leading-[1.14] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)] sm:text-[2.65rem] md:text-[3.15rem] lg:text-[3.75rem] tracking-tight">
-          Next-Gen EdTech. Intelligent IT Solutions. Cloud & AI.
+        <h1 className="mx-auto max-w-4xl font-heading text-[2.1rem] font-black leading-[1.14] text-white drop-shadow-[0_4px_22px_rgba(0,0,0,0.9)] sm:text-[2.85rem] md:text-[3.35rem] lg:text-[3.95rem] tracking-tight">
+          Next-Gen EdTech.{" "}
+          <span className="bg-gradient-to-r from-cyan-300 via-sky-400 to-indigo-300 bg-clip-text text-transparent drop-shadow-sm">
+            Intelligent IT Solutions.
+          </span>{" "}
+          Cloud & AI.
         </h1>
 
         {/* First Paragraph */}
-        <p className="mx-auto mt-4 sm:mt-5 max-w-3xl text-[0.88rem] leading-6 sm:leading-7 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-[1rem] lg:text-[1.05rem]">
-          We help businesses and learners scale through intelligent EdTech
-          platforms, custom IT solutions, multi-cloud architecture, and
-          artificial intelligence.
+        <p className="mx-auto mt-4 sm:mt-5 max-w-3xl text-[0.9rem] leading-6 sm:leading-7 text-slate-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] sm:text-[1.05rem] lg:text-[1.12rem] font-medium">
+          We empower enterprises and ambitious learners through intelligent EdTech
+          platforms, bespoke software engineering, multi-cloud architecture, and
+          autonomous AI systems.
         </p>
 
         {/* Second Sub-line Paragraph */}
-        <p className="mx-auto mt-2.5 sm:mt-3 max-w-3xl text-[0.8rem] leading-5 sm:leading-6 text-slate-100 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-[0.88rem]">
-          Integrated solutions across EdTech, Enterprise Software, Multi-Cloud
-          DevOps, and Autonomous AI.
+        <p className="mx-auto mt-2.5 sm:mt-3 max-w-3xl text-[0.8rem] leading-5 sm:leading-6 text-slate-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-[0.9rem]">
+          Integrated solutions across Enterprise Software, Multi-Cloud DevOps, Autonomous AI Agents, and Upskilling.
         </p>
 
-        {/* Centered Action Buttons (Mobile-friendly responsive stack / row) */}
-        <div className="mt-7 sm:mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 w-full">
+        {/* Centered Action Buttons */}
+        <div className="mt-8 sm:mt-9 flex flex-col items-center justify-center gap-3.5 sm:flex-row sm:gap-5 w-full">
           <Link
             href="/solution"
-            className="w-full sm:w-auto inline-flex items-center justify-center rounded-full bg-[#38bdf8] px-7 py-3 sm:py-3.5 text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.18em] text-white shadow-[0_12px_30px_rgba(56,189,248,0.35)] transition duration-300 hover:scale-[1.03] hover:bg-[#0ea5e9] active:scale-100"
+            className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 px-8 py-3.5 sm:py-4 text-[11px] sm:text-[12px] font-extrabold uppercase tracking-[0.18em] text-white shadow-[0_12px_35px_rgba(56,189,248,0.45)] transition duration-300 hover:scale-[1.04] hover:shadow-[0_16px_45px_rgba(56,189,248,0.6)] active:scale-100"
           >
-            Explore Solutions
+            <span>Explore Solutions</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
           </Link>
 
           <Link
             href="/learninghub"
-            className="w-full sm:w-auto inline-flex items-center justify-center rounded-full border border-white/30 bg-black/40 px-7 py-3 sm:py-3.5 text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.18em] text-white shadow-lg backdrop-blur-md transition duration-300 hover:scale-[1.03] hover:border-white/50 hover:bg-white/20 active:scale-100"
+            className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-cyan-400/40 bg-slate-950/60 px-8 py-3.5 sm:py-4 text-[11px] sm:text-[12px] font-extrabold uppercase tracking-[0.18em] text-white shadow-xl backdrop-blur-md transition duration-300 hover:scale-[1.04] hover:border-cyan-300 hover:bg-cyan-950/50 active:scale-100"
           >
-            Explore Learning Hub
+            <span>Explore Learning Hub</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">⚡</span>
           </Link>
         </div>
+
       </div>
 
       {/* Smooth Curved Arc Transition into Next Section */}

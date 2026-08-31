@@ -321,7 +321,7 @@ export default function SolutionPage() {
       {/* =====================================================
           2. ENTERPRISE SOFTWARE SUITE
       ====================================================== */}
-      <section id="software" className="py-10 lg:py-16 relative">
+      <section id="software" className="lg:py-10 relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
