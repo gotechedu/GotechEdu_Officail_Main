@@ -160,9 +160,9 @@ export default function BlogPage() {
       <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-            <h2 className="font-heading text-lg sm:text-xl font-bold text-slate-900">
+            <h1 className="font-heading text-lg sm:text-xl font-bold text-slate-900">
               Latest Technical Publications ({filteredPosts.length})
-            </h2>
+            </h1>
             <span className="text-xs font-mono text-slate-400 uppercase">
               Updated Weekly
             </span>

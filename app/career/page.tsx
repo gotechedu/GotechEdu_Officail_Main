@@ -193,9 +193,9 @@ export default function CareerPage() {
               <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-600">
                 Current Openings
               </span>
-              <h2 className="mt-2 font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950">
+              <h1 className="mt-2 font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950">
                 Explore Available Roles
-              </h2>
+              </h1>
               <p className="mt-1 text-xs sm:text-sm text-slate-500">
                 Showing <strong className="text-blue-600 font-bold">{filteredJobs.length}</strong> of{" "}
                 {allJobs.length} open technical roles

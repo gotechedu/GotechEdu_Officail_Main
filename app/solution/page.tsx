@@ -328,9 +328,9 @@ export default function SolutionPage() {
               <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-blue-600">
                 Core Systems
               </span>
-              <h2 className="mt-4 font-heading text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
+              <h1 className="mt-4 font-heading text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
                 Enterprise Application Suite
-              </h2>
+              </h1>
               <p className="mt-3 max-w-2xl text-base text-slate-600">
                 Robust, custom-engineered software architectures designed to
                 streamline operations, drive revenue, and scale with zero

@@ -334,9 +334,9 @@ export default function ContactPage() {
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                       <div className="flex items-center justify-between">
-                        <h3 className="font-heading text-xl font-bold text-slate-900">
+                        <h1 className="font-heading text-xl font-bold text-slate-900">
                           Schedule a Technical Consultation
-                        </h3>
+                        </h1>
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold border border-blue-200">
                           Priority Queue
                         </span>

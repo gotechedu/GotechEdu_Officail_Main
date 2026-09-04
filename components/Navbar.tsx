@@ -33,7 +33,7 @@ function Navbar() {
           <div className="relative flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center overflow-hidden rounded-full border border-blue-200/80 bg-white p-1 shadow-md transition-all duration-300 group-hover:scale-105 group-hover:border-blue-400 group-hover:shadow-lg">
             <Image
               src="/icons.png"
-              alt="GotechEdu Logo"
+              alt="GoTechEdu - IT Solutions & EdTech Learning Platform"
               width={140}
               height={140}
               className="h-full w-full object-contain rounded-full transition-transform duration-300 group-hover:rotate-6"

@@ -46,7 +46,7 @@ function Footer() {
               <div className="relative flex h-11 w-11 items-center justify-center rounded-full border border-blue-400/40 bg-slate-900 p-1 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:border-cyan-400">
                 <Image
                   src="/icons.png"
-                  alt="GotechEdu Logo"
+                  alt="GoTechEdu - IT Solutions & EdTech Learning Platform"
                   width={140}
                   height={140}
                   className="h-full w-full object-contain rounded-full brightness-110"
