@@ -119,21 +119,62 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "Course Introduction & Development Environment Setup",
         duration: "1hr 45min",
         lectures: [
-          { title: "Welcome to the Full-Stack Bootcamp & Roadmap", duration: "15 Min", isPreview: true, type: "video" },
-          { title: "Setting Up VS Code, Node.js & TypeScript Tooling", duration: "25 Min", isPreview: true, type: "video" },
-          { title: "Course Curriculum & Community Discord Access", duration: "10 Min", isPreview: true, type: "doc" },
-          { title: "Git & GitHub Enterprise Collaboration Workflow", duration: "55 Min", isPreview: false, type: "lab" },
+          {
+            title: "Welcome to the Full-Stack Bootcamp & Roadmap",
+            duration: "15 Min",
+            isPreview: true,
+            type: "video",
+          },
+          {
+            title: "Setting Up VS Code, Node.js & TypeScript Tooling",
+            duration: "25 Min",
+            isPreview: true,
+            type: "video",
+          },
+          {
+            title: "Course Curriculum & Community Discord Access",
+            duration: "10 Min",
+            isPreview: true,
+            type: "doc",
+          },
+          {
+            title: "Git & GitHub Enterprise Collaboration Workflow",
+            duration: "55 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
       {
         moduleNumber: 2,
-        title: "Modern JavaScript (ES6+), Async Engine & TypeScript Foundations",
+        title:
+          "Modern JavaScript (ES6+), Async Engine & TypeScript Foundations",
         duration: "4hr 20min",
         lectures: [
-          { title: "Event Loop, Closures, Promises & Async/Await Deep Dive", duration: "60 Min", isPreview: true, type: "video" },
-          { title: "TypeScript Types, Interfaces, Generics & Strict Mode", duration: "75 Min", isPreview: false, type: "video" },
-          { title: "Functional Programming & Immutability Patterns", duration: "45 Min", isPreview: false, type: "video" },
-          { title: "Lab: Building an Interactive Type-Safe Task Engine", duration: "80 Min", isPreview: false, type: "lab" },
+          {
+            title: "Event Loop, Closures, Promises & Async/Await Deep Dive",
+            duration: "60 Min",
+            isPreview: true,
+            type: "video",
+          },
+          {
+            title: "TypeScript Types, Interfaces, Generics & Strict Mode",
+            duration: "75 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Functional Programming & Immutability Patterns",
+            duration: "45 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Lab: Building an Interactive Type-Safe Task Engine",
+            duration: "80 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
       {
@@ -141,11 +182,36 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "React 19 Architecture, Hooks & Component State Patterns",
         duration: "5hr 30min",
         lectures: [
-          { title: "Component Lifecycle, Virtual DOM & React 19 Compiler", duration: "50 Min", isPreview: false, type: "video" },
-          { title: "Advanced Hooks: useActionState, useOptimistic, useMemo", duration: "70 Min", isPreview: false, type: "video" },
-          { title: "Global State Management with Zustand & Redux Toolkit", duration: "65 Min", isPreview: false, type: "video" },
-          { title: "Tailwind CSS Design System & Responsive Micro-Interactions", duration: "55 Min", isPreview: false, type: "video" },
-          { title: "Lab: E-Commerce Storefront with Real-Time Filter State", duration: "90 Min", isPreview: false, type: "lab" },
+          {
+            title: "Component Lifecycle, Virtual DOM & React 19 Compiler",
+            duration: "50 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Advanced Hooks: useActionState, useOptimistic, useMemo",
+            duration: "70 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Global State Management with Zustand & Redux Toolkit",
+            duration: "65 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Tailwind CSS Design System & Responsive Micro-Interactions",
+            duration: "55 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Lab: E-Commerce Storefront with Real-Time Filter State",
+            duration: "90 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
       {
@@ -153,11 +219,36 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "Next.js 15 App Router, Server Actions & SSR/SSG Mastery",
         duration: "6hr 15min",
         lectures: [
-          { title: "Server Components vs. Client Components Architecture", duration: "60 Min", isPreview: false, type: "video" },
-          { title: "Dynamic Routing, Intercepting Routes & Parallel Routes", duration: "75 Min", isPreview: false, type: "video" },
-          { title: "Server Actions, Mutations & On-Demand Revalidation", duration: "70 Min", isPreview: false, type: "video" },
-          { title: "Authentication with Auth.js, OAuth 2.0 & Session Security", duration: "80 Min", isPreview: false, type: "video" },
-          { title: "Lab: Multi-Tenant Corporate Management Portal", duration: "90 Min", isPreview: false, type: "lab" },
+          {
+            title: "Server Components vs. Client Components Architecture",
+            duration: "60 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Dynamic Routing, Intercepting Routes & Parallel Routes",
+            duration: "75 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Server Actions, Mutations & On-Demand Revalidation",
+            duration: "70 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Authentication with Auth.js, OAuth 2.0 & Session Security",
+            duration: "80 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Lab: Multi-Tenant Corporate Management Portal",
+            duration: "90 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
       {
@@ -165,11 +256,36 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "PostgreSQL, Prisma ORM, Microservices & Docker Deployments",
         duration: "5hr 45min",
         lectures: [
-          { title: "Relational Schema Modeling & SQL Performance Optimization", duration: "60 Min", isPreview: false, type: "video" },
-          { title: "Prisma ORM Relations, Transactions & Automated Migrations", duration: "65 Min", isPreview: false, type: "video" },
-          { title: "Containerizing Full-Stack Apps with Docker Multi-Stage", duration: "70 Min", isPreview: false, type: "video" },
-          { title: "Production AWS & Vercel Deployment with GitHub CI/CD", duration: "60 Min", isPreview: false, type: "video" },
-          { title: "Capstone Milestone: Full Multi-Tenant Cloud ERP System", duration: "90 Min", isPreview: false, type: "lab" },
+          {
+            title: "Relational Schema Modeling & SQL Performance Optimization",
+            duration: "60 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Prisma ORM Relations, Transactions & Automated Migrations",
+            duration: "65 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Containerizing Full-Stack Apps with Docker Multi-Stage",
+            duration: "70 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Production AWS & Vercel Deployment with GitHub CI/CD",
+            duration: "60 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Capstone Milestone: Full Multi-Tenant Cloud ERP System",
+            duration: "90 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
     ],
@@ -182,12 +298,14 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         students: "48,000+",
         coursesCount: 5,
         bio: "Dr. Vikram Sharma has over 12+ years of software engineering leadership experience architecting high-throughput distributed applications, mentoring over 45,000 developers worldwide.",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+        avatar:
+          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
       },
     ],
     faqs: [
       {
-        question: "When does the next live batch start and what is the schedule?",
+        question:
+          "When does the next live batch start and what is the schedule?",
         answer:
           "The upcoming cohort starts on September 15, 2026. We offer Weekend batches (Saturdays & Sundays, 10:00 AM – 1:00 PM IST) and Weekday Evening batches (Tuesdays & Thursdays, 7:30 PM – 9:30 PM IST). All sessions are recorded in full HD and posted immediately to your portal.",
       },
@@ -207,7 +325,8 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
           "Yes, we offer 0% No-Cost EMI options for 3, 6, 9, and 12 months with all leading credit cards, debit cards, and NBFC partners.",
       },
       {
-        question: "Will I receive an industry-recognized certificate upon completion?",
+        question:
+          "Will I receive an industry-recognized certificate upon completion?",
         answer:
           "Yes, after successfully completing the capstone project and assignments, you will receive an official verifiable digital GoTechEdu Certificate of Excellence with a unique credential ID.",
       },
@@ -239,7 +358,16 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
     averageSalaryHike: "68%",
     previewImage:
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
-    techStack: ["MongoDB", "Express.js", "React 19", "Node.js", "Redis", "Docker", "Socket.IO", "AWS EC2"],
+    techStack: [
+      "MongoDB",
+      "Express.js",
+      "React 19",
+      "Node.js",
+      "Redis",
+      "Docker",
+      "Socket.IO",
+      "AWS EC2",
+    ],
     overviewParagraph:
       "Step into high-concurrency enterprise backend and full-stack development. This program covers asynchronous Node.js internals, MongoDB Atlas indexing and multi-stage aggregation pipelines, Redis session caches, and microservices containerization.",
     whatYouWillLearn: [
@@ -259,10 +387,30 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "Node.js Core Internals, Event Loop & Express REST APIs",
         duration: "3hr 15min",
         lectures: [
-          { title: "Node.js Architecture: V8, Libuv & Thread Pool", duration: "45 Min", isPreview: true, type: "video" },
-          { title: "Building Modular REST APIs with Express.js", duration: "55 Min", isPreview: true, type: "video" },
-          { title: "Error Handling Middleware & Request Validation", duration: "40 Min", isPreview: false, type: "video" },
-          { title: "Lab: Enterprise Auth Service with Token Rotation", duration: "55 Min", isPreview: false, type: "lab" },
+          {
+            title: "Node.js Architecture: V8, Libuv & Thread Pool",
+            duration: "45 Min",
+            isPreview: true,
+            type: "video",
+          },
+          {
+            title: "Building Modular REST APIs with Express.js",
+            duration: "55 Min",
+            isPreview: true,
+            type: "video",
+          },
+          {
+            title: "Error Handling Middleware & Request Validation",
+            duration: "40 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Lab: Enterprise Auth Service with Token Rotation",
+            duration: "55 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
       {
@@ -270,10 +418,30 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "MongoDB Schema Modeling, Indexing & Aggregations",
         duration: "4hr 30min",
         lectures: [
-          { title: "Mongoose Schema Design vs. Relational Normalization", duration: "50 Min", isPreview: false, type: "video" },
-          { title: "Query Execution Optimization with Compound Indexes", duration: "60 Min", isPreview: false, type: "video" },
-          { title: "Multi-Stage Aggregation Pipelines ($lookup, $facet)", duration: "75 Min", isPreview: false, type: "video" },
-          { title: "Lab: High-Throughput Analytics Aggregation Pipeline", duration: "85 Min", isPreview: false, type: "lab" },
+          {
+            title: "Mongoose Schema Design vs. Relational Normalization",
+            duration: "50 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Query Execution Optimization with Compound Indexes",
+            duration: "60 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Multi-Stage Aggregation Pipelines ($lookup, $facet)",
+            duration: "75 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Lab: High-Throughput Analytics Aggregation Pipeline",
+            duration: "85 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
       {
@@ -281,10 +449,30 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "Real-Time WebSockets, Redis Caching & Microservices",
         duration: "5hr 00min",
         lectures: [
-          { title: "Real-Time Bi-Directional Feeds with Socket.IO", duration: "60 Min", isPreview: false, type: "video" },
-          { title: "In-Memory Caching & Session Storage with Redis", duration: "65 Min", isPreview: false, type: "video" },
-          { title: "Docker Containerization & NGINX Load Balancing", duration: "75 Min", isPreview: false, type: "video" },
-          { title: "Capstone Lab: Omnichannel Real-Time Chat & Telemetry ERP", duration: "100 Min", isPreview: false, type: "lab" },
+          {
+            title: "Real-Time Bi-Directional Feeds with Socket.IO",
+            duration: "60 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "In-Memory Caching & Session Storage with Redis",
+            duration: "65 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Docker Containerization & NGINX Load Balancing",
+            duration: "75 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Capstone Lab: Omnichannel Real-Time Chat & Telemetry ERP",
+            duration: "100 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
     ],
@@ -297,13 +485,15 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         students: "24,000+",
         coursesCount: 3,
         bio: "Pooja specializes in high-throughput distributed microservices, having led enterprise cloud modernization initiatives across global fintech firms.",
-        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80",
+        avatar:
+          "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80",
       },
     ],
     faqs: [
       {
         question: "Is this course practical and hands-on?",
-        answer: "Yes, 80% of class time is dedicated to writing live code, running automated tests, and deploying live production microservices.",
+        answer:
+          "Yes, 80% of class time is dedicated to writing live code, running automated tests, and deploying live production microservices.",
       },
     ],
   },
@@ -363,10 +553,30 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "Foundation Transformers, Tokenization & Prompt Engineering",
         duration: "3hr 40min",
         lectures: [
-          { title: "Transformers Internals: Self-Attention & Embeddings", duration: "50 Min", isPreview: true, type: "video" },
-          { title: "Structured Outputs with Pydantic & JSON Schemas", duration: "45 Min", isPreview: true, type: "video" },
-          { title: "Advanced Prompt Strategies: CoT, ToT & Few-Shot", duration: "45 Min", isPreview: false, type: "video" },
-          { title: "Lab: Automated Contract Analysis & Legal Parsing Agent", duration: "80 Min", isPreview: false, type: "lab" },
+          {
+            title: "Transformers Internals: Self-Attention & Embeddings",
+            duration: "50 Min",
+            isPreview: true,
+            type: "video",
+          },
+          {
+            title: "Structured Outputs with Pydantic & JSON Schemas",
+            duration: "45 Min",
+            isPreview: true,
+            type: "video",
+          },
+          {
+            title: "Advanced Prompt Strategies: CoT, ToT & Few-Shot",
+            duration: "45 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Lab: Automated Contract Analysis & Legal Parsing Agent",
+            duration: "80 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
       {
@@ -374,10 +584,33 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "Enterprise RAG Architecture & Vector Database Retrieval",
         duration: "4hr 50min",
         lectures: [
-          { title: "Dense vs. Sparse Vector Retrieval (BM25 + OpenAI Embeddings)", duration: "60 Min", isPreview: false, type: "video" },
-          { title: "Vector Databases with ChromaDB, Qdrant & Pinecone", duration: "65 Min", isPreview: false, type: "video" },
-          { title: "Re-Ranking Strategies with Cross-Encoders for 99% Precision", duration: "55 Min", isPreview: false, type: "video" },
-          { title: "Lab: Multi-Modal RAG Search over 50,000 Technical Documents", duration: "110 Min", isPreview: false, type: "lab" },
+          {
+            title:
+              "Dense vs. Sparse Vector Retrieval (BM25 + OpenAI Embeddings)",
+            duration: "60 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Vector Databases with ChromaDB, Qdrant & Pinecone",
+            duration: "65 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title:
+              "Re-Ranking Strategies with Cross-Encoders for 99% Precision",
+            duration: "55 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title:
+              "Lab: Multi-Modal RAG Search over 50,000 Technical Documents",
+            duration: "110 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
       {
@@ -385,10 +618,31 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "Autonomous Multi-Agent Swarms & LLM Fine-Tuning (LoRA)",
         duration: "5hr 20min",
         lectures: [
-          { title: "Tool-Calling Agents & Cyclic Graphs with LangGraph", duration: "70 Min", isPreview: false, type: "video" },
-          { title: "Multi-Agent Collaboration with CrewAI & Shared Memory", duration: "65 Min", isPreview: false, type: "video" },
-          { title: "LoRA & QLoRA Fine-Tuning on Custom Domain Datasets", duration: "80 Min", isPreview: false, type: "video" },
-          { title: "Capstone Lab: Autonomous Financial Auditing & Research Agent Swarm", duration: "105 Min", isPreview: false, type: "lab" },
+          {
+            title: "Tool-Calling Agents & Cyclic Graphs with LangGraph",
+            duration: "70 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Multi-Agent Collaboration with CrewAI & Shared Memory",
+            duration: "65 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "LoRA & QLoRA Fine-Tuning on Custom Domain Datasets",
+            duration: "80 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title:
+              "Capstone Lab: Autonomous Financial Auditing & Research Agent Swarm",
+            duration: "105 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
     ],
@@ -401,13 +655,15 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         students: "36,000+",
         coursesCount: 4,
         bio: "Dr. Vikram leads AI research at GoTechEdu, focusing on agentic workflows, autonomous tool-calling, and custom fine-tuned SLMs for enterprise automation.",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+        avatar:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
       },
     ],
     faqs: [
       {
         question: "Are GPU compute credits provided for labs and fine-tuning?",
-        answer: "Yes! High-performance NVIDIA cloud GPUs are fully provided and sponsored for all hands-on exercises and fine-tuning capstones.",
+        answer:
+          "Yes! High-performance NVIDIA cloud GPUs are fully provided and sponsored for all hands-on exercises and fine-tuning capstones.",
       },
     ],
   },
@@ -437,7 +693,16 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
     averageSalaryHike: "80%",
     previewImage:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-    techStack: ["AWS", "Azure", "Docker", "Kubernetes", "Terraform", "GitHub Actions", "Prometheus", "Grafana"],
+    techStack: [
+      "AWS",
+      "Azure",
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "GitHub Actions",
+      "Prometheus",
+      "Grafana",
+    ],
     overviewParagraph:
       "Transform into a high-demand cloud and infrastructure engineer. Master AWS & Azure core services, Linux systems administration, Docker containerization, Kubernetes cluster orchestration, and Infrastructure as Code with Terraform.",
     whatYouWillLearn: [
@@ -447,17 +712,39 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
       "Build zero-downtime automated CI/CD deployment pipelines with GitHub Actions.",
       "Implement full-stack observability with Prometheus, Grafana, and automated SLA alerts.",
     ],
-    prerequisites: ["Basic computer network and operating system fundamentals."],
+    prerequisites: [
+      "Basic computer network and operating system fundamentals.",
+    ],
     syllabusModules: [
       {
         moduleNumber: 1,
         title: "Linux Systems, Cloud Networking & AWS Fundamentals",
         duration: "4hr 10min",
         lectures: [
-          { title: "Linux Process Management, Permissions & Bash Scripting", duration: "55 Min", isPreview: true, type: "video" },
-          { title: "Cloud Networking: VPC, Subnets, NAT Gateways & CIDR", duration: "65 Min", isPreview: true, type: "video" },
-          { title: "AWS Compute: EC2, Auto-Scaling & Load Balancers", duration: "60 Min", isPreview: false, type: "video" },
-          { title: "Lab: Deploying an Auto-Scaling Web Cluster on AWS", duration: "70 Min", isPreview: false, type: "lab" },
+          {
+            title: "Linux Process Management, Permissions & Bash Scripting",
+            duration: "55 Min",
+            isPreview: true,
+            type: "video",
+          },
+          {
+            title: "Cloud Networking: VPC, Subnets, NAT Gateways & CIDR",
+            duration: "65 Min",
+            isPreview: true,
+            type: "video",
+          },
+          {
+            title: "AWS Compute: EC2, Auto-Scaling & Load Balancers",
+            duration: "60 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Lab: Deploying an Auto-Scaling Web Cluster on AWS",
+            duration: "70 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
       {
@@ -465,10 +752,30 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "Docker Containerization & Kubernetes (EKS) Orchestration",
         duration: "5hr 30min",
         lectures: [
-          { title: "Docker Multi-Stage Builds & Security Optimization", duration: "60 Min", isPreview: false, type: "video" },
-          { title: "Kubernetes Architecture: Pods, Deployments & Services", duration: "75 Min", isPreview: false, type: "video" },
-          { title: "Ingress Controllers, Persistent Volumes & Helm Charts", duration: "80 Min", isPreview: false, type: "video" },
-          { title: "Lab: Deploying Distributed Microservices on Kubernetes", duration: "115 Min", isPreview: false, type: "lab" },
+          {
+            title: "Docker Multi-Stage Builds & Security Optimization",
+            duration: "60 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Kubernetes Architecture: Pods, Deployments & Services",
+            duration: "75 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Ingress Controllers, Persistent Volumes & Helm Charts",
+            duration: "80 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Lab: Deploying Distributed Microservices on Kubernetes",
+            duration: "115 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
       {
@@ -476,10 +783,31 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         title: "Terraform IaC, CI/CD Automation & Observability",
         duration: "4hr 50min",
         lectures: [
-          { title: "Terraform State Management, Modules & S3 Backends", duration: "65 Min", isPreview: false, type: "video" },
-          { title: "GitHub Actions CI/CD with Quality Gates & Blue-Green Deploys", duration: "70 Min", isPreview: false, type: "video" },
-          { title: "Monitoring & Alerting with Prometheus and Grafana", duration: "65 Min", isPreview: false, type: "video" },
-          { title: "Capstone Lab: Zero-Downtime Multi-Region Production Deploy", duration: "90 Min", isPreview: false, type: "lab" },
+          {
+            title: "Terraform State Management, Modules & S3 Backends",
+            duration: "65 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title:
+              "GitHub Actions CI/CD with Quality Gates & Blue-Green Deploys",
+            duration: "70 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Monitoring & Alerting with Prometheus and Grafana",
+            duration: "65 Min",
+            isPreview: false,
+            type: "video",
+          },
+          {
+            title: "Capstone Lab: Zero-Downtime Multi-Region Production Deploy",
+            duration: "90 Min",
+            isPreview: false,
+            type: "lab",
+          },
         ],
       },
     ],
@@ -492,13 +820,15 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
         students: "31,000+",
         coursesCount: 3,
         bio: "Sarah has engineered multi-region cloud infrastructures for Fortune 500 enterprises with 99.999% SLA availability requirements.",
-        avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80",
+        avatar:
+          "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80",
       },
     ],
     faqs: [
       {
         question: "Are live cloud lab accounts provided?",
-        answer: "Yes, every enrolled student receives access to cloud sandboxes with pre-configured AWS and Azure credits for all hands-on exercises.",
+        answer:
+          "Yes, every enrolled student receives access to cloud sandboxes with pre-configured AWS and Azure credits for all hands-on exercises.",
       },
     ],
   },
@@ -507,107 +837,222 @@ const detailedCoursesDatabase: Record<string, CourseDetail> = {
 // Fallback generator for dynamic or unlisted courses
 function getFallbackCourse(slug: string, apiCourse?: any): CourseDetail {
   if (apiCourse) {
-    const rawPrice = 45000;
+    const rawOrigPrice = Number(apiCourse.originalPrice) || 49999;
+    const rawDiscPrice = Number(apiCourse.discountedPrice) || 24999;
+    const rawEmi = Number(apiCourse.emiStartsAt) || Math.round(rawDiscPrice / 12) || 2083;
+    const courseImage =
+      apiCourse.image ||
+      apiCourse.previewImage ||
+      apiCourse.thumbnail ||
+      apiCourse.bannerImage ||
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80";
+
+    const customModules =
+      apiCourse.syllabusModules && apiCourse.syllabusModules.length > 0
+        ? apiCourse.syllabusModules
+        : apiCourse.modules && apiCourse.modules.length > 0
+        ? apiCourse.modules.map((m: string, i: number) => ({
+            moduleNumber: i + 1,
+            title: m,
+            duration: "3hr 30min",
+            lectures: [
+              {
+                title: `${m} - Core Principles & Setup`,
+                duration: "45 Min",
+                isPreview: true,
+                type: "video" as const,
+              },
+              {
+                title: `${m} - In-Depth Architecture & Production Patterns`,
+                duration: "60 Min",
+                isPreview: false,
+                type: "video" as const,
+              },
+              {
+                title: `${m} - Hands-On Implementation Lab`,
+                duration: "75 Min",
+                isPreview: false,
+                type: "lab" as const,
+              },
+            ],
+          }))
+        : [
+            {
+              moduleNumber: 1,
+              title: "Introduction to Core Principles & Environment Setup",
+              duration: "2hr 30min",
+              lectures: [
+                {
+                  title: "Program Overview, Architecture & Career Roadmap",
+                  duration: "25 Min",
+                  isPreview: true,
+                  type: "video" as const,
+                },
+                {
+                  title: "Development Tooling & Tool Installation",
+                  duration: "35 Min",
+                  isPreview: true,
+                  type: "video" as const,
+                },
+                {
+                  title: "Lab: Foundational Practical Implementation",
+                  duration: "40 Min",
+                  isPreview: false,
+                  type: "lab" as const,
+                },
+              ],
+            },
+            {
+              moduleNumber: 2,
+              title: "Advanced Implementations, Architecture & Integrations",
+              duration: "4hr 15min",
+              lectures: [
+                {
+                  title: "Component Architecture & Scalability Best Practices",
+                  duration: "60 Min",
+                  isPreview: false,
+                  type: "video" as const,
+                },
+                {
+                  title: "Database Modeling, APIs & Asynchronous Flow",
+                  duration: "65 Min",
+                  isPreview: false,
+                  type: "video" as const,
+                },
+                {
+                  title: "Lab: High-Throughput Module Service",
+                  duration: "75 Min",
+                  isPreview: false,
+                  type: "lab" as const,
+                },
+              ],
+            },
+          ];
+
+    const instructorsList =
+      apiCourse.instructors && apiCourse.instructors.length > 0
+        ? apiCourse.instructors
+        : apiCourse.instructor && apiCourse.instructor.name
+        ? [
+            {
+              name: apiCourse.instructor.name,
+              role: apiCourse.instructor.role || "Lead Engineering Mentor",
+              organization: apiCourse.instructor.organization || "GoTechEdu",
+              rating: 4.92,
+              students: "45,000+",
+              coursesCount: 5,
+              bio: "Senior technical architect with 12+ years building enterprise architectures and mentoring high-performance developer teams.",
+              avatar:
+                apiCourse.instructor.avatar ||
+                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+            },
+          ]
+        : [
+            {
+              name: "Dr. Vikram Sharma",
+              role: "Lead Engineering Mentor",
+              organization: "GoTechEdu",
+              rating: 4.92,
+              students: "45,000+",
+              coursesCount: 5,
+              bio: "Senior architect with 12+ years building enterprise SaaS and mentoring high-performance developer teams.",
+              avatar:
+                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+            },
+          ];
+
+    const whatLearnList =
+      apiCourse.whatYouWillLearn && apiCourse.whatYouWillLearn.length > 0
+        ? apiCourse.whatYouWillLearn
+        : [
+            `Master the core architectural principles and modern best practices of ${apiCourse.title}.`,
+            "Build enterprise-ready production applications with modular, scalable code structure.",
+            "Integrate robust database models, APIs, and cloud services.",
+            "Implement automated testing, CI/CD, and production deployment.",
+            "Receive 1:1 resume optimization and interview referrals across top tech companies.",
+          ];
+
+    const prereqsList =
+      apiCourse.prerequisites && apiCourse.prerequisites.length > 0
+        ? apiCourse.prerequisites
+        : [
+            "Basic computer and programming concepts.",
+            "Passion for hands-on problem solving.",
+            "No prior advanced experience required — we guide you step by step.",
+          ];
+
+    const faqsList =
+      apiCourse.faqs && apiCourse.faqs.length > 0
+        ? apiCourse.faqs
+        : [
+            {
+              question: "How do I access class recordings if I miss a live session?",
+              answer:
+                "All live lectures are recorded in HD and posted to your learning dashboard within 2 hours with code files and notes.",
+            },
+            {
+              question: "What certification is provided upon completion?",
+              answer:
+                "You receive an official, verifiable GoTechEdu Certificate of Completion and a Capstone Project Excellence Badge.",
+            },
+            {
+              question: "Are live doubt-clearing sessions provided?",
+              answer:
+                "Yes, 1:1 TA doubt clearing and Discord community support are available 7 days a week.",
+            },
+          ];
+
     return {
       id: apiCourse._id || slug,
       slug: apiCourse.slug || slug,
-      title: `The Complete ${apiCourse.title}: From Zero To Expert!`,
+      title: apiCourse.title,
       category: apiCourse.category || "Professional Tech Academy",
-      duration: apiCourse.duration || "12 Weeks",
-      totalHours: "90+ Hours",
-      lecturesCount: 48,
+      duration: apiCourse.duration || "16 Weeks",
+      totalHours: apiCourse.totalHours || "120+ Hours",
+      lecturesCount: Number(apiCourse.lecturesCount) || 60,
       mode: apiCourse.mode || "Live Online + Capstone Labs",
       level: apiCourse.level || "Beginner to Advanced",
       badge: apiCourse.badge || "Live Academy",
       color: apiCourse.color || "from-emerald-600 to-teal-600",
-      description: apiCourse.description || "Comprehensive hands-on industry bootcamp.",
-      heroTagline: `Master ${apiCourse.title} by building industry capstone projects with 1:1 expert mentorship and placement assistance!`,
-      originalPrice: rawPrice,
-      discountedPrice: 21999,
-      emiStartsAt: 1833,
-      rating: 4.85,
-      reviewsCount: 5420,
-      enrolledStudents: 18900,
-      nextBatchDate: "September 25, 2026",
-      careerOutcome: apiCourse.careerOutcome || "Software Professional (₹8L – ₹16L PA)",
-      averageSalaryHike: "65%",
-      previewImage:
-        "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80",
-      techStack: apiCourse.techStack?.length > 0 ? apiCourse.techStack : ["React", "Node.js", "Docker", "PostgreSQL"],
+      description:
+        apiCourse.description || "Comprehensive hands-on industry bootcamp.",
+      heroTagline:
+        apiCourse.heroTagline ||
+        `Master ${apiCourse.title} by building industry capstone projects with 1:1 expert mentorship and placement assistance!`,
+      originalPrice: rawOrigPrice,
+      discountedPrice: rawDiscPrice,
+      emiStartsAt: rawEmi,
+      rating: Number(apiCourse.rating) || 4.88,
+      reviewsCount: Number(apiCourse.reviewsCount) || 5420,
+      enrolledStudents: Number(apiCourse.enrolledStudents) || 18900,
+      nextBatchDate: apiCourse.nextBatchDate || "September 25, 2026",
+      careerOutcome:
+        apiCourse.careerOutcome || "Software Professional (₹8L – ₹16L PA)",
+      averageSalaryHike: apiCourse.averageSalaryHike || "70%",
+      previewImage: courseImage,
+      techStack:
+        apiCourse.techStack?.length > 0
+          ? apiCourse.techStack
+          : ["React", "Node.js", "Docker", "PostgreSQL"],
       overviewParagraph:
+        apiCourse.overviewParagraph ||
+        apiCourse.description ||
         "Master this high-demand tech stack from scratch through structured live online masterclasses, interactive coding exercises, 1:1 mentor code audits, and capstone deployment.",
-      whatYouWillLearn: [
-        `Master the core architectural principles and modern best practices of ${apiCourse.title}.`,
-        "Build enterprise-ready production applications with modular, scalable code structure.",
-        "Integrate robust database models, APIs, and cloud services.",
-        "Implement automated testing, CI/CD, and production deployment.",
-        "Receive 1:1 resume optimization and interview referrals across top tech companies.",
-      ],
-      prerequisites: ["Basic computer and programming concepts.", "Passion for hands-on problem solving."],
-      syllabusModules: [
-        {
-          moduleNumber: 1,
-          title: "Introduction to Core Principles & Environment Setup",
-          duration: "2hr 30min",
-          lectures: [
-            { title: "Program Overview, Architecture & Career Roadmap", duration: "25 Min", isPreview: true, type: "video" },
-            { title: "Development Environment & Tooling Installation", duration: "35 Min", isPreview: true, type: "video" },
-            { title: "Core Fundamentals & Syntax Mastery", duration: "50 Min", isPreview: false, type: "video" },
-            { title: "Lab: Foundational Practical Implementation", duration: "40 Min", isPreview: false, type: "lab" },
-          ],
-        },
-        {
-          moduleNumber: 2,
-          title: "Advanced Implementations, Architecture & Integrations",
-          duration: "4hr 15min",
-          lectures: [
-            { title: "Component Architecture & Scalability Best Practices", duration: "60 Min", isPreview: false, type: "video" },
-            { title: "Database Modeling, APIs & Asynchronous Flow", duration: "65 Min", isPreview: false, type: "video" },
-            { title: "Security Protocols, Testing & Error Handling", duration: "55 Min", isPreview: false, type: "video" },
-            { title: "Lab: Building High-Throughput Module Service", duration: "75 Min", isPreview: false, type: "lab" },
-          ],
-        },
-        {
-          moduleNumber: 3,
-          title: "Capstone Milestone Project & Cloud Deployment",
-          duration: "5hr 00min",
-          lectures: [
-            { title: "Capstone Architecture Specification & Planning", duration: "45 Min", isPreview: false, type: "video" },
-            { title: "CI/CD Pipeline Automation & Production Deployment", duration: "65 Min", isPreview: false, type: "video" },
-            { title: "Resume Revamp, Mock Technical Interviews & Placement", duration: "70 Min", isPreview: false, type: "video" },
-            { title: "Final Capstone Live Demonstration & Evaluation", duration: "120 Min", isPreview: false, type: "lab" },
-          ],
-        },
-      ],
-      instructors: [
-        {
-          name: "Dr. Vikram Sharma",
-          role: "Lead Engineering Mentor",
-          organization: "GoTechEdu",
-          rating: 4.92,
-          students: "45,000+",
-          coursesCount: 5,
-          bio: "Senior architect with 12+ years building enterprise SaaS and mentoring high-performance developer teams.",
-          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
-        },
-      ],
-      faqs: [
-        {
-          question: "How do I access class recordings if I miss a live session?",
-          answer: "All live lectures are recorded in HD and posted to your learning dashboard within 2 hours with code files and notes.",
-        },
-        {
-          question: "What certification is provided upon completion?",
-          answer: "You receive an official, verifiable GoTechEdu Certificate of Completion and a Capstone Project Excellence Badge.",
-        },
-      ],
+      whatYouWillLearn: whatLearnList,
+      prerequisites: prereqsList,
+      syllabusModules: customModules,
+      instructors: instructorsList,
+      faqs: faqsList,
     };
   }
 
   return {
     ...detailedCoursesDatabase["fullstack-nextjs"],
     id: slug,
-    title: `The Complete ${slug.split("-").map((s) => s.charAt(0).toUpperCase() + s.slice(1)).join(" ")}: From Zero To Expert!`,
+    title: `The Complete ${slug
+      .split("-")
+      .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+      .join(" ")}: From Zero To Expert!`,
   };
 }
 
@@ -620,11 +1065,14 @@ export default function CourseDetailPage({
   const slug = resolvedParams.slug;
 
   const [course, setCourse] = useState<CourseDetail>(
-    detailedCoursesDatabase[slug] || getFallbackCourse(slug)
+    detailedCoursesDatabase[slug] || getFallbackCourse(slug),
   );
 
   // Accordion and Tab States
-  const [openModules, setOpenModules] = useState<Record<number, boolean>>({ 0: true, 1: true });
+  const [openModules, setOpenModules] = useState<Record<number, boolean>>({
+    0: true,
+    1: true,
+  });
   const [showFullLearnMore, setShowFullLearnMore] = useState(false);
   const [showMoreSpecs, setShowMoreSpecs] = useState(false);
   const [activeFaqIndex, setActiveFaqIndex] = useState<number | null>(0);
@@ -633,7 +1081,10 @@ export default function CourseDetailPage({
   const [couponCode, setCouponCode] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
   const [couponDiscount, setCouponDiscount] = useState(0);
-  const [couponMessage, setCouponMessage] = useState<{ text: string; isError: boolean } | null>(null);
+  const [couponMessage, setCouponMessage] = useState<{
+    text: string;
+    isError: boolean;
+  } | null>(null);
 
   // Application / Checkout Modal
   const [isEnrollModalOpen, setIsEnrollModalOpen] = useState(false);
@@ -680,23 +1131,38 @@ export default function CourseDetailPage({
       const discount = Math.round(course.discountedPrice * 0.5);
       setAppliedCoupon(code);
       setCouponDiscount(discount);
-      setCouponMessage({ text: "🎉 GOTECH50 Applied! 50% Flat Discount Subtracted.", isError: false });
+      setCouponMessage({
+        text: "🎉 GOTECH50 Applied! 50% Flat Discount Subtracted.",
+        isError: false,
+      });
     } else if (code === "EARLYBIRD") {
       const discount = 5000;
       setAppliedCoupon(code);
       setCouponDiscount(discount);
-      setCouponMessage({ text: "🚀 EARLYBIRD Applied! Flat ₹5,000 Discount Subtracted.", isError: false });
+      setCouponMessage({
+        text: "🚀 EARLYBIRD Applied! Flat ₹5,000 Discount Subtracted.",
+        isError: false,
+      });
     } else if (code === "STUDENT20") {
       const discount = Math.round(course.discountedPrice * 0.2);
       setAppliedCoupon(code);
       setCouponDiscount(discount);
-      setCouponMessage({ text: "🎓 STUDENT20 Applied! 20% Special Student Discount Subtracted.", isError: false });
+      setCouponMessage({
+        text: "🎓 STUDENT20 Applied! 20% Special Student Discount Subtracted.",
+        isError: false,
+      });
     } else if (code === "FREEDEMO") {
       setAppliedCoupon(code);
       setCouponDiscount(course.discountedPrice);
-      setCouponMessage({ text: "✨ FREEDEMO Applied! 100% Free 3-Day Live Demo Access Granted.", isError: false });
+      setCouponMessage({
+        text: "✨ FREEDEMO Applied! 100% Free 3-Day Live Demo Access Granted.",
+        isError: false,
+      });
     } else {
-      setCouponMessage({ text: "Invalid code. Try 'GOTECH50' or 'EARLYBIRD'.", isError: true });
+      setCouponMessage({
+        text: "Invalid code. Try 'GOTECH50' or 'EARLYBIRD'.",
+        isError: true,
+      });
     }
   };
 
@@ -713,7 +1179,8 @@ export default function CourseDetailPage({
   const handleEnrollSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+    const API_URL =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
     try {
       // 1. Create Payment Order
@@ -745,8 +1212,10 @@ export default function CourseDetailPage({
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                razorpay_payment_id: response.razorpay_payment_id || `pay_sim_${Date.now()}`,
-                razorpay_order_id: response.razorpay_order_id || orderData.orderId,
+                razorpay_payment_id:
+                  response.razorpay_payment_id || `pay_sim_${Date.now()}`,
+                razorpay_order_id:
+                  response.razorpay_order_id || orderData.orderId,
                 razorpay_signature: response.razorpay_signature || "verified",
                 studentName: enrollForm.fullName,
                 email: enrollForm.email,
@@ -813,7 +1282,10 @@ export default function CourseDetailPage({
               Home
             </Link>
             <span>›</span>
-            <Link href="/learninghub" className="hover:text-emerald-800 transition">
+            <Link
+              href="/learninghub"
+              className="hover:text-emerald-800 transition"
+            >
               Course Details
             </Link>
             <span>›</span>
@@ -843,7 +1315,9 @@ export default function CourseDetailPage({
                 </Link>
 
                 <div className="flex items-center gap-1.5 rounded-full bg-white/80 border border-emerald-200/80 px-3.5 py-1.5 text-xs font-bold text-slate-800 backdrop-blur-xs">
-                  <span className="text-slate-900 font-extrabold">{course.rating}</span>
+                  <span className="text-slate-900 font-extrabold">
+                    {course.rating}
+                  </span>
                   <div className="flex text-amber-500 text-xs">★★★★★</div>
                 </div>
 
@@ -852,7 +1326,10 @@ export default function CourseDetailPage({
                 </span>
 
                 <span className="text-xs font-semibold text-slate-700">
-                  <strong className="text-slate-900 font-bold">{course.enrolledStudents.toLocaleString()}</strong> Students
+                  <strong className="text-slate-900 font-bold">
+                    {course.enrolledStudents.toLocaleString()}
+                  </strong>{" "}
+                  Students
                 </span>
               </div>
             </div>
@@ -870,7 +1347,9 @@ export default function CourseDetailPage({
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/80 px-3 py-1 font-bold backdrop-blur-xs">
                       ▶ Live Code & Labs
                     </span>
-                    <span className="font-mono text-slate-200 font-semibold">{course.totalHours}</span>
+                    <span className="font-mono text-slate-200 font-semibold">
+                      {course.totalHours}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -900,16 +1379,19 @@ export default function CourseDetailPage({
 
               {/* 2-Column Checked List */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs sm:text-sm text-slate-700">
-                {(showFullLearnMore ? course.whatYouWillLearn : course.whatYouWillLearn.slice(0, 4)).map(
-                  (item, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5">
-                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold mt-0.5">
-                        ✓
-                      </span>
-                      <span className="leading-snug text-slate-700 font-medium">{item}</span>
-                    </div>
-                  )
-                )}
+                {(showFullLearnMore
+                  ? course.whatYouWillLearn
+                  : course.whatYouWillLearn.slice(0, 4)
+                ).map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold mt-0.5">
+                      ✓
+                    </span>
+                    <span className="leading-snug text-slate-700 font-medium">
+                      {item}
+                    </span>
+                  </div>
+                ))}
               </div>
 
               {course.whatYouWillLearn.length > 4 && (
@@ -919,7 +1401,9 @@ export default function CourseDetailPage({
                   className="mt-5 inline-flex items-center gap-1 text-xs font-bold text-emerald-700 hover:text-emerald-800 transition cursor-pointer"
                 >
                   <span>{showFullLearnMore ? "Show Less" : "Show More"}</span>
-                  <span className="text-xs font-bold">{showFullLearnMore ? "▲" : "▼"}</span>
+                  <span className="text-xs font-bold">
+                    {showFullLearnMore ? "▲" : "▼"}
+                  </span>
                 </button>
               )}
             </div>
@@ -932,22 +1416,29 @@ export default function CourseDetailPage({
                     Course Content
                   </h2>
                   <p className="text-xs text-slate-500 mt-0.5">
-                    {course.syllabusModules.length} Modules • {course.lecturesCount} Lectures • {course.totalHours} Total Duration
+                    {course.syllabusModules.length} Modules •{" "}
+                    {course.lecturesCount} Lectures • {course.totalHours} Total
+                    Duration
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => {
-                    const allOpen = Object.keys(openModules).length === course.syllabusModules.length;
+                    const allOpen =
+                      Object.keys(openModules).length ===
+                      course.syllabusModules.length;
                     const next: Record<number, boolean> = {};
                     if (!allOpen) {
-                      course.syllabusModules.forEach((_, i) => (next[i] = true));
+                      course.syllabusModules.forEach(
+                        (_, i) => (next[i] = true),
+                      );
                     }
                     setOpenModules(next);
                   }}
                   className="text-xs font-bold text-emerald-700 hover:underline text-left cursor-pointer"
                 >
-                  {Object.keys(openModules).length === course.syllabusModules.length
+                  {Object.keys(openModules).length ===
+                  course.syllabusModules.length
                     ? "Collapse all sections"
                     : "Expand all sections"}
                 </button>
@@ -993,13 +1484,21 @@ export default function CourseDetailPage({
                             >
                               <div className="flex items-center gap-3">
                                 <span className="text-slate-400 text-xs">
-                                  {lec.type === "video" ? "▶" : lec.type === "doc" ? "📄" : "🛠️"}
+                                  {lec.type === "video"
+                                    ? "▶"
+                                    : lec.type === "doc"
+                                      ? "📄"
+                                      : "🛠️"}
                                 </span>
-                                <span className="font-medium text-slate-800">{lec.title}</span>
+                                <span className="font-medium text-slate-800">
+                                  {lec.title}
+                                </span>
                               </div>
 
                               <div className="flex items-center gap-3">
-                                <span className="text-[11px] font-mono text-slate-400">{lec.duration}</span>
+                                <span className="text-[11px] font-mono text-slate-400">
+                                  {lec.duration}
+                                </span>
                                 {lec.isPreview ? (
                                   <button
                                     type="button"
@@ -1009,7 +1508,10 @@ export default function CourseDetailPage({
                                     Preview
                                   </button>
                                 ) : (
-                                  <span className="text-slate-300 text-xs" title="Enrolled Access Only">
+                                  <span
+                                    className="text-slate-300 text-xs"
+                                    title="Enrolled Access Only"
+                                  >
                                     🔒
                                   </span>
                                 )}
@@ -1056,9 +1558,13 @@ export default function CourseDetailPage({
                       <h3 className="font-heading text-base sm:text-lg font-bold text-emerald-900">
                         {ins.name}
                       </h3>
-                      <p className="text-xs text-slate-500 font-medium">{ins.role} • {ins.organization}</p>
+                      <p className="text-xs text-slate-500 font-medium">
+                        {ins.role} • {ins.organization}
+                      </p>
                       <div className="flex flex-wrap items-center gap-3 text-xs text-slate-600 mt-1.5 font-mono">
-                        <span className="text-amber-500 font-bold">★ {ins.rating} Instructor Rating</span>
+                        <span className="text-amber-500 font-bold">
+                          ★ {ins.rating} Instructor Rating
+                        </span>
                         <span>👥 {ins.students} Students</span>
                         <span>📚 {ins.coursesCount} Courses</span>
                       </div>
@@ -1078,7 +1584,8 @@ export default function CourseDetailPage({
                   Frequently Asked Questions
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Have questions about admissions, batch schedules, or placement assistance?
+                  Have questions about admissions, batch schedules, or placement
+                  assistance?
                 </p>
               </div>
 
@@ -1092,7 +1599,9 @@ export default function CourseDetailPage({
                     >
                       <button
                         type="button"
-                        onClick={() => setActiveFaqIndex(isFaqOpen ? null : fIdx)}
+                        onClick={() =>
+                          setActiveFaqIndex(isFaqOpen ? null : fIdx)
+                        }
                         className="flex w-full items-center justify-between p-4 text-left font-bold text-xs sm:text-sm text-slate-900 hover:bg-slate-50 transition cursor-pointer"
                       >
                         <span>{faq.question}</span>
@@ -1190,31 +1699,14 @@ export default function CourseDetailPage({
                 {couponMessage && (
                   <p
                     className={`text-[11px] font-semibold ${
-                      couponMessage.isError ? "text-rose-600" : "text-emerald-700"
+                      couponMessage.isError
+                        ? "text-rose-600"
+                        : "text-emerald-700"
                     }`}
                   >
                     {couponMessage.text}
                   </p>
                 )}
-
-                <div className="flex flex-wrap gap-1 pt-0.5 text-[10px] text-slate-500">
-                  <span>Try:</span>
-                  <button
-                    type="button"
-                    onClick={() => setCouponCode("GOTECH50")}
-                    className="font-mono font-bold text-emerald-700 hover:underline"
-                  >
-                    GOTECH50 (50% Off)
-                  </button>
-                  <span>•</span>
-                  <button
-                    type="button"
-                    onClick={() => setCouponCode("EARLYBIRD")}
-                    className="font-mono font-bold text-teal-700 hover:underline"
-                  >
-                    EARLYBIRD (₹5k Off)
-                  </button>
-                </div>
               </div>
 
               {/* Course Specs List (Matches UI Image Right Column Specs) */}
@@ -1228,16 +1720,24 @@ export default function CourseDetailPage({
 
                 <div className="flex items-center justify-between pt-2">
                   <span className="text-slate-500 font-medium">Enrolled</span>
-                  <span className="font-bold text-slate-900 font-mono">{course.enrolledStudents.toLocaleString()}</span>
+                  <span className="font-bold text-slate-900 font-mono">
+                    {course.enrolledStudents.toLocaleString()}
+                  </span>
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
-                  <span className="text-slate-500 font-medium">Live Lectures</span>
-                  <span className="font-bold text-slate-900 font-mono">{course.lecturesCount} Sessions</span>
+                  <span className="text-slate-500 font-medium">
+                    Live Lectures
+                  </span>
+                  <span className="font-bold text-slate-900 font-mono">
+                    {course.lecturesCount} Sessions
+                  </span>
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
-                  <span className="text-slate-500 font-medium">Skill Level</span>
+                  <span className="text-slate-500 font-medium">
+                    Skill Level
+                  </span>
                   <span className="rounded bg-slate-100 px-2 py-0.5 font-bold text-slate-700 text-[11px]">
                     {course.level}
                   </span>
@@ -1245,22 +1745,34 @@ export default function CourseDetailPage({
 
                 <div className="flex items-center justify-between pt-2">
                   <span className="text-slate-500 font-medium">Language</span>
-                  <span className="font-semibold text-slate-800">English (Live + Subtitles)</span>
+                  <span className="font-semibold text-slate-800">
+                    English (Live + Subtitles)
+                  </span>
                 </div>
 
                 {showMoreSpecs && (
                   <>
                     <div className="flex items-center justify-between pt-2 animate-fadeIn">
-                      <span className="text-slate-500 font-medium">Assessment</span>
-                      <span className="font-semibold text-slate-800">6+ Capstone Labs</span>
+                      <span className="text-slate-500 font-medium">
+                        Assessment
+                      </span>
+                      <span className="font-semibold text-slate-800">
+                        6+ Capstone Labs
+                      </span>
                     </div>
                     <div className="flex items-center justify-between pt-2 animate-fadeIn">
-                      <span className="text-slate-500 font-medium">Certificate</span>
-                      <span className="font-bold text-emerald-700">Official Verifiable ID</span>
+                      <span className="text-slate-500 font-medium">
+                        Certificate
+                      </span>
+                      <span className="font-bold text-emerald-700">
+                        Official Verifiable ID
+                      </span>
                     </div>
                     <div className="flex items-center justify-between pt-2 animate-fadeIn">
                       <span className="text-slate-500 font-medium">Access</span>
-                      <span className="font-semibold text-slate-800">Lifetime LMS Portal</span>
+                      <span className="font-semibold text-slate-800">
+                        Lifetime LMS Portal
+                      </span>
                     </div>
                   </>
                 )}
@@ -1280,24 +1792,46 @@ export default function CourseDetailPage({
               {/* Social Share & Contact Box (Matches UI Image) */}
               <div className="border-t border-slate-100 pt-5 text-center space-y-3">
                 <div className="flex items-center justify-center gap-3 text-slate-400">
-                  <a href="https://facebook.com" target="_blank" rel="noreferrer" className="h-8 w-8 rounded-full border border-slate-200 flex items-center justify-center text-xs hover:bg-slate-100 hover:text-blue-600 transition">
+                  <a
+                    href="https://facebook.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="h-8 w-8 rounded-full border border-slate-200 flex items-center justify-center text-xs hover:bg-slate-100 hover:text-blue-600 transition"
+                  >
                     f
                   </a>
-                  <a href="https://twitter.com" target="_blank" rel="noreferrer" className="h-8 w-8 rounded-full border border-slate-200 flex items-center justify-center text-xs hover:bg-slate-100 hover:text-sky-500 transition">
+                  <a
+                    href="https://twitter.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="h-8 w-8 rounded-full border border-slate-200 flex items-center justify-center text-xs hover:bg-slate-100 hover:text-sky-500 transition"
+                  >
                     t
                   </a>
-                  <a href="https://instagram.com" target="_blank" rel="noreferrer" className="h-8 w-8 rounded-full border border-slate-200 flex items-center justify-center text-xs hover:bg-slate-100 hover:text-pink-600 transition">
+                  <a
+                    href="https://instagram.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="h-8 w-8 rounded-full border border-slate-200 flex items-center justify-center text-xs hover:bg-slate-100 hover:text-pink-600 transition"
+                  >
                     in
                   </a>
-                  <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="h-8 w-8 rounded-full border border-slate-200 flex items-center justify-center text-xs hover:bg-slate-100 hover:text-blue-700 transition">
+                  <a
+                    href="https://linkedin.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="h-8 w-8 rounded-full border border-slate-200 flex items-center justify-center text-xs hover:bg-slate-100 hover:text-blue-700 transition"
+                  >
                     ln
                   </a>
                 </div>
 
-                <p className="text-[11px] text-slate-500 font-medium">For Details About The Course</p>
+                <p className="text-[11px] text-slate-500 font-medium">
+                  For Details About The Course
+                </p>
 
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+91 9608094827"
                   className="flex items-center justify-center gap-2 rounded-xl bg-emerald-50 border border-emerald-200 py-2.5 text-xs font-bold text-emerald-800 hover:bg-emerald-100 transition"
                 >
                   <span>📞</span>
@@ -1319,7 +1853,9 @@ export default function CourseDetailPage({
             <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4 bg-slate-50">
               <div>
                 <h3 className="font-heading text-lg font-bold text-slate-900">
-                  {isSuccess ? "Admission Registered" : "Complete Course Admission"}
+                  {isSuccess
+                    ? "Admission Registered"
+                    : "Complete Course Admission"}
                 </h3>
                 <span className="text-[11px] text-emerald-700 font-semibold truncate block">
                   {course.title}
@@ -1348,21 +1884,36 @@ export default function CourseDetailPage({
                     🎉 Payment Verified & Admission Confirmed!
                   </h4>
                   <p className="text-slate-600 leading-relaxed max-w-sm mx-auto">
-                    Thank you, <strong className="text-slate-900">{enrollForm.fullName}</strong>! Your payment has been processed and an official tax invoice email was dispatched to <strong className="text-emerald-700">{enrollForm.email}</strong>.
+                    Thank you,{" "}
+                    <strong className="text-slate-900">
+                      {enrollForm.fullName}
+                    </strong>
+                    ! Your payment has been processed and an official tax
+                    invoice email was dispatched to{" "}
+                    <strong className="text-emerald-700">
+                      {enrollForm.email}
+                    </strong>
+                    .
                   </p>
 
                   <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-left font-mono text-[11px] space-y-1">
                     <div className="flex justify-between">
                       <span className="text-slate-500">Program:</span>
-                      <span className="font-bold text-slate-900">{course.title}</span>
+                      <span className="font-bold text-slate-900">
+                        {course.title}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-500">Batch:</span>
-                      <span className="font-bold text-slate-900">{enrollForm.batchPreference}</span>
+                      <span className="font-bold text-slate-900">
+                        {enrollForm.batchPreference}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-500">Total Investment:</span>
-                      <span className="font-bold text-emerald-700">₹{finalPrice.toLocaleString("en-IN")}</span>
+                      <span className="font-bold text-emerald-700">
+                        ₹{finalPrice.toLocaleString("en-IN")}
+                      </span>
                     </div>
                   </div>
 
@@ -1379,37 +1930,58 @@ export default function CourseDetailPage({
               ) : (
                 <form onSubmit={handleEnrollSubmit} className="space-y-4">
                   <div>
-                    <label className="block font-bold text-slate-700 mb-1">Full Name *</label>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      Full Name *
+                    </label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Rahul Sharma"
                       value={enrollForm.fullName}
-                      onChange={(e) => setEnrollForm({ ...enrollForm, fullName: e.target.value })}
+                      onChange={(e) =>
+                        setEnrollForm({
+                          ...enrollForm,
+                          fullName: e.target.value,
+                        })
+                      }
                       className="h-9 w-full rounded-xl border border-slate-200 px-3 focus:border-emerald-600 focus:outline-none"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block font-bold text-slate-700 mb-1">Email Address *</label>
+                      <label className="block font-bold text-slate-700 mb-1">
+                        Email Address *
+                      </label>
                       <input
                         type="email"
                         required
                         placeholder="rahul@gmail.com"
                         value={enrollForm.email}
-                        onChange={(e) => setEnrollForm({ ...enrollForm, email: e.target.value })}
+                        onChange={(e) =>
+                          setEnrollForm({
+                            ...enrollForm,
+                            email: e.target.value,
+                          })
+                        }
                         className="h-9 w-full rounded-xl border border-slate-200 px-3 focus:border-emerald-600 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block font-bold text-slate-700 mb-1">WhatsApp / Phone *</label>
+                      <label className="block font-bold text-slate-700 mb-1">
+                        WhatsApp / Phone *
+                      </label>
                       <input
                         type="text"
                         required
                         placeholder="+91 98765 43210"
                         value={enrollForm.phone}
-                        onChange={(e) => setEnrollForm({ ...enrollForm, phone: e.target.value })}
+                        onChange={(e) =>
+                          setEnrollForm({
+                            ...enrollForm,
+                            phone: e.target.value,
+                          })
+                        }
                         className="h-9 w-full rounded-xl border border-slate-200 px-3 focus:border-emerald-600 focus:outline-none"
                       />
                     </div>
@@ -1417,37 +1989,62 @@ export default function CourseDetailPage({
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block font-bold text-slate-700 mb-1">College or Company</label>
+                      <label className="block font-bold text-slate-700 mb-1">
+                        College or Company
+                      </label>
                       <input
                         type="text"
                         placeholder="IIT Delhi / TCS"
                         value={enrollForm.collegeOrCompany}
-                        onChange={(e) => setEnrollForm({ ...enrollForm, collegeOrCompany: e.target.value })}
+                        onChange={(e) =>
+                          setEnrollForm({
+                            ...enrollForm,
+                            collegeOrCompany: e.target.value,
+                          })
+                        }
                         className="h-9 w-full rounded-xl border border-slate-200 px-3 focus:border-emerald-600 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block font-bold text-slate-700 mb-1">Set Portal Password *</label>
+                      <label className="block font-bold text-slate-700 mb-1">
+                        Set Portal Password *
+                      </label>
                       <input
                         type="password"
                         required
                         placeholder="Password for HRMS login"
                         value={enrollForm.password}
-                        onChange={(e) => setEnrollForm({ ...enrollForm, password: e.target.value })}
+                        onChange={(e) =>
+                          setEnrollForm({
+                            ...enrollForm,
+                            password: e.target.value,
+                          })
+                        }
                         className="h-9 w-full rounded-xl border border-slate-200 px-3 focus:border-emerald-600 focus:outline-none"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block font-bold text-slate-700 mb-1">Batch Schedule</label>
+                    <label className="block font-bold text-slate-700 mb-1">
+                      Batch Schedule
+                    </label>
                     <select
                       value={enrollForm.batchPreference}
-                      onChange={(e) => setEnrollForm({ ...enrollForm, batchPreference: e.target.value })}
+                      onChange={(e) =>
+                        setEnrollForm({
+                          ...enrollForm,
+                          batchPreference: e.target.value,
+                        })
+                      }
                       className="h-9 w-full rounded-xl border border-slate-200 px-3 focus:border-emerald-600 focus:outline-none"
                     >
-                      <option value="Weekend Cohort">Weekend Cohort (Sat & Sun, 10 AM - 1 PM)</option>
-                      <option value="Weekday Evening">Weekday Evening (Tue & Thu, 7:30 PM - 9:30 PM)</option>
+                      <option value="Weekend Cohort">
+                        Weekend Cohort (Sat & Sun, 10 AM - 1 PM)
+                      </option>
+                      <option value="Weekday Evening">
+                        Weekday Evening (Tue & Thu, 7:30 PM - 9:30 PM)
+                      </option>
                     </select>
                   </div>
 
@@ -1455,12 +2052,17 @@ export default function CourseDetailPage({
                   <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3.5 space-y-1 font-mono text-[11px]">
                     <div className="flex justify-between text-slate-600">
                       <span>Standard Price:</span>
-                      <span>₹{course.originalPrice.toLocaleString("en-IN")}</span>
+                      <span>
+                        ₹{course.originalPrice.toLocaleString("en-IN")}
+                      </span>
                     </div>
                     <div className="flex justify-between text-slate-600">
                       <span>Discount:</span>
                       <span className="text-emerald-700">
-                        -₹{(course.originalPrice - course.discountedPrice).toLocaleString("en-IN")}
+                        -₹
+                        {(
+                          course.originalPrice - course.discountedPrice
+                        ).toLocaleString("en-IN")}
                       </span>
                     </div>
                     {appliedCoupon && (
@@ -1490,7 +2092,9 @@ export default function CourseDetailPage({
                       disabled={isSubmitting}
                       className="rounded-xl bg-[#0f766e] hover:bg-[#115e59] px-6 py-2.5 font-bold uppercase tracking-wider text-white shadow-md disabled:opacity-50 cursor-pointer"
                     >
-                      {isSubmitting ? "Processing Razorpay..." : `Pay ₹${finalPrice.toLocaleString("en-IN")} & Enroll`}
+                      {isSubmitting
+                        ? "Processing Razorpay..."
+                        : `Pay ₹${finalPrice.toLocaleString("en-IN")} & Enroll`}
                     </button>
                   </div>
                 </form>

@@ -4,81 +4,6 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { officialApi } from "@/lib/api";
 
-const jobListings = [
-  {
-    id: "frontend-dev",
-    title: "Senior Frontend Engineer",
-    department: "Engineering",
-    type: "Full-Time",
-    location: "Gurugram / Remote",
-    experience: "2–4 Years",
-    salary: "₹10L – ₹18L PA",
-    tags: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-    description:
-      "Architect and ship high-performance, accessible web applications and dashboards with modern micro-frontend principles.",
-  },
-  {
-    id: "fullstack-mern",
-    title: "Full-Stack MERN Developer",
-    department: "Engineering",
-    type: "Full-Time",
-    location: "Gurugram / Hybrid",
-    experience: "2–5 Years",
-    salary: "₹12L – ₹20L PA",
-    tags: ["Node.js", "Express", "MongoDB", "React", "Docker"],
-    description:
-      "Design and deploy scalable REST/GraphQL APIs, microservices, and database models for enterprise SaaS solutions.",
-  },
-  {
-    id: "ai-engineer",
-    title: "AI & Machine Learning Engineer",
-    department: "AI & Data",
-    type: "Full-Time",
-    location: "Gurugram / Remote",
-    experience: "2–5 Years",
-    salary: "₹14L – ₹24L PA",
-    tags: ["Python", "PyTorch", "LLMs", "LangChain", "RAG"],
-    description:
-      "Build autonomous AI agents, enterprise RAG vector search pipelines, and fine-tune open-source models for client workflows.",
-  },
-  {
-    id: "cloud-devops",
-    title: "Cloud & DevOps Architect",
-    department: "Cloud & DevOps",
-    type: "Full-Time",
-    location: "Gurugram / Remote",
-    experience: "3–6 Years",
-    salary: "₹15L – ₹25L PA",
-    tags: ["AWS", "Kubernetes", "Terraform", "CI/CD", "Docker"],
-    description:
-      "Manage multi-cloud infrastructure, orchestrate Kubernetes clusters, and automate end-to-end zero-downtime CI/CD pipelines.",
-  },
-  {
-    id: "cybersecurity-analyst",
-    title: "Cybersecurity & SOC Engineer",
-    department: "Cybersecurity",
-    type: "Full-Time",
-    location: "Gurugram / Hybrid",
-    experience: "2–5 Years",
-    salary: "₹12L – ₹22L PA",
-    tags: ["SIEM", "Penetration Testing", "SOC 2", "Zero-Trust"],
-    description:
-      "Conduct vulnerability assessments, monitor SIEM telemetry, and implement zero-trust security postures across cloud workloads.",
-  },
-  {
-    id: "digital-marketing",
-    title: "Performance & Digital Growth Lead",
-    department: "Marketing",
-    type: "Full-Time",
-    location: "Gurugram / On-Site",
-    experience: "1–3 Years",
-    salary: "₹8L – ₹14L PA",
-    tags: ["SEO", "Google Ads", "Meta Ads", "Analytics", "CRO"],
-    description:
-      "Execute data-driven organic and paid acquisition campaigns, content marketing strategies, and conversion rate optimization.",
-  },
-];
-
 const perks = [
   {
     icon: "🚀",
@@ -107,7 +32,8 @@ const locations = ["All Locations", "Remote", "Hybrid", "On-Site"];
 const experiences = ["All Experience", "1–3 Years", "2–5 Years", "3–6 Years"];
 
 export default function CareerPage() {
-  const [allJobs, setAllJobs] = useState<any[]>(jobListings);
+  const [allJobs, setAllJobs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedDept, setSelectedDept] = useState("All");
   const [selectedLocation, setSelectedLocation] = useState("All Locations");
   const [selectedExperience, setSelectedExperience] = useState("All Experience");
@@ -135,6 +61,7 @@ export default function CareerPage() {
   useEffect(() => {
     const fetchLiveJobs = async () => {
       try {
+        setLoading(true);
         const data = await officialApi.getJobs();
         if (data && data.jobs && data.jobs.length > 0) {
           const formatted = data.jobs.map((j: any) => ({
@@ -149,13 +76,15 @@ export default function CareerPage() {
             description: j.description,
           }));
 
-          // Merge dynamic jobs without duplicating titles
-          const titles = new Set(formatted.map((f: any) => f.title.toLowerCase()));
-          const uniqueStatic = jobListings.filter((l) => !titles.has(l.title.toLowerCase()));
-          setAllJobs([...formatted, ...uniqueStatic]);
+          setAllJobs(formatted);
+        } else {
+          setAllJobs([]);
         }
       } catch (err) {
-        console.log("Using static jobListings cache");
+        console.log("Failed to fetch live jobs:", err);
+        setAllJobs([]);
+      } finally {
+        setLoading(false);
       }
     };
     fetchLiveJobs();
@@ -269,7 +198,7 @@ export default function CareerPage() {
               </h2>
               <p className="mt-1 text-xs sm:text-sm text-slate-500">
                 Showing <strong className="text-blue-600 font-bold">{filteredJobs.length}</strong> of{" "}
-                {jobListings.length} open technical roles
+                {allJobs.length} open technical roles
               </p>
             </div>
 
@@ -468,8 +397,31 @@ export default function CareerPage() {
             </div>
           )}
 
-          {/* Jobs List or Empty State */}
-          {filteredJobs.length === 0 ? (
+          {/* Jobs List, Loading Skeleton, or Empty State */}
+          {loading ? (
+            <div className="mt-6 space-y-3.5">
+              {[1, 2, 3, 4, 5].map((idx) => (
+                <div
+                  key={idx}
+                  className="animate-pulse rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-xs"
+                >
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <div className="h-5 w-24 rounded-full bg-slate-200" />
+                    <div className="h-5 w-28 rounded-full bg-slate-100" />
+                    <div className="h-5 w-20 rounded-full bg-slate-100" />
+                    <div className="h-5 w-24 rounded-full bg-slate-200" />
+                  </div>
+                  <div className="h-6 w-1/3 rounded-lg bg-slate-200 mb-2" />
+                  <div className="h-4 w-3/4 rounded bg-slate-100 mb-4" />
+                  <div className="flex gap-2">
+                    <div className="h-5 w-16 rounded bg-slate-100" />
+                    <div className="h-5 w-16 rounded bg-slate-100" />
+                    <div className="h-5 w-16 rounded bg-slate-100" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : filteredJobs.length === 0 ? (
             <div className="mt-12 rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center shadow-xs">
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-2xl text-slate-400">
                 💼
@@ -669,7 +621,7 @@ export default function CareerPage() {
                         required
                         className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-xs sm:text-sm text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20 bg-white"
                       >
-                        {jobListings.map((j) => (
+                        {allJobs.map((j: any) => (
                           <option key={j.id} value={j.title}>
                             {j.title}
                           </option>

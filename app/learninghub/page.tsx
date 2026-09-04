@@ -4,33 +4,6 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { officialApi } from "@/lib/api";
 
-const programs = [
-  {
-    id: "fullstack-nextjs",
-    title: "Full-Stack Next.js & React Engineering",
-    category: "Development",
-    duration: "16 Weeks",
-    mode: "Live Online + Capstone Labs",
-    level: "Beginner to Advanced",
-    badge: "Most Popular",
-    color: "from-blue-600 to-cyan-500",
-    bgSoft: "bg-blue-50",
-    textCol: "text-blue-600",
-    borderCol: "border-blue-100",
-    description:
-      "Master modern frontend and full-stack development. Build production-grade web applications using React 19, Next.js App Router, TypeScript, Tailwind CSS, and Server Actions.",
-    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "PostgreSQL"],
-    modules: [
-      "Modern JavaScript ES6+ & TypeScript Mastery",
-      "React 19 Hooks, State, and Component Architecture",
-      "Next.js App Router, SSR, SSG, and Server Actions",
-      "RESTful & GraphQL API Integrations with PostgreSQL",
-      "Capstone Project: Multi-Tenant Enterprise SaaS Platform",
-    ],
-    careerOutcome: "Frontend / Full-Stack Engineer (₹8L – ₹18L PA)",
-  }
-];
-
 const categories = ["All", "Development", "AI & Data", "Cloud & DevOps", "Cybersecurity", "Business"];
 const experienceLevels = ["All Levels", "Beginner to Advanced", "Intermediate"];
 const durations = ["All Durations", "10-12 Weeks", "14-16 Weeks"];
@@ -69,7 +42,8 @@ const specialOffers = [
 ];
 
 export default function LearningHubPage() {
-  const [allPrograms, setAllPrograms] = useState<any[]>(programs);
+  const [allPrograms, setAllPrograms] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedLevel, setSelectedLevel] = useState("All Levels");
   const [selectedDuration, setSelectedDuration] = useState("All Durations");
@@ -126,11 +100,14 @@ export default function LearningHubPage() {
   useEffect(() => {
     const fetchLiveCourses = async () => {
       try {
+        setLoading(true);
         const data = await officialApi.getCourses();
         if (data && data.courses && data.courses.length > 0) {
           const formatted = data.courses.map((c: any) => ({
-            id: c._id || c.slug,
+            id: c.slug || c._id,
+            slug: c.slug || c._id,
             title: c.title,
+            heroTagline: c.heroTagline || "",
             category: c.category || "Development",
             duration: c.duration || "12 Weeks",
             mode: c.mode || "Live Online",
@@ -140,19 +117,31 @@ export default function LearningHubPage() {
             bgSoft: c.bgSoft || "bg-blue-50",
             textCol: c.textCol || "text-blue-600",
             borderCol: c.borderCol || "border-blue-100",
+            image: c.image || c.previewImage || c.thumbnail || c.bannerImage || "",
+            bannerImage: c.bannerImage || c.image || c.previewImage || c.thumbnail || "",
             description: c.description,
             techStack: c.techStack || [],
             modules: c.modules && c.modules.length > 0 ? c.modules : ["Core Architecture", "Hands-On Labs", "Capstone Deployment"],
             careerOutcome: c.careerOutcome || "Software Engineer",
+            discountedPrice: c.discountedPrice ?? (typeof c.price === 'number' ? c.price : 24999),
+            originalPrice: c.originalPrice ?? (c.discountedPrice ? c.discountedPrice * 2 : 49999),
+            rating: c.rating ?? 4.88,
+            reviewsCount: c.reviewsCount ?? 124,
+            totalHours: c.totalHours || "",
+            lecturesCount: c.lecturesCount || "",
+            nextBatchDate: c.nextBatchDate || "",
+            emiStartsAt: c.emiStartsAt || "",
           }));
 
-          // Merge dynamic courses without duplicating titles
-          const titles = new Set(formatted.map((f: any) => f.title.toLowerCase()));
-          const uniqueStatic = programs.filter((p) => !titles.has(p.title.toLowerCase()));
-          setAllPrograms([...formatted, ...uniqueStatic]);
+          setAllPrograms(formatted);
+        } else {
+          setAllPrograms([]);
         }
       } catch (err) {
-        console.log("Using static programs cache");
+        console.log("Failed to fetch live courses:", err);
+        setAllPrograms([]);
+      } finally {
+        setLoading(false);
       }
     };
     fetchLiveCourses();
@@ -341,7 +330,7 @@ export default function LearningHubPage() {
               </h2>
               <p className="mt-1 text-xs sm:text-sm text-slate-500">
                 Showing <strong className="text-blue-600 font-bold">{filteredPrograms.length}</strong> of{" "}
-                {programs.length} industry-led curriculums
+                {allPrograms.length} industry-led curriculums
               </p>
             </div>
 
@@ -538,8 +527,33 @@ export default function LearningHubPage() {
             </div>
           )}
 
-          {/* Programs Grid or Empty State */}
-          {filteredPrograms.length === 0 ? (
+          {/* Programs Grid, Loading Skeletons, or Empty State */}
+          {loading ? (
+            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3, 4, 5, 6].map((idx) => (
+                <div
+                  key={idx}
+                  className="animate-pulse rounded-2xl border border-slate-200 bg-white p-6 shadow-xs"
+                >
+                  <div className="h-40 w-full rounded-xl bg-slate-200 mb-4" />
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="h-5 w-20 rounded-full bg-slate-200" />
+                    <div className="h-5 w-24 rounded-full bg-slate-200" />
+                  </div>
+                  <div className="h-6 w-3/4 rounded-lg bg-slate-200 mb-2" />
+                  <div className="h-4 w-full rounded bg-slate-100 mb-1" />
+                  <div className="h-4 w-2/3 rounded bg-slate-100 mb-4" />
+                  <div className="h-12 w-full rounded-xl bg-slate-50 border border-slate-100 mb-4" />
+                  <div className="flex gap-1.5 mb-5">
+                    <div className="h-4 w-16 rounded bg-slate-200" />
+                    <div className="h-4 w-14 rounded bg-slate-200" />
+                    <div className="h-4 w-20 rounded bg-slate-200" />
+                  </div>
+                  <div className="h-9 w-full rounded-xl bg-slate-200" />
+                </div>
+              ))}
+            </div>
+          ) : filteredPrograms.length === 0 ? (
             <div className="mt-12 rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center shadow-xs">
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-2xl text-slate-400">
                 🔍
@@ -565,28 +579,54 @@ export default function LearningHubPage() {
                   key={program.id}
                   className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 shadow-2xs transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg"
                 >
-                  <div className="my-2">
-                    <img src="https://www.udgamschool.com/wp-content/uploads/2023/05/dummy-image-grey-e1398449111870.jpg" className="rounded-xl " />
+                  <div className="relative my-2 overflow-hidden rounded-xl bg-slate-100 h-44 flex items-center justify-center">
+                    {program.bannerImage || program.image || program.thumbnail ? (
+                      <img
+                        src={program.bannerImage || program.image || program.thumbnail}
+                        alt={program.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className={`w-full h-full bg-gradient-to-br ${program.color || 'from-blue-600 to-indigo-600'} flex items-center justify-center text-white text-3xl font-extrabold`}>
+                        💻
+                      </div>
+                    )}
+                    {program.badge && (
+                      <span className="absolute top-2.5 left-2.5 rounded-full bg-slate-900/80 backdrop-blur-xs px-2.5 py-0.5 text-[10px] font-bold text-white shadow-xs">
+                        {program.badge}
+                      </span>
+                    )}
+                    {program.rating && (
+                      <span className="absolute bottom-2.5 right-2.5 rounded-full bg-amber-500/90 backdrop-blur-xs px-2 py-0.5 text-[10px] font-bold text-white shadow-xs flex items-center gap-1">
+                        ★ {program.rating}
+                      </span>
+                    )}
                   </div>
                   <div>
                     <div className="flex items-center justify-between">
                       <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-bold text-slate-700">
                         {program.category}
                       </span>
-                      <span
-                        className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold ${program.bgSoft} ${program.textCol} border ${program.borderCol}`}
-                      >
-                        {program.badge}
-                      </span>
+                      {program.totalHours && (
+                        <span className="text-[11px] font-mono font-medium text-slate-500">
+                          ⏱ {program.totalHours}
+                        </span>
+                      )}
                     </div>
 
-                    <h3 className="mt-4 font-heading text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition">
-                      <Link href={`/learninghub/${program.id || program.slug || program._id}`}>
+                    <h3 className="mt-3 font-heading text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition">
+                      <Link href={`/learninghub/${program.slug || program.id || program._id}`}>
                         {program.title}
                       </Link>
                     </h3>
 
-                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-3">
+                    {program.heroTagline && (
+                      <p className="mt-1 text-xs font-semibold text-blue-600 line-clamp-1">
+                        {program.heroTagline}
+                      </p>
+                    )}
+
+                    <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-2">
                       {program.description}
                     </p>
 
@@ -603,7 +643,7 @@ export default function LearningHubPage() {
                     </div>
 
                     <div className="mt-3 flex flex-wrap gap-1">
-                      {(program.techStack || []).map((tech: string) => (
+                      {(program.techStack || []).slice(0, 4).map((tech: string) => (
                         <span
                           key={tech}
                           className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-700"
@@ -614,22 +654,42 @@ export default function LearningHubPage() {
                     </div>
                   </div>
 
-                  <div className="mt-6 border-t border-slate-100 pt-3.5 flex items-center justify-between gap-2">
-                    <Link
-                      href={`/learninghub/${program.id || program.slug || program._id}`}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-blue-600 transition"
-                    >
-                      <span>Syllabus</span>
-                      <span>→</span>
-                    </Link>
+                  {/* Pricing and CTAs */}
+                  <div className="mt-5 border-t border-slate-100 pt-3.5 flex items-center justify-between gap-2">
+                    <div>
+                      {program.discountedPrice ? (
+                        <div className="flex items-baseline gap-1.5">
+                          <span className="text-base font-extrabold font-mono text-slate-900">
+                            ₹{Number(program.discountedPrice).toLocaleString('en-IN')}
+                          </span>
+                          {program.originalPrice && program.originalPrice > program.discountedPrice && (
+                            <span className="text-xs text-slate-400 line-through font-mono">
+                              ₹{Number(program.originalPrice).toLocaleString('en-IN')}
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-xs font-bold text-emerald-600">Free / Sponsored</span>
+                      )}
+                    </div>
 
-                    <Link
-                      href={`/learninghub/${program.id || program.slug || program._id}/enroll`}
-                      className="inline-flex items-center gap-1 rounded-xl bg-blue-600 hover:bg-blue-700 px-3.5 py-1.5 text-xs font-bold text-white shadow-xs transition active:scale-95"
-                    >
-                      <span>Enroll & Pay</span>
-                      <span>⚡</span>
-                    </Link>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`/learninghub/${program.slug || program.id || program._id}`}
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-blue-600 transition"
+                      >
+                        <span>Details</span>
+                        <span>→</span>
+                      </Link>
+
+                      <Link
+                        href={`/learninghub/${program.slug || program.id || program._id}/enroll`}
+                        className="inline-flex items-center gap-1 rounded-xl bg-blue-600 hover:bg-blue-700 px-3.5 py-1.5 text-xs font-bold text-white shadow-xs transition active:scale-95"
+                      >
+                        <span>Enroll</span>
+                        <span>⚡</span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -766,7 +826,7 @@ export default function LearningHubPage() {
                         required
                         className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-xs sm:text-sm text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20 bg-white"
                       >
-                        {programs.map((p) => (
+                        {allPrograms.map((p: any) => (
                           <option key={p.id} value={p.title}>
                             {p.title} ({p.duration})
                           </option>

@@ -6,14 +6,14 @@
 const rawApiUrl = (
   process.env.NEXT_PUBLIC_API_URL ||
   process.env.NEXT_PUBLIC_BACKEND_URL ||
-  ""
+  "http://localhost:5000/api"
 ).trim().replace(/\/+$/, "");
 
 export const API_BASE_URL = rawApiUrl
   ? rawApiUrl.endsWith("/api")
     ? rawApiUrl
     : `${rawApiUrl}/api`
-  : "";
+  : "http://localhost:5000/api";
 
 async function fetchJson<T>(
   endpoint: string,
@@ -136,6 +136,28 @@ export const officialApi = {
 
   getBlogBySlug: async (slug: string) => {
     return fetchJson<{ success: boolean; blog: any }>(`/blogs/${slug}`);
+  },
+
+  // 4. Contact & Enterprise Technical Consultation
+  submitContactInquiry: async (data: {
+    fullName: string;
+    email: string;
+    phone: string;
+    company?: string;
+    service?: string;
+    budget?: string;
+    message: string;
+    source?: string;
+  }) => {
+    return fetchJson<{
+      success: boolean;
+      message: string;
+      inquiryId?: string;
+      inquiry?: any;
+    }>("/contacts", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
   },
 };
 

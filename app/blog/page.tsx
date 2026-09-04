@@ -5,139 +5,11 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { officialApi } from "@/lib/api";
 
-const blogPosts = [
-  {
-    title: "How Autonomous AI Agents Are Transforming Enterprise Operations in 2026",
-    slug: "how-ai-is-transforming-modern-businesses",
-    category: "AI",
-    date: "Aug 18, 2026",
-    readTime: "6 min read",
-    coverImage: "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80",
-    author: {
-      name: "Dr. Vikram Sharma",
-      role: "Head of AI Research",
-      initials: "VS",
-      avatarBg: "bg-blue-600",
-    },
-    badge: "Featured Insight",
-    description:
-      "Explore how multi-agent LLM systems and retrieval-augmented generation (RAG) are eliminating manual back-office tasks, automating tier-1 customer support, and driving 4x operational speed.",
-    tags: ["Autonomous Agents", "Enterprise RAG", "LLMs", "Automation"],
-  },
-  {
-    title: "Multi-Cloud vs Hybrid Cloud: Choosing the Right Architecture for Scale",
-    slug: "why-cloud-computing-matters-for-growing-businesses",
-    category: "Cloud",
-    date: "Aug 14, 2026",
-    readTime: "5 min read",
-    coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-    author: {
-      name: "Sarah Jenkins",
-      role: "Principal Cloud Architect",
-      initials: "SJ",
-      avatarBg: "bg-indigo-600",
-    },
-    badge: "Cloud & DevOps",
-    description:
-      "A deep technical breakdown of multi-region AWS and Azure failover architectures, zero-downtime Kubernetes deployments, and cost-optimization frameworks.",
-    tags: ["AWS", "Kubernetes", "DevOps", "Multi-Cloud"],
-  },
-  {
-    title: "Next.js 16 App Router vs Traditional Single Page Apps: Production Benchmarks",
-    slug: "nextjs-vs-react-which-one-should-you-choose",
-    category: "Technology",
-    date: "Aug 10, 2026",
-    readTime: "7 min read",
-    coverImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
-    author: {
-      name: "Aditya Verma",
-      role: "Lead Frontend Architect",
-      initials: "AV",
-      avatarBg: "bg-cyan-600",
-    },
-    badge: "Web Architecture",
-    description:
-      "An in-depth performance analysis measuring Core Web Vitals, server actions concurrency, partial prerendering (PPR), and SEO rankings across high-traffic platforms.",
-    tags: ["Next.js 16", "React 19", "Performance", "Web Development"],
-  },
-  {
-    title: "Zero-Trust Architecture: Safeguarding Enterprise Cloud Workloads Against Modern Threats",
-    slug: "zero-trust-cybersecurity-guide",
-    category: "Cybersecurity",
-    date: "Aug 08, 2026",
-    readTime: "6 min read",
-    coverImage: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
-    author: {
-      name: "Rohan Mehra",
-      role: "Chief Information Security Officer",
-      initials: "RM",
-      avatarBg: "bg-emerald-600",
-    },
-    badge: "Cyber Defense",
-    description:
-      "How to implement least-privilege IAM, automated SIEM anomaly detection, and continuous VAPT penetration audits across distributed cloud environments.",
-    tags: ["Zero-Trust", "SIEM", "SOC 2", "Penetration Testing"],
-  },
-  {
-    title: "The 2026 Developer Roadmap: Transitioning from Coding to AI-Assisted Engineering",
-    slug: "how-to-start-career-in-modern-technology",
-    category: "Education",
-    date: "Jul 30, 2026",
-    readTime: "6 min read",
-    coverImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
-    author: {
-      name: "Rajesh Kumar",
-      role: "Director of Tech Education",
-      initials: "RK",
-      avatarBg: "bg-amber-600",
-    },
-    badge: "Career & Upskilling",
-    description:
-      "A comprehensive roadmap for engineers and career switchers: mastering full-stack fundamentals, cloud DevOps pipelines, agentic development workflows, and portfolio building.",
-    tags: ["Career Roadmap", "EdTech", "Full-Stack", "Upskilling"],
-  },
-  {
-    title: "Generative AI in Production: Mitigating Hallucinations with Deterministic Guardrails",
-    slug: "generative-ai-business-guide",
-    category: "AI",
-    date: "Jul 25, 2026",
-    readTime: "8 min read",
-    coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80",
-    author: {
-      name: "Elena Rostova",
-      role: "VP of Product Engineering",
-      initials: "ER",
-      avatarBg: "bg-purple-600",
-    },
-    badge: "AI Engineering",
-    description:
-      "Best practices for deploying generative AI in regulated industries: implementing NeMo guardrails, semantic cache layers, token optimization, and real-time output auditing.",
-    tags: ["Generative AI", "Guardrails", "Vector DB", "Enterprise AI"],
-  },
-  {
-    title: "Data-Driven Performance Marketing: Scaling B2B Customer Acquisition",
-    slug: "digital-marketing-guide-for-startups",
-    category: "Marketing",
-    date: "Aug 05, 2026",
-    readTime: "8 min read",
-    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-    author: {
-      name: "Ananya Iyer",
-      role: "Head of Growth & Analytics",
-      initials: "AI",
-      avatarBg: "bg-pink-600",
-    },
-    badge: "Growth Marketing",
-    description:
-      "How high-growth technology companies leverage conversion rate optimization (CRO), automated LinkedIn campaigns, technical SEO, and predictive attribution modeling.",
-    tags: ["Growth Marketing", "B2B Acquisition", "SEO", "CRO"],
-  },
-];
-
 const categories = ["All", "AI", "Cloud", "Technology", "Cybersecurity", "Education", "Marketing"];
 
 export default function BlogPage() {
-  const [allBlogs, setAllBlogs] = useState<any[]>(blogPosts);
+  const [allBlogs, setAllBlogs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [emailSubscribed, setEmailSubscribed] = useState(false);
@@ -147,13 +19,14 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchLiveBlogs = async () => {
       try {
+        setLoading(true);
         const data = await officialApi.getBlogs();
         if (data && data.blogs && data.blogs.length > 0) {
           const formatted = data.blogs.map((b: any) => ({
             title: b.title,
             slug: b.slug || b._id,
             category: b.category || "Technology",
-            date: b.date || "Aug 2026",
+            date: b.date || (b.createdAt ? new Date(b.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : "Recently"),
             readTime: b.readTime || "5 min read",
             coverImage: b.coverImage || "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80",
             author: b.author || {
@@ -167,13 +40,15 @@ export default function BlogPage() {
             tags: b.tags || [],
           }));
 
-          // Merge dynamic blogs
-          const slugs = new Set(formatted.map((f: any) => f.slug));
-          const uniqueStatic = blogPosts.filter((p) => !slugs.has(p.slug));
-          setAllBlogs([...formatted, ...uniqueStatic]);
+          setAllBlogs(formatted);
+        } else {
+          setAllBlogs([]);
         }
       } catch (err) {
-        console.log("Using static blogPosts cache");
+        console.log("Failed to fetch live blogs:", err);
+        setAllBlogs([]);
+      } finally {
+        setLoading(false);
       }
     };
     fetchLiveBlogs();
@@ -196,11 +71,11 @@ export default function BlogPage() {
     }
   };
 
-  const featuredPost = blogPosts[0];
+  const featuredPost = allBlogs.length > 0 ? allBlogs[0] : null;
 
   return (
     <main className="min-h-screen bg-slate-50">
-      {selectedCategory === "All" && !searchQuery && (
+      {!loading && featuredPost && selectedCategory === "All" && !searchQuery && (
         <section className="py-10 lg:py-14">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="group overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white shadow-lg transition-all hover:shadow-xl">
@@ -243,7 +118,7 @@ export default function BlogPage() {
                     </p>
 
                     <div className="mt-4 flex flex-wrap gap-1.5">
-                      {featuredPost.tags.map((tag) => (
+                      {(featuredPost.tags || []).map((tag: string) => (
                         <span
                           key={tag}
                           className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-mono font-medium text-slate-600"
@@ -293,81 +168,119 @@ export default function BlogPage() {
             </span>
           </div>
 
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredPosts.map((post) => (
-              <article
-                key={post.slug}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-2xs transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg"
-              >
-                {/* Real Image Card Header */}
-                <div className="relative h-48 w-full overflow-hidden bg-slate-900">
-                  <Image
-                    src={post.coverImage}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-
-                  <div className="absolute top-3 left-3 z-10">
-                    <span className="rounded-full bg-slate-950/80 px-2.5 py-0.5 text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-300 backdrop-blur-md">
-                      {post.category}
-                    </span>
-                  </div>
-
-                  <div className="absolute bottom-3 right-3 z-10">
-                    <span className="rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-md">
-                      {post.readTime}
-                    </span>
+          {loading ? (
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3, 4, 5, 6].map((idx) => (
+                <div
+                  key={idx}
+                  className="animate-pulse rounded-2xl border border-slate-200 bg-white shadow-xs overflow-hidden"
+                >
+                  <div className="h-48 w-full bg-slate-200" />
+                  <div className="p-5">
+                    <div className="h-5 w-3/4 bg-slate-200 rounded mb-3" />
+                    <div className="h-4 w-full bg-slate-100 rounded mb-1" />
+                    <div className="h-4 w-2/3 bg-slate-100 rounded mb-4" />
+                    <div className="flex gap-1.5 mb-4">
+                      <div className="h-4 w-12 bg-slate-100 rounded" />
+                      <div className="h-4 w-12 bg-slate-100 rounded" />
+                    </div>
+                    <div className="flex items-center gap-2 pt-3 border-t border-slate-100">
+                      <div className="h-7 w-7 rounded-full bg-slate-200" />
+                      <div className="h-3 w-20 bg-slate-200 rounded" />
+                    </div>
                   </div>
                 </div>
+              ))}
+            </div>
+          ) : filteredPosts.length === 0 ? (
+            <div className="mt-12 rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center shadow-xs">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-2xl text-slate-400">
+                📰
+              </div>
+              <h3 className="mt-4 font-heading text-lg font-bold text-slate-900">
+                No articles found
+              </h3>
+              <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-sm mx-auto">
+                There are currently no published articles matching your selected category or search.
+              </p>
+            </div>
+          ) : (
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredPosts.map((post) => (
+                <article
+                  key={post.slug}
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-2xs transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg"
+                >
+                  {/* Real Image Card Header */}
+                  <div className="relative h-48 w-full overflow-hidden bg-slate-900">
+                    <Image
+                      src={post.coverImage}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
 
-                {/* Body Content */}
-                <div className="p-5 flex flex-col justify-between flex-1">
-                  <div>
-                    <h3 className="font-heading text-base sm:text-lg font-bold leading-snug text-slate-900 transition group-hover:text-blue-600">
-                      <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                    </h3>
+                    <div className="absolute top-3 left-3 z-10">
+                      <span className="rounded-full bg-slate-950/80 px-2.5 py-0.5 text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-300 backdrop-blur-md">
+                        {post.category}
+                      </span>
+                    </div>
 
-                    <p className="mt-2 text-xs leading-relaxed text-slate-600 line-clamp-2">
-                      {post.description}
-                    </p>
-
-                    <div className="mt-3 flex flex-wrap gap-1">
-                      {(post.tags || []).slice(0, 3).map((tag: string) => (
-                        <span
-                          key={tag}
-                          className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-600"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
+                    <div className="absolute bottom-3 right-3 z-10">
+                      <span className="rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-md">
+                        {post.readTime}
+                      </span>
                     </div>
                   </div>
 
-                  {/* Author Footer */}
-                  <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3">
-                    <div className="flex items-center gap-2">
-                      <div className={`flex h-7 w-7 items-center justify-center rounded-full font-bold text-[11px] text-white ${post.author.avatarBg}`}>
-                        {post.author.initials}
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-slate-800">{post.author.name}</p>
-                        <p className="text-[10px] text-slate-400">{post.date}</p>
+                  {/* Body Content */}
+                  <div className="p-5 flex flex-col justify-between flex-1">
+                    <div>
+                      <h3 className="font-heading text-base sm:text-lg font-bold leading-snug text-slate-900 transition group-hover:text-blue-600">
+                        <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                      </h3>
+
+                      <p className="mt-2 text-xs leading-relaxed text-slate-600 line-clamp-2">
+                        {post.description}
+                      </p>
+
+                      <div className="mt-3 flex flex-wrap gap-1">
+                        {(post.tags || []).slice(0, 3).map((tag: string) => (
+                          <span
+                            key={tag}
+                            className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-600"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
                       </div>
                     </div>
 
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="text-xs font-bold text-blue-600 group-hover:text-blue-700 transition"
-                    >
-                      Read →
-                    </Link>
+                    {/* Author Footer */}
+                    <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3">
+                      <div className="flex items-center gap-2">
+                        <div className={`flex h-7 w-7 items-center justify-center rounded-full font-bold text-[11px] text-white ${post.author.avatarBg}`}>
+                          {post.author.initials}
+                        </div>
+                        <div>
+                          <p className="text-xs font-bold text-slate-800">{post.author.name}</p>
+                          <p className="text-[10px] text-slate-400">{post.date}</p>
+                        </div>
+                      </div>
+
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="text-xs font-semibold text-blue-600 hover:text-blue-700"
+                      >
+                        Read →
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

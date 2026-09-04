@@ -570,7 +570,9 @@ export default function SolutionPage() {
               Zero-Trust Cybersecurity & Threat Intelligence.
             </h2>
             <p className="mt-4 text-base text-slate-300 sm:text-lg leading-relaxed">
-              Protect your applications, cloud infrastructure, and proprietary data pipelines with bank-grade defense architectures, red-team penetration audits, and 24/7 SOC monitoring.
+              Protect your applications, cloud infrastructure, and proprietary
+              data pipelines with bank-grade defense architectures, red-team
+              penetration audits, and 24/7 SOC monitoring.
             </p>
           </div>
 
