@@ -165,3 +165,13 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+@keyframes conduitFlow {
+  0% {
+    stroke-dashoffset: 40;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+

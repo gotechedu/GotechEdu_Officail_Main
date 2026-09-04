@@ -40,7 +40,7 @@ export const organizationSchema = {
   description:
     "GoTechEdu is an enterprise technology solutions provider and modern tech academy specializing in software engineering, autonomous AI systems, multi-cloud DevOps, and cybersecurity.",
   email: "gotecheduofficial@gmail.com",
-  telephone: "+91-9608094827",
+  telephone: "+91-9608094837",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Gurugram",
@@ -54,7 +54,7 @@ export const organizationSchema = {
   ],
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+91-9608094827",
+    telephone: "+91-9608094837",
     contactType: "customer service",
     email: "gotecheduofficial@gmail.com",
     availableLanguage: ["English", "Hindi"],

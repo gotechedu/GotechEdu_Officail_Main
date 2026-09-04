@@ -8,8 +8,18 @@ const valueProps = [
     category: "Engineering",
     number: "01",
     icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 4a6 6 0 100 12 6 6 0 000-12zm0 3a3 3 0 100 6 3 3 0 000-6z" />
+      <svg
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 4a6 6 0 100 12 6 6 0 000-12zm0 3a3 3 0 100 6 3 3 0 000-6z"
+        />
       </svg>
     ),
     tag: "ROI Focused",
@@ -17,7 +27,11 @@ const valueProps = [
     title: "Business-Centric Engineering",
     description:
       "We build technology with clear ROI metrics—focusing on revenue growth, operational efficiency, and user retention.",
-    highlights: ["Revenue-Driven Architecture", "KPI Dashboards", "Cost Optimization"],
+    highlights: [
+      "Revenue-Driven Architecture",
+      "KPI Dashboards",
+      "Cost Optimization",
+    ],
     color: "from-blue-500 to-cyan-500",
     bgSoft: "bg-blue-50",
     textCol: "text-blue-600",
@@ -29,8 +43,18 @@ const valueProps = [
     category: "Engineering",
     number: "02",
     icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      <svg
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M13 10V3L4 14h7v7l9-11h-7z"
+        />
       </svg>
     ),
     tag: "Speed to Market",
@@ -50,8 +74,18 @@ const valueProps = [
     category: "Security & AI",
     number: "03",
     icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+      <svg
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+        />
       </svg>
     ),
     tag: "Enterprise Security",
@@ -59,7 +93,11 @@ const valueProps = [
     title: "Bank-Grade Security & Compliance",
     description:
       "Security-first design with SOC2, ISO27001 standards, encrypted data pipelines, and strict GDPR adherence.",
-    highlights: ["Data Encryption at Rest", "Compliance Auditing", "Zero-Trust Architecture"],
+    highlights: [
+      "Data Encryption at Rest",
+      "Compliance Auditing",
+      "Zero-Trust Architecture",
+    ],
     color: "from-emerald-500 to-teal-500",
     bgSoft: "bg-emerald-50",
     textCol: "text-emerald-600",
@@ -71,8 +109,18 @@ const valueProps = [
     category: "Security & AI",
     number: "04",
     icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 01-6.23-.693L4.2 13.9" />
+      <svg
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 01-6.23-.693L4.2 13.9"
+        />
       </svg>
     ),
     tag: "AI First",
@@ -80,7 +128,11 @@ const valueProps = [
     title: "Next-Gen AI Capabilities",
     description:
       "Direct integration of advanced AI models, autonomous agents, and RAG architectures tailored to your proprietary datasets.",
-    highlights: ["Autonomous AI Agents", "RAG Vector Pipelines", "Predictive Analytics"],
+    highlights: [
+      "Autonomous AI Agents",
+      "RAG Vector Pipelines",
+      "Predictive Analytics",
+    ],
     color: "from-purple-500 to-indigo-500",
     bgSoft: "bg-purple-50",
     textCol: "text-purple-600",
@@ -92,8 +144,18 @@ const valueProps = [
     category: "Talent & Scale",
     number: "05",
     icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+      <svg
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+        />
       </svg>
     ),
     tag: "Expert Talent",
@@ -101,7 +163,11 @@ const valueProps = [
     title: "Dedicated Senior Engineering Team",
     description:
       "Direct access to principal architects, lead AI engineers, DevOps specialists, and dedicated project managers.",
-    highlights: ["Principal Architects", "DevOps Specialists", "Dedicated Leads"],
+    highlights: [
+      "Principal Architects",
+      "DevOps Specialists",
+      "Dedicated Leads",
+    ],
     color: "from-sky-500 to-blue-600",
     bgSoft: "bg-sky-50",
     textCol: "text-sky-600",
@@ -113,8 +179,18 @@ const valueProps = [
     category: "Talent & Scale",
     number: "06",
     icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <svg
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth="2"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
       </svg>
     ),
     tag: "End-to-End Partnership",
@@ -122,7 +198,11 @@ const valueProps = [
     title: "Full Ecosystem Support & Upskilling",
     description:
       "Post-launch maintenance, 24/7 SLA support, and complete workforce upskilling through GotechEdu tech education.",
-    highlights: ["24/7 SLA Monitoring", "Workforce Training", "Continuous Optimization"],
+    highlights: [
+      "24/7 SLA Monitoring",
+      "Workforce Training",
+      "Continuous Optimization",
+    ],
     color: "from-rose-500 to-pink-500",
     bgSoft: "bg-rose-50",
     textCol: "text-rose-600",
@@ -144,7 +224,7 @@ function WhyChooseUs() {
   return (
     <section
       id="why-choose-us"
-      className="relative overflow-hidden bg-gradient-to-b from-slate-50/70 via-white to-slate-50/70 py-20 lg:py-28 border-t border-slate-200/80"
+      className="relative overflow-hidden bg-gradient-to-b from-slate-50/70 via-white to-slate-50/70 py-12 lg:py-15 border-t border-slate-200/80"
     >
       {/* Background ambient lighting */}
       <div className="absolute left-[5%] top-1/4 h-80 w-80 rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
@@ -168,7 +248,8 @@ function WhyChooseUs() {
           </h2>
 
           <p className="mt-4 text-sm sm:text-base lg:text-lg leading-relaxed text-slate-600 font-medium">
-            We combine deep technical expertise with strategic execution to help enterprises outpace competitors and innovate faster.
+            We combine deep technical expertise with strategic execution to help
+            enterprises outpace competitors and innovate faster.
           </p>
         </div>
 
@@ -184,10 +265,7 @@ function WhyChooseUs() {
                 className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${prop.color} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
               />
 
-              {/* Watermark Step Number in Background */}
-              <span className="absolute right-6 top-5 font-heading text-5xl font-black text-slate-100/90 select-none pointer-events-none transition-colors group-hover:text-blue-50">
-                {prop.number}
-              </span>
+
 
               <div>
                 {/* Header Icon & Tag */}
@@ -210,7 +288,9 @@ function WhyChooseUs() {
 
                 {/* Metric Highlight Pill */}
                 <div className="mt-5">
-                  <span className={`inline-flex items-center gap-1.5 rounded-lg ${prop.bgSoft} px-2.5 py-1 text-[11px] font-mono font-bold ${prop.textCol} border ${prop.borderCol}`}>
+                  <span
+                    className={`inline-flex items-center gap-1.5 rounded-lg ${prop.bgSoft} px-2.5 py-1 text-[11px] font-mono font-bold ${prop.textCol} border ${prop.borderCol}`}
+                  >
                     <span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />
                     {prop.metricBadge}
                   </span>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
-import Stats from "@/components/home/Stats";
+import FourPillars from "@/components/home/FourPillars";
 import Services from "@/components/home/Services";
 import TechStack from "@/components/home/TechStack";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
@@ -22,7 +22,7 @@ function HomePage() {
   return (
     <main>
       <Hero />
-      <Stats />
+      <FourPillars />
       <Services />
       <WhyChooseUs />
       <Testimonials />

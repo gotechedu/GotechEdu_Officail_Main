@@ -57,7 +57,9 @@ export default function ContactPage() {
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -82,7 +84,11 @@ export default function ContactPage() {
       });
 
       if (response && response.success) {
-        setInquiryRef(response.inquiryId ? response.inquiryId.slice(-8).toUpperCase() : `GT-${Math.floor(100000 + Math.random() * 900000)}`);
+        setInquiryRef(
+          response.inquiryId
+            ? response.inquiryId.slice(-8).toUpperCase()
+            : `GT-${Math.floor(100000 + Math.random() * 900000)}`,
+        );
         setSubmitted(true);
       } else {
         // Fallback graceful success if backend offline/preview mode, but keep user informed
@@ -144,10 +150,10 @@ export default function ContactPage() {
                       </p>
                       <div className="flex items-center justify-between mt-0.5">
                         <a
-                          href="tel:+919608094827"
+                          href="tel:+919608094837"
                           className="text-xs sm:text-sm font-bold text-slate-900 hover:text-emerald-600 transition"
                         >
-                          +91 96080 94827
+                          +91 96080 94837
                         </a>
                         <span className="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">
                           Live Now
@@ -166,7 +172,7 @@ export default function ContactPage() {
                         Instant WhatsApp Consultation
                       </p>
                       <a
-                        href="https://wa.me/919608094827?text=Hi%20GoTechEdu%2C%20I%20would%20like%20to%20schedule%20a%20technical%20consultation."
+                        href="https://wa.me/919608094837?text=Hi%20GoTechEdu%2C%20I%20would%20like%20to%20schedule%20a%20technical%20consultation."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-xs sm:text-sm font-bold text-emerald-950 hover:text-emerald-700 transition flex items-center gap-1 mt-0.5"
@@ -188,7 +194,9 @@ export default function ContactPage() {
                       <p className="text-xs sm:text-sm font-bold text-slate-900">
                         Tech Enterprise Hub, Suite 400
                       </p>
-                      <p className="text-[10px] text-slate-500">Gurugram, NCR, India • Mon-Sat 9AM-7PM IST</p>
+                      <p className="text-[10px] text-slate-500">
+                        Gurugram, NCR, India • Mon-Sat 9AM-7PM IST
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -205,7 +213,10 @@ export default function ContactPage() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600 transition"
                     >
-                      <svg className="h-3.5 w-3.5 fill-current text-blue-600" viewBox="0 0 24 24">
+                      <svg
+                        className="h-3.5 w-3.5 fill-current text-blue-600"
+                        viewBox="0 0 24 24"
+                      >
                         <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z" />
                       </svg>
                       LinkedIn
@@ -217,7 +228,10 @@ export default function ContactPage() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:border-pink-500 hover:bg-pink-50 hover:text-pink-600 transition"
                     >
-                      <svg className="h-3.5 w-3.5 fill-current text-pink-600" viewBox="0 0 24 24">
+                      <svg
+                        className="h-3.5 w-3.5 fill-current text-pink-600"
+                        viewBox="0 0 24 24"
+                      >
                         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                       </svg>
                       Instagram
@@ -229,7 +243,10 @@ export default function ContactPage() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:border-blue-600 hover:bg-blue-50 hover:text-blue-700 transition"
                     >
-                      <svg className="h-3.5 w-3.5 fill-current text-blue-600" viewBox="0 0 24 24">
+                      <svg
+                        className="h-3.5 w-3.5 fill-current text-blue-600"
+                        viewBox="0 0 24 24"
+                      >
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                       </svg>
                       Facebook
@@ -250,15 +267,24 @@ export default function ContactPage() {
                 <ul className="mt-3.5 space-y-2 text-xs text-blue-100">
                   <li className="flex items-start gap-1.5">
                     <span className="text-cyan-300 font-bold">✓</span>
-                    <span><strong>Mutual NDA:</strong> Signed prior to reviewing proprietary logic.</span>
+                    <span>
+                      <strong>Mutual NDA:</strong> Signed prior to reviewing
+                      proprietary logic.
+                    </span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-cyan-300 font-bold">✓</span>
-                    <span><strong>Response SLA:</strong> Architecture review within 24 hours.</span>
+                    <span>
+                      <strong>Response SLA:</strong> Architecture review within
+                      24 hours.
+                    </span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-cyan-300 font-bold">✓</span>
-                    <span><strong>100% IP Rights:</strong> Code and models fully owned by you.</span>
+                    <span>
+                      <strong>100% IP Rights:</strong> Code and models fully
+                      owned by you.
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -281,22 +307,44 @@ export default function ContactPage() {
                       Consultation Request Confirmed!
                     </h3>
                     <p className="mx-auto mt-2 max-w-md text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      Thank you, <strong className="text-slate-900">{formData.fullName}</strong>. Your technical discovery brief has been dispatched to our engineering leadership team. A Principal Solutions Architect will reach out via <strong className="text-slate-900">{formData.email}</strong> within 2 to 4 business hours.
+                      Thank you,{" "}
+                      <strong className="text-slate-900">
+                        {formData.fullName}
+                      </strong>
+                      . Your technical discovery brief has been dispatched to
+                      our engineering leadership team. A Principal Solutions
+                      Architect will reach out via{" "}
+                      <strong className="text-slate-900">
+                        {formData.email}
+                      </strong>{" "}
+                      within 2 to 4 business hours.
                     </p>
 
                     {/* Summary Card */}
                     <div className="mt-5 mx-auto max-w-md rounded-xl bg-slate-50 p-4 border border-slate-200/80 text-left text-xs space-y-2">
                       <div className="flex justify-between items-center pb-2 border-b border-slate-200">
-                        <span className="text-slate-500 font-mono text-[10px] uppercase">Solution Track:</span>
-                        <span className="font-bold text-slate-900">{formData.service}</span>
+                        <span className="text-slate-500 font-mono text-[10px] uppercase">
+                          Solution Track:
+                        </span>
+                        <span className="font-bold text-slate-900">
+                          {formData.service}
+                        </span>
                       </div>
                       <div className="flex justify-between items-center pb-2 border-b border-slate-200">
-                        <span className="text-slate-500 font-mono text-[10px] uppercase">Contact Direct:</span>
-                        <span className="font-bold text-slate-900">{formData.phone}</span>
+                        <span className="text-slate-500 font-mono text-[10px] uppercase">
+                          Contact Direct:
+                        </span>
+                        <span className="font-bold text-slate-900">
+                          {formData.phone}
+                        </span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-slate-500 font-mono text-[10px] uppercase">Budget Scope:</span>
-                        <span className="font-bold text-blue-600">{formData.budget}</span>
+                        <span className="text-slate-500 font-mono text-[10px] uppercase">
+                          Budget Scope:
+                        </span>
+                        <span className="font-bold text-blue-600">
+                          {formData.budget}
+                        </span>
                       </div>
                     </div>
 
@@ -321,7 +369,7 @@ export default function ContactPage() {
                       </button>
 
                       <a
-                        href="https://wa.me/919608094827?text=Hi%20GoTechEdu%2C%20I%20have%20submitted%20inquiry%20reference%20for%20a%20technical%20consultation."
+                        href="https://wa.me/919608094837?text=Hi%20GoTechEdu%2C%20I%20have%20submitted%20inquiry%20reference%20for%20a%20technical%20consultation."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm hover:bg-emerald-700 transition inline-flex items-center gap-1.5"
@@ -342,7 +390,8 @@ export default function ContactPage() {
                         </span>
                       </div>
                       <p className="text-xs text-slate-500 mt-0.5">
-                        Tell us about your project requirements, technical architecture, and timelines.
+                        Tell us about your project requirements, technical
+                        architecture, and timelines.
                       </p>
                     </div>
 
@@ -493,9 +542,24 @@ export default function ContactPage() {
                     >
                       {submitting ? (
                         <>
-                          <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                          <svg
+                            className="animate-spin h-4 w-4 text-white"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8v8H4z"
+                            ></path>
                           </svg>
                           <span>Transmitting Consultation Brief...</span>
                         </>
@@ -504,7 +568,8 @@ export default function ContactPage() {
                       )}
                     </button>
                     <p className="text-[10px] text-center text-slate-400">
-                      🔒 Zero spam guarantee. Protected under mutual non-disclosure agreement.
+                      🔒 Zero spam guarantee. Protected under mutual
+                      non-disclosure agreement.
                     </p>
                   </form>
                 )}

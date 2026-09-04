@@ -839,7 +839,8 @@ function getFallbackCourse(slug: string, apiCourse?: any): CourseDetail {
   if (apiCourse) {
     const rawOrigPrice = Number(apiCourse.originalPrice) || 49999;
     const rawDiscPrice = Number(apiCourse.discountedPrice) || 24999;
-    const rawEmi = Number(apiCourse.emiStartsAt) || Math.round(rawDiscPrice / 12) || 2083;
+    const rawEmi =
+      Number(apiCourse.emiStartsAt) || Math.round(rawDiscPrice / 12) || 2083;
     const courseImage =
       apiCourse.image ||
       apiCourse.previewImage ||
@@ -851,115 +852,116 @@ function getFallbackCourse(slug: string, apiCourse?: any): CourseDetail {
       apiCourse.syllabusModules && apiCourse.syllabusModules.length > 0
         ? apiCourse.syllabusModules
         : apiCourse.modules && apiCourse.modules.length > 0
-        ? apiCourse.modules.map((m: string, i: number) => ({
-            moduleNumber: i + 1,
-            title: m,
-            duration: "3hr 30min",
-            lectures: [
-              {
-                title: `${m} - Core Principles & Setup`,
-                duration: "45 Min",
-                isPreview: true,
-                type: "video" as const,
-              },
-              {
-                title: `${m} - In-Depth Architecture & Production Patterns`,
-                duration: "60 Min",
-                isPreview: false,
-                type: "video" as const,
-              },
-              {
-                title: `${m} - Hands-On Implementation Lab`,
-                duration: "75 Min",
-                isPreview: false,
-                type: "lab" as const,
-              },
-            ],
-          }))
-        : [
-            {
-              moduleNumber: 1,
-              title: "Introduction to Core Principles & Environment Setup",
-              duration: "2hr 30min",
+          ? apiCourse.modules.map((m: string, i: number) => ({
+              moduleNumber: i + 1,
+              title: m,
+              duration: "3hr 30min",
               lectures: [
                 {
-                  title: "Program Overview, Architecture & Career Roadmap",
-                  duration: "25 Min",
+                  title: `${m} - Core Principles & Setup`,
+                  duration: "45 Min",
                   isPreview: true,
                   type: "video" as const,
                 },
                 {
-                  title: "Development Tooling & Tool Installation",
-                  duration: "35 Min",
-                  isPreview: true,
-                  type: "video" as const,
-                },
-                {
-                  title: "Lab: Foundational Practical Implementation",
-                  duration: "40 Min",
-                  isPreview: false,
-                  type: "lab" as const,
-                },
-              ],
-            },
-            {
-              moduleNumber: 2,
-              title: "Advanced Implementations, Architecture & Integrations",
-              duration: "4hr 15min",
-              lectures: [
-                {
-                  title: "Component Architecture & Scalability Best Practices",
+                  title: `${m} - In-Depth Architecture & Production Patterns`,
                   duration: "60 Min",
                   isPreview: false,
                   type: "video" as const,
                 },
                 {
-                  title: "Database Modeling, APIs & Asynchronous Flow",
-                  duration: "65 Min",
-                  isPreview: false,
-                  type: "video" as const,
-                },
-                {
-                  title: "Lab: High-Throughput Module Service",
+                  title: `${m} - Hands-On Implementation Lab`,
                   duration: "75 Min",
                   isPreview: false,
                   type: "lab" as const,
                 },
               ],
-            },
-          ];
+            }))
+          : [
+              {
+                moduleNumber: 1,
+                title: "Introduction to Core Principles & Environment Setup",
+                duration: "2hr 30min",
+                lectures: [
+                  {
+                    title: "Program Overview, Architecture & Career Roadmap",
+                    duration: "25 Min",
+                    isPreview: true,
+                    type: "video" as const,
+                  },
+                  {
+                    title: "Development Tooling & Tool Installation",
+                    duration: "35 Min",
+                    isPreview: true,
+                    type: "video" as const,
+                  },
+                  {
+                    title: "Lab: Foundational Practical Implementation",
+                    duration: "40 Min",
+                    isPreview: false,
+                    type: "lab" as const,
+                  },
+                ],
+              },
+              {
+                moduleNumber: 2,
+                title: "Advanced Implementations, Architecture & Integrations",
+                duration: "4hr 15min",
+                lectures: [
+                  {
+                    title:
+                      "Component Architecture & Scalability Best Practices",
+                    duration: "60 Min",
+                    isPreview: false,
+                    type: "video" as const,
+                  },
+                  {
+                    title: "Database Modeling, APIs & Asynchronous Flow",
+                    duration: "65 Min",
+                    isPreview: false,
+                    type: "video" as const,
+                  },
+                  {
+                    title: "Lab: High-Throughput Module Service",
+                    duration: "75 Min",
+                    isPreview: false,
+                    type: "lab" as const,
+                  },
+                ],
+              },
+            ];
 
     const instructorsList =
       apiCourse.instructors && apiCourse.instructors.length > 0
         ? apiCourse.instructors
         : apiCourse.instructor && apiCourse.instructor.name
-        ? [
-            {
-              name: apiCourse.instructor.name,
-              role: apiCourse.instructor.role || "Lead Engineering Mentor",
-              organization: apiCourse.instructor.organization || "GoTechEdu",
-              rating: 4.92,
-              students: "45,000+",
-              coursesCount: 5,
-              bio: "Senior technical architect with 12+ years building enterprise architectures and mentoring high-performance developer teams.",
-              avatar:
-                apiCourse.instructor.avatar ||
-                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
-            },
-          ]
-        : [
-            {
-              name: "Dr. Vikram Sharma",
-              role: "Lead Engineering Mentor",
-              organization: "GoTechEdu",
-              rating: 4.92,
-              students: "45,000+",
-              coursesCount: 5,
-              bio: "Senior architect with 12+ years building enterprise SaaS and mentoring high-performance developer teams.",
-              avatar:
-                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
-            },
-          ];
+          ? [
+              {
+                name: apiCourse.instructor.name,
+                role: apiCourse.instructor.role || "Lead Engineering Mentor",
+                organization: apiCourse.instructor.organization || "GoTechEdu",
+                rating: 4.92,
+                students: "45,000+",
+                coursesCount: 5,
+                bio: "Senior technical architect with 12+ years building enterprise architectures and mentoring high-performance developer teams.",
+                avatar:
+                  apiCourse.instructor.avatar ||
+                  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+              },
+            ]
+          : [
+              {
+                name: "Dr. Vikram Sharma",
+                role: "Lead Engineering Mentor",
+                organization: "GoTechEdu",
+                rating: 4.92,
+                students: "45,000+",
+                coursesCount: 5,
+                bio: "Senior architect with 12+ years building enterprise SaaS and mentoring high-performance developer teams.",
+                avatar:
+                  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+              },
+            ];
 
     const whatLearnList =
       apiCourse.whatYouWillLearn && apiCourse.whatYouWillLearn.length > 0
@@ -986,7 +988,8 @@ function getFallbackCourse(slug: string, apiCourse?: any): CourseDetail {
         ? apiCourse.faqs
         : [
             {
-              question: "How do I access class recordings if I miss a live session?",
+              question:
+                "How do I access class recordings if I miss a live session?",
               answer:
                 "All live lectures are recorded in HD and posted to your learning dashboard within 2 hours with code files and notes.",
             },
@@ -1831,7 +1834,7 @@ export default function CourseDetailPage({
                 </p>
 
                 <a
-                  href="tel:+91 9608094827"
+                  href="tel:+91 9608094837"
                   className="flex items-center justify-center gap-2 rounded-xl bg-emerald-50 border border-emerald-200 py-2.5 text-xs font-bold text-emerald-800 hover:bg-emerald-100 transition"
                 >
                   <span>📞</span>

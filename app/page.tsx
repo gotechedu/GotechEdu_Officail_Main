@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
-import Stats from "@/components/home/Stats";
+// import Stats from "@/components/home/Stats";
+import FourPillars from "@/components/home/FourPillars";
 import Services from "@/components/home/Services";
 import TechStack from "@/components/home/TechStack";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
@@ -28,12 +29,12 @@ export default function HomePage() {
   return (
     <main className="bg-slate-50 min-h-screen">
       <Hero />
-      <Stats />
+      {/* <Stats /> */}
+      <FourPillars />
       <Services />
       <TechStack />
       <WhyChooseUs />
       <Testimonials />
-      <CTASection />
     </main>
   );
 }
