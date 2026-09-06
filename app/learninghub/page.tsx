@@ -41,6 +41,30 @@ const specialOffers = [
   },
 ];
 
+const getCategoryDefaultImage = (category?: string, title?: string) => {
+  const cat = (category || "").toLowerCase();
+  const tit = (title || "").toLowerCase();
+  if (cat.includes("ai") || cat.includes("data") || tit.includes("ai") || tit.includes("generative")) {
+    return "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80";
+  }
+  if (cat.includes("cloud") || cat.includes("devops") || tit.includes("cloud") || tit.includes("devops") || tit.includes("aws") || tit.includes("docker")) {
+    return "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80";
+  }
+  if (cat.includes("security") || tit.includes("cyber") || tit.includes("security")) {
+    return "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80";
+  }
+  if (tit.includes("rust") || tit.includes("webassembly")) {
+    return "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80";
+  }
+  if (tit.includes("mern") || tit.includes("node") || tit.includes("express")) {
+    return "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80";
+  }
+  if (tit.includes("react") || tit.includes("next") || tit.includes("frontend") || cat.includes("development")) {
+    return "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80";
+  }
+  return "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80";
+};
+
 export default function LearningHubPage() {
   const [allPrograms, setAllPrograms] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -103,35 +127,39 @@ export default function LearningHubPage() {
         setLoading(true);
         const data = await officialApi.getCourses();
         if (data && data.courses && data.courses.length > 0) {
-          const formatted = data.courses.map((c: any) => ({
-            id: c.slug || c._id,
-            slug: c.slug || c._id,
-            title: c.title,
-            heroTagline: c.heroTagline || "",
-            category: c.category || "Development",
-            duration: c.duration || "12 Weeks",
-            mode: c.mode || "Live Online",
-            level: c.level || "Beginner to Advanced",
-            badge: c.badge || "Live Academy",
-            color: c.color || "from-blue-600 to-cyan-500",
-            bgSoft: c.bgSoft || "bg-blue-50",
-            textCol: c.textCol || "text-blue-600",
-            borderCol: c.borderCol || "border-blue-100",
-            image: c.image || c.previewImage || c.thumbnail || c.bannerImage || "",
-            bannerImage: c.bannerImage || c.image || c.previewImage || c.thumbnail || "",
-            description: c.description,
-            techStack: c.techStack || [],
-            modules: c.modules && c.modules.length > 0 ? c.modules : ["Core Architecture", "Hands-On Labs", "Capstone Deployment"],
-            careerOutcome: c.careerOutcome || "Software Engineer",
-            discountedPrice: c.discountedPrice ?? (typeof c.price === 'number' ? c.price : 24999),
-            originalPrice: c.originalPrice ?? (c.discountedPrice ? c.discountedPrice * 2 : 49999),
-            rating: c.rating ?? 4.88,
-            reviewsCount: c.reviewsCount ?? 124,
-            totalHours: c.totalHours || "",
-            lecturesCount: c.lecturesCount || "",
-            nextBatchDate: c.nextBatchDate || "",
-            emiStartsAt: c.emiStartsAt || "",
-          }));
+          const formatted = data.courses.map((c: any) => {
+            const defaultImg = getCategoryDefaultImage(c.category, c.title);
+            const courseImg = c.image || c.bannerImage || c.previewImage || c.thumbnail || defaultImg;
+            return {
+              id: c.slug || c._id,
+              slug: c.slug || c._id,
+              title: c.title,
+              heroTagline: c.heroTagline || "",
+              category: c.category || "Development",
+              duration: c.duration || "12 Weeks",
+              mode: c.mode || "Live Online",
+              level: c.level || "Beginner to Advanced",
+              badge: c.badge || "Live Academy",
+              color: c.color || "from-blue-600 to-cyan-500",
+              bgSoft: c.bgSoft || "bg-blue-50",
+              textCol: c.textCol || "text-blue-600",
+              borderCol: c.borderCol || "border-blue-100",
+              image: courseImg,
+              bannerImage: courseImg,
+              description: c.description,
+              techStack: c.techStack || [],
+              modules: c.modules && c.modules.length > 0 ? c.modules : ["Core Architecture", "Hands-On Labs", "Capstone Deployment"],
+              careerOutcome: c.careerOutcome || "Software Engineer",
+              discountedPrice: c.discountedPrice ?? (typeof c.price === 'number' ? c.price : 24999),
+              originalPrice: c.originalPrice ?? (c.discountedPrice ? c.discountedPrice * 2 : 49999),
+              rating: c.rating ?? 4.88,
+              reviewsCount: c.reviewsCount ?? 124,
+              totalHours: c.totalHours || "",
+              lecturesCount: c.lecturesCount || "",
+              nextBatchDate: c.nextBatchDate || "",
+              emiStartsAt: c.emiStartsAt || "",
+            };
+          });
 
           setAllPrograms(formatted);
         } else {
@@ -580,17 +608,18 @@ export default function LearningHubPage() {
                   className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 shadow-2xs transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg"
                 >
                   <div className="relative my-2 overflow-hidden rounded-xl bg-slate-100 h-44 flex items-center justify-center">
-                    {program.bannerImage || program.image || program.thumbnail ? (
-                      <img
-                        src={program.bannerImage || program.image || program.thumbnail}
-                        alt={program.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <div className={`w-full h-full bg-gradient-to-br ${program.color || 'from-blue-600 to-indigo-600'} flex items-center justify-center text-white text-3xl font-extrabold`}>
-                        💻
-                      </div>
-                    )}
+                    <img
+                      src={program.bannerImage || program.image || program.thumbnail || getCategoryDefaultImage(program.category, program.title)}
+                      alt={program.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        const fallback = getCategoryDefaultImage(program.category, program.title);
+                        if (target.src !== fallback) {
+                          target.src = fallback;
+                        }
+                      }}
+                    />
                     {program.badge && (
                       <span className="absolute top-2.5 left-2.5 rounded-full bg-slate-900/80 backdrop-blur-xs px-2.5 py-0.5 text-[10px] font-bold text-white shadow-xs">
                         {program.badge}

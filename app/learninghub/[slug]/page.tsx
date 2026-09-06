@@ -57,6 +57,18 @@ interface CourseDetail {
     question: string;
     answer: string;
   }[];
+  batches?: {
+    _id: string;
+    name: string;
+    batchCode: string;
+    startDate: string;
+    endDate: string;
+    mode: string;
+    scheduleDays: string[];
+    startTime: string;
+    endTime: string;
+    status: string;
+  }[];
 }
 
 const detailedCoursesDatabase: Record<string, CourseDetail> = {
@@ -849,7 +861,19 @@ function getFallbackCourse(slug: string, apiCourse?: any): CourseDetail {
       "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80";
 
     const customModules =
-      apiCourse.syllabusModules && apiCourse.syllabusModules.length > 0
+      apiCourse.curriculum && apiCourse.curriculum.length > 0
+        ? apiCourse.curriculum.map((cm: any, cIdx: number) => ({
+            moduleNumber: cm.order || cIdx + 1,
+            title: cm.title,
+            duration: cm.duration || "1-2 Weeks",
+            lectures: (cm.lessons || []).map((les: any) => ({
+              title: les.title,
+              duration: les.duration || "30 mins",
+              isPreview: !!les.isPreview,
+              type: les.contentType === "pdf" ? ("doc" as const) : les.contentType === "external_link" ? ("lab" as const) : ("video" as const),
+            })),
+          }))
+        : apiCourse.syllabusModules && apiCourse.syllabusModules.length > 0
         ? apiCourse.syllabusModules
         : apiCourse.modules && apiCourse.modules.length > 0
           ? apiCourse.modules.map((m: string, i: number) => ({
@@ -1046,6 +1070,7 @@ function getFallbackCourse(slug: string, apiCourse?: any): CourseDetail {
       syllabusModules: customModules,
       instructors: instructorsList,
       faqs: faqsList,
+      batches: apiCourse.batches || [],
     };
   }
 

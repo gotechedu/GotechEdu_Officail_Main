@@ -7,6 +7,22 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "miro.medium.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "**.medium.com",
+      },
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
   },
   async redirects() {

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, use } from "react";
 import Link from "next/link";
+import { officialApi } from "@/lib/api";
 
 declare global {
   interface Window {
@@ -22,6 +23,11 @@ export default function EnrollmentCheckoutPage({
   const [receiptData, setReceiptData] = useState<any>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
+  // Dynamic Course & Batch Data
+  const [courseData, setCourseData] = useState<any>(null);
+  const [availableBatches, setAvailableBatches] = useState<any[]>([]);
+  const [selectedBatchId, setSelectedBatchId] = useState<string>("");
+
   // Form Data
   const [formData, setFormData] = useState({
     fullName: "",
@@ -33,13 +39,13 @@ export default function EnrollmentCheckoutPage({
     qualification: "B.Tech / Degree",
     experienceLevel: "Fresher / College Student",
     learningGoal: "Career Upskilling & Placement",
-    batchPreference: "Weekend Cohort (Sat & Sun)",
+    batchPreference: "Upcoming 2026 Cohort",
     couponCode: "GOTECH50",
   });
 
   // Pricing State
-  const basePrice = 49999;
-  const standardDiscount = 25000; // Rs 24,999
+  const [basePrice, setBasePrice] = useState(49999);
+  const [standardDiscount, setStandardDiscount] = useState(25000); // Rs 24,999
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>("GOTECH50");
   const [couponDiscount, setCouponDiscount] = useState<number>(12500); // 50% extra off
   const [couponMessage, setCouponMessage] = useState<string | null>(
@@ -47,6 +53,33 @@ export default function EnrollmentCheckoutPage({
   );
 
   useEffect(() => {
+    // Fetch live course details & batches from central backend
+    async function loadCourse() {
+      try {
+        const res = await officialApi.getCourseById(slug);
+        if (res && res.course) {
+          setCourseData(res.course);
+          const orig = Number(res.course.originalPrice) || 49999;
+          const disc = Number(res.course.discountedPrice) || 24999;
+          setBasePrice(orig);
+          setStandardDiscount(Math.max(0, orig - disc));
+          setCouponDiscount(Math.round(disc * 0.5));
+
+          if (res.course.batches && res.course.batches.length > 0) {
+            setAvailableBatches(res.course.batches);
+            setSelectedBatchId(res.course.batches[0]._id);
+            setFormData((prev) => ({
+              ...prev,
+              batchPreference: res.course.batches[0].name,
+            }));
+          }
+        }
+      } catch (err) {
+        console.warn("Could not load dynamic course data:", err);
+      }
+    }
+    loadCourse();
+
     // Check URL search params for coupon query
     if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
@@ -156,8 +189,9 @@ export default function EnrollmentCheckoutPage({
           body: JSON.stringify({
             amount: finalPayable,
             currency: "INR",
-            courseId: slug,
-            courseTitle: slug.replace(/-/g, " ").toUpperCase(),
+            courseId: courseData?._id || slug,
+            courseTitle: courseData?.title || slug.replace(/-/g, " ").toUpperCase(),
+            batchId: selectedBatchId,
           }),
         });
         if (orderRes.ok) {
@@ -187,7 +221,7 @@ export default function EnrollmentCheckoutPage({
         amount: orderData.amount || finalPayable * 100,
         currency: orderData.currency || "INR",
         name: "GoTechEdu Learning Hub",
-        description: `Enrollment Fee for ${slug.replace(/-/g, " ").toUpperCase()}`,
+        description: `Enrollment Fee for ${courseData?.title || slug.replace(/-/g, " ").toUpperCase()}`,
         image: "https://hrmsgotechedu.vercel.app/favicon.ico",
         handler: async function (response: any) {
           // 3. Verify Payment Signature & Auto Send Email Invoice via Backend API
@@ -207,10 +241,11 @@ export default function EnrollmentCheckoutPage({
                 collegeOrCompany: formData.collegeOrCompany,
                 qualification: formData.qualification,
                 batch: formData.batchPreference,
+                batchId: selectedBatchId,
                 experienceLevel: formData.experienceLevel,
                 learningGoal: formData.learningGoal,
-                courseId: slug,
-                courseTitle: slug.replace(/-/g, " ").toUpperCase(),
+                courseId: courseData?._id || slug,
+                courseTitle: courseData?.title || slug.replace(/-/g, " ").toUpperCase(),
                 amount: finalPayable,
               }),
             });
@@ -544,16 +579,31 @@ export default function EnrollmentCheckoutPage({
 
                     <div>
                       <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1.5">
-                        Preferred Batch Schedule
+                        Selected Batch Cohort *
                       </label>
                       <select
                         name="batchPreference"
                         value={formData.batchPreference}
-                        onChange={handleInputChange}
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-sm text-slate-900 focus:border-blue-600 focus:outline-none"
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setFormData((prev) => ({ ...prev, batchPreference: val }));
+                          const matched = availableBatches.find((b) => b.name === val);
+                          if (matched) setSelectedBatchId(matched._id);
+                        }}
+                        className="w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-sm text-slate-900 focus:border-blue-600 focus:outline-none font-medium"
                       >
-                        <option value="Weekend Cohort (Sat & Sun)">Weekend Cohort (Sat & Sun)</option>
-                        <option value="Weekday Evening Cohort (Mon - Thu)">Weekday Evening Cohort (Mon - Thu)</option>
+                        {availableBatches.length > 0 ? (
+                          availableBatches.map((b) => (
+                            <option key={b._id} value={b.name}>
+                              {b.name} ({b.scheduleDays?.join(", ") || "Mon/Wed/Fri"} • {b.startTime || "7:30 PM"})
+                            </option>
+                          ))
+                        ) : (
+                          <>
+                            <option value="Upcoming 2026 Live Cohort">Upcoming 2026 Live Cohort (Mon/Wed/Fri)</option>
+                            <option value="Weekend Masterclass Cohort">Weekend Masterclass Cohort (Sat/Sun)</option>
+                          </>
+                        )}
                       </select>
                     </div>
                   </div>
