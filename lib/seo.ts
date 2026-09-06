@@ -1,10 +1,10 @@
 /**
  * Central SEO Configuration & Helper Functions for GoTechEdu
- * Production URL: https://gotechedu.vercel.app
+ * Production URL: https://gotechedu.com
  */
 
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://gotechedu.vercel.app"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://gotechedu.com"
 ).replace(/\/+$/, "");
 
 export const SITE_NAME = "GoTechEdu";

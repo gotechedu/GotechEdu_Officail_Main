@@ -95,7 +95,7 @@ const services = [
   },
   {
     id: "cybersecurity",
-    title: "Cybersecurity",
+    title: "Cyber Security",
     description:
       "Zero-Trust security architecture, SOC 2 compliance, penetration testing & 24/7 SIEM monitoring.",
     href: "/solution#cybersecurity",
@@ -218,8 +218,8 @@ function Services() {
 
           <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600 font-medium">
             From custom software engineering and AI automation to multi-cloud
-            infrastructure, cybersecurity defense, and tech training—we are your
-            full-spectrum technology partner.
+            infrastructure, cyber security defense, and tech training—we are
+            your full-spectrum technology partner.
           </p>
         </div>
 
