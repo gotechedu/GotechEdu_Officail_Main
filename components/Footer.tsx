@@ -228,10 +228,7 @@ function Footer() {
 
         {/* Bottom Copyright Bar */}
         <div className="mt-8 border-t border-slate-800/80 pt-8 flex flex-col justify-between items-center gap-4 text-xs text-slate-500 sm:flex-row">
-          <p>
-            © {new Date().getFullYear()} GotechEdu Technologies Inc. All rights
-            reserved.
-          </p>
+          <p>© 2022 GotechEdu. All rights reserved.</p>
 
           <div className="flex flex-wrap gap-5 text-slate-400">
             <Link href="/" className="transition hover:text-cyan-300">

@@ -50,7 +50,7 @@ function Hero() {
         <h1 className="mx-auto max-w-4xl font-heading text-[2.1rem] font-black leading-[1.14] text-white drop-shadow-[0_4px_22px_rgba(0,0,0,0.9)] sm:text-[2.85rem] md:text-[3.35rem] lg:text-[3.95rem] tracking-tight">
           Build the Future.{" "}
           <span className="bg-gradient-to-r from-cyan-300 via-sky-400 to-indigo-300 bg-clip-text text-transparent drop-shadow-sm">
-            Master the Technology.
+            Shape Your Career.
           </span>
         </h1>
 
@@ -61,12 +61,21 @@ function Hero() {
 
         {/* Description Paragraph */}
         <p className="mx-auto mt-4 sm:mt-5 max-w-3xl text-[0.92rem] leading-6 sm:leading-7 text-slate-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] sm:text-[1.05rem] lg:text-[1.12rem] font-normal">
-          From <strong className="font-semibold text-white">AI &amp; ML, Cloud, DevOps, Cybersecurity, and Full-Stack Development</strong> to <strong className="font-semibold text-white">IT solutions, digital marketing, and business consulting</strong> — we turn ideas into skills, systems, and scalable growth.
+          From{" "}
+          <strong className="font-semibold text-white">
+            AI &amp; ML, Cloud, DevOps, Cybersecurity, and Full-Stack
+            Development
+          </strong>{" "}
+          to{" "}
+          <strong className="font-semibold text-white">
+            IT solutions, digital marketing, and business consulting
+          </strong>{" "}
+          — we turn ideas into skills, systems, and scalable growth.
         </p>
 
         {/* Tagline */}
         <p className="mx-auto mt-3 max-w-2xl font-mono text-[0.85rem] sm:text-[0.95rem] font-bold uppercase tracking-[0.18em] text-cyan-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-          Learn it. Build it. Deploy it. Grow it.
+          Learn . Build . Deploy . Grow.
         </p>
 
         {/* Centered Action Buttons */}
@@ -76,7 +85,9 @@ function Hero() {
             className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 px-8 py-3.5 sm:py-4 text-[11px] sm:text-[12px] font-extrabold uppercase tracking-[0.18em] text-white shadow-[0_12px_35px_rgba(56,189,248,0.45)] transition duration-300 hover:scale-[1.04] hover:shadow-[0_16px_45px_rgba(56,189,248,0.6)] active:scale-100"
           >
             <span>Explore Solutions</span>
-            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
           </Link>
 
           <Link
@@ -84,10 +95,11 @@ function Hero() {
             className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-cyan-400/40 bg-slate-950/60 px-8 py-3.5 sm:py-4 text-[11px] sm:text-[12px] font-extrabold uppercase tracking-[0.18em] text-white shadow-xl backdrop-blur-md transition duration-300 hover:scale-[1.04] hover:border-cyan-300 hover:bg-cyan-950/50 active:scale-100"
           >
             <span>Explore Learning Hub</span>
-            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
           </Link>
         </div>
-
       </div>
 
       {/* Smooth Curved Arc Transition into Next Section */}
