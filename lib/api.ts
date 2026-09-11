@@ -37,6 +37,10 @@ async function fetchJson<T>(
     });
 
     if (!res.ok) {
+      const errJson = await res.json().catch(() => null);
+      if (errJson && typeof errJson === "object") {
+        return errJson as T;
+      }
       return null;
     }
 

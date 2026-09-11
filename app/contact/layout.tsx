@@ -4,23 +4,26 @@ import JsonLd from "@/components/seo/JsonLd";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Enterprise Technical Consultation & Support",
+  title: "Contact Us | Enterprise Solutions, Tech Training & Careers | GoTechEdu",
   description:
-    "Get in touch with GoTechEdu for custom enterprise software development, corporate tech training, or learning hub admissions. Schedule a free technical discovery consultation.",
+    "Connect with GoTechEdu for custom enterprise software development, tech training cohort admissions, or engineering careers. Schedule a direct consultation with our leadership.",
   keywords: [
     "contact GoTechEdu",
     "hire software developers",
-    "IT consultation India",
-    "enterprise software development inquiry",
-    "bootcamp admissions support",
+    "enterprise software development",
+    "tech training cohorts India",
+    "college industrial internship",
+    "software engineer careers",
+    "technical consultation India",
+    "IT corporate upskilling",
   ],
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
-    title: "Contact Us | Enterprise Technical Consultation | GoTechEdu",
+    title: "Contact Us | Enterprise Solutions, Tech Training & Careers | GoTechEdu",
     description:
-      "Schedule a technical discovery session with GoTechEdu principal architects for custom enterprise software, AI solutions, or admissions.",
+      "Schedule a consultation with GoTechEdu for enterprise software development, tech training cohorts, or engineering career opportunities.",
     url: `${SITE_URL}/contact`,
     siteName: SITE_NAME,
     type: "website",
@@ -35,9 +38,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact GoTechEdu | Technical Consultation",
+    title: "Contact GoTechEdu | Solutions, Training & Careers",
     description:
-      "Schedule a discovery call with GoTechEdu for custom software engineering and tech training.",
+      "Connect with GoTechEdu for enterprise software, tech training cohorts, or engineering careers.",
     images: ["/icons.png"],
   },
 };

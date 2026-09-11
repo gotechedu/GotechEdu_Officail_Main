@@ -4,7 +4,14 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { officialApi } from "@/lib/api";
 
-const categories = ["All", "Development", "AI & Data", "Cloud & DevOps", "Cybersecurity", "Business"];
+const categories = [
+  "All",
+  "Development",
+  "AI & Data",
+  "Cloud & DevOps",
+  "Cybersecurity",
+  "Business",
+];
 const experienceLevels = ["All Levels", "Beginner to Advanced", "Intermediate"];
 const durations = ["All Durations", "10-12 Weeks", "14-16 Weeks"];
 
@@ -16,7 +23,8 @@ const specialOffers = [
     discount: "50% FLAT OFF",
     validity: "Limited Cohort Seats",
     badge: "Top Offer",
-    description: "Get 50% flat fee discount on all Full-Stack, MERN, and Generative AI cohorts.",
+    description:
+      "Get 50% flat fee discount on all Full-Stack, MERN, and Generative AI cohorts.",
     bgGradient: "from-blue-600 via-indigo-600 to-cyan-600",
   },
   {
@@ -26,7 +34,8 @@ const specialOffers = [
     discount: "₹5,000 INSTANT OFF",
     validity: "Active for September Cohort",
     badge: "Instant Grant",
-    description: "Flat ₹5,000 fee waiver for final year college students and working professionals.",
+    description:
+      "Flat ₹5,000 fee waiver for final year college students and working professionals.",
     bgGradient: "from-emerald-600 via-teal-600 to-cyan-600",
   },
   {
@@ -36,7 +45,8 @@ const specialOffers = [
     discount: "100% FREE DEMO",
     validity: "No Payment Required",
     badge: "Free Trial",
-    description: "Attend live weekend masterclasses and code audits with lead tech mentors.",
+    description:
+      "Attend live weekend masterclasses and code audits with lead tech mentors.",
     bgGradient: "from-purple-600 via-indigo-600 to-blue-600",
   },
 ];
@@ -44,13 +54,29 @@ const specialOffers = [
 const getCategoryDefaultImage = (category?: string, title?: string) => {
   const cat = (category || "").toLowerCase();
   const tit = (title || "").toLowerCase();
-  if (cat.includes("ai") || cat.includes("data") || tit.includes("ai") || tit.includes("generative")) {
+  if (
+    cat.includes("ai") ||
+    cat.includes("data") ||
+    tit.includes("ai") ||
+    tit.includes("generative")
+  ) {
     return "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80";
   }
-  if (cat.includes("cloud") || cat.includes("devops") || tit.includes("cloud") || tit.includes("devops") || tit.includes("aws") || tit.includes("docker")) {
+  if (
+    cat.includes("cloud") ||
+    cat.includes("devops") ||
+    tit.includes("cloud") ||
+    tit.includes("devops") ||
+    tit.includes("aws") ||
+    tit.includes("docker")
+  ) {
     return "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80";
   }
-  if (cat.includes("security") || tit.includes("cyber") || tit.includes("security")) {
+  if (
+    cat.includes("security") ||
+    tit.includes("cyber") ||
+    tit.includes("security")
+  ) {
     return "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80";
   }
   if (tit.includes("rust") || tit.includes("webassembly")) {
@@ -59,7 +85,12 @@ const getCategoryDefaultImage = (category?: string, title?: string) => {
   if (tit.includes("mern") || tit.includes("node") || tit.includes("express")) {
     return "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80";
   }
-  if (tit.includes("react") || tit.includes("next") || tit.includes("frontend") || cat.includes("development")) {
+  if (
+    tit.includes("react") ||
+    tit.includes("next") ||
+    tit.includes("frontend") ||
+    cat.includes("development")
+  ) {
     return "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80";
   }
   return "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80";
@@ -82,18 +113,21 @@ export default function LearningHubPage() {
   // Automatic Offers Popup State & Dynamic Portal Offer
   const [showOffersPopup, setShowOffersPopup] = useState(true);
   const [portalOffer, setPortalOffer] = useState<any>({
-    title: 'RHCSA T & E — 50% OFF Today!',
-    code: 'RHCSA50',
-    description: 'Master RHCSA with expert-led training and save 50% on your Training & Exam bundle—limited-time offer! ⭐',
-    badgeText: '50% OFF ON TRAINING + EXAM',
-    ctaText: 'Grab This Offer',
-    bannerImage: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
+    title: "RHCSA T & E — 50% OFF Today!",
+    code: "RHCSA50",
+    description:
+      "Master RHCSA with expert-led training and save 50% on your Training & Exam bundle—limited-time offer! ⭐",
+    badgeText: "50% OFF ON TRAINING + EXAM",
+    ctaText: "Grab This Offer",
+    bannerImage:
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
   });
 
   useEffect(() => {
     const fetchPortalOffer = async () => {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+        const API_URL =
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
         const res = await fetch(`${API_URL}/offers/portal-popup`);
         if (res.ok) {
           const data = await res.json();
@@ -106,6 +140,34 @@ export default function LearningHubPage() {
       }
     };
     fetchPortalOffer();
+  }, []);
+
+  // Read URL query parameter for category on client load
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const catParam = params.get("category");
+      if (catParam) {
+        const decoded = decodeURIComponent(catParam).trim();
+        const found = categories.find(
+          (c) => c.toLowerCase() === decoded.toLowerCase(),
+        );
+        if (found) {
+          setSelectedCategory(found);
+        } else {
+          const partial = categories.find(
+            (c) =>
+              c.toLowerCase().includes(decoded.toLowerCase()) ||
+              decoded.toLowerCase().includes(c.toLowerCase()),
+          );
+          if (partial) {
+            setSelectedCategory(partial);
+          } else {
+            setSelectedCategory(decoded);
+          }
+        }
+      }
+    }
   }, []);
 
   // Application form state
@@ -129,7 +191,12 @@ export default function LearningHubPage() {
         if (data && data.courses && data.courses.length > 0) {
           const formatted = data.courses.map((c: any) => {
             const defaultImg = getCategoryDefaultImage(c.category, c.title);
-            const courseImg = c.image || c.bannerImage || c.previewImage || c.thumbnail || defaultImg;
+            const courseImg =
+              c.image ||
+              c.bannerImage ||
+              c.previewImage ||
+              c.thumbnail ||
+              defaultImg;
             return {
               id: c.slug || c._id,
               slug: c.slug || c._id,
@@ -148,10 +215,21 @@ export default function LearningHubPage() {
               bannerImage: courseImg,
               description: c.description,
               techStack: c.techStack || [],
-              modules: c.modules && c.modules.length > 0 ? c.modules : ["Core Architecture", "Hands-On Labs", "Capstone Deployment"],
+              modules:
+                c.modules && c.modules.length > 0
+                  ? c.modules
+                  : [
+                      "Core Architecture",
+                      "Hands-On Labs",
+                      "Capstone Deployment",
+                    ],
               careerOutcome: c.careerOutcome || "Software Engineer",
-              discountedPrice: c.discountedPrice ?? (typeof c.price === 'number' ? c.price : 24999),
-              originalPrice: c.originalPrice ?? (c.discountedPrice ? c.discountedPrice * 2 : 49999),
+              discountedPrice:
+                c.discountedPrice ??
+                (typeof c.price === "number" ? c.price : 24999),
+              originalPrice:
+                c.originalPrice ??
+                (c.discountedPrice ? c.discountedPrice * 2 : 49999),
               rating: c.rating ?? 4.88,
               reviewsCount: c.reviewsCount ?? 124,
               totalHours: c.totalHours || "",
@@ -193,11 +271,37 @@ export default function LearningHubPage() {
   const filteredPrograms = allPrograms
     .filter((program) => {
       // Category filter
-      if (selectedCategory !== "All" && program.category !== selectedCategory) {
-        return false;
+      if (selectedCategory !== "All") {
+        const sel = selectedCategory.toLowerCase();
+        const pCat = (program.category || "").toLowerCase();
+        const exact = pCat === sel;
+        const aiMatch =
+          (sel.includes("ai") || sel.includes("data")) &&
+          (pCat.includes("ai") ||
+            pCat.includes("data") ||
+            (program.title || "").toLowerCase().includes("ai"));
+        const cloudMatch =
+          (sel.includes("cloud") || sel.includes("devops")) &&
+          (pCat.includes("cloud") ||
+            pCat.includes("devops") ||
+            (program.title || "").toLowerCase().includes("cloud"));
+        const secMatch =
+          (sel.includes("cyber") || sel.includes("security")) &&
+          (pCat.includes("cyber") || pCat.includes("security"));
+        const devMatch =
+          (sel.includes("develop") || sel.includes("full")) &&
+          (pCat.includes("develop") ||
+            pCat.includes("full") ||
+            pCat.includes("web"));
+        if (!exact && !aiMatch && !cloudMatch && !secMatch && !devMatch) {
+          return false;
+        }
       }
       // Level filter
-      if (selectedLevel !== "All Levels" && !program.level.toLowerCase().includes(selectedLevel.toLowerCase())) {
+      if (
+        selectedLevel !== "All Levels" &&
+        !program.level.toLowerCase().includes(selectedLevel.toLowerCase())
+      ) {
         return false;
       }
       // Duration filter
@@ -213,7 +317,9 @@ export default function LearningHubPage() {
         const q = searchQuery.toLowerCase();
         const matchesTitle = program.title.toLowerCase().includes(q);
         const matchesDesc = program.description.toLowerCase().includes(q);
-        const matchesTech = (program.techStack || []).some((t: string) => t.toLowerCase().includes(q));
+        const matchesTech = (program.techStack || []).some((t: string) =>
+          t.toLowerCase().includes(q),
+        );
         const matchesCat = program.category.toLowerCase().includes(q);
         if (!matchesTitle && !matchesDesc && !matchesTech && !matchesCat) {
           return false;
@@ -244,7 +350,7 @@ export default function LearningHubPage() {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setEnrollmentForm((prev) => ({ ...prev, [name]: value }));
@@ -306,34 +412,37 @@ export default function LearningHubPage() {
 
               {/* Red Discount Pill Graphic */}
               <div className="mt-3 inline-block bg-white text-red-700 font-black px-4 py-1.5 rounded-full text-base sm:text-lg shadow-lg tracking-wide border border-red-200 font-mono">
-                {portalOffer.badgeText || '50% OFF ON TRAINING + EXAM'}
+                {portalOffer.badgeText || "50% OFF ON TRAINING + EXAM"}
               </div>
             </div>
 
             {/* Modal Body Info */}
             <div className="p-6 text-center space-y-4">
               <h3 className="font-heading text-lg sm:text-xl font-extrabold text-slate-900 leading-snug">
-                {portalOffer.title || '🎉 RHCSA T & E — 50% OFF Today!'}
+                {portalOffer.title || "🎉 RHCSA T & E — 50% OFF Today!"}
               </h3>
 
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-md mx-auto font-medium">
-                {portalOffer.description || 'Master RHCSA with expert-led training and save 50% on your Training & Exam bundle—limited-time offer! ⭐'}
+                {portalOffer.description ||
+                  "Master RHCSA with expert-led training and save 50% on your Training & Exam bundle—limited-time offer! ⭐"}
               </p>
 
               {/* Coupon Code Pill */}
               <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-200 rounded-xl px-4 py-2 text-xs font-mono">
                 <span className="text-slate-500 font-bold">Coupon Code:</span>
-                <span className="font-bold text-red-600 text-sm tracking-wider">{portalOffer.code || 'RHCSA50'}</span>
+                <span className="font-bold text-red-600 text-sm tracking-wider">
+                  {portalOffer.code || "RHCSA50"}
+                </span>
               </div>
 
               {/* Full-Width Vibrant Red Action Button */}
               <div className="pt-2">
                 <Link
-                  href={`/learninghub/fullstack-nextjs/enroll?coupon=${portalOffer.code || 'RHCSA50'}`}
+                  href={`/learninghub/fullstack-nextjs/enroll?coupon=${portalOffer.code || "RHCSA50"}`}
                   onClick={() => setShowOffersPopup(false)}
                   className="w-full inline-flex items-center justify-center rounded-2xl bg-red-600 hover:bg-red-700 py-3.5 text-sm sm:text-base font-extrabold uppercase tracking-wider text-white shadow-xl shadow-red-600/30 transition active:scale-98 cursor-pointer"
                 >
-                  {portalOffer.ctaText || 'Grab This Offer'}
+                  {portalOffer.ctaText || "Grab This Offer"}
                 </Link>
               </div>
 
@@ -344,7 +453,6 @@ export default function LearningHubPage() {
           </div>
         </div>
       )}
-
 
       <section className=" lg:py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -357,8 +465,11 @@ export default function LearningHubPage() {
                 Explore All Programs
               </h1>
               <p className="mt-1 text-xs sm:text-sm text-slate-500">
-                Showing <strong className="text-blue-600 font-bold">{filteredPrograms.length}</strong> of{" "}
-                {allPrograms.length} industry-led curriculums
+                Showing{" "}
+                <strong className="text-blue-600 font-bold">
+                  {filteredPrograms.length}
+                </strong>{" "}
+                of {allPrograms.length} industry-led curriculums
               </p>
             </div>
 
@@ -380,7 +491,11 @@ export default function LearningHubPage() {
                   strokeWidth="2"
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                  />
                 </svg>
                 {searchQuery && (
                   <button
@@ -398,13 +513,24 @@ export default function LearningHubPage() {
               <button
                 type="button"
                 onClick={() => setShowFilterPanel(!showFilterPanel)}
-                className={`inline-flex items-center gap-2 rounded-xl border px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition shadow-2xs ${showFilterPanel || activeFiltersCount > 0
-                  ? "border-blue-500 bg-blue-50 text-blue-700 font-extrabold"
-                  : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-400"
-                  }`}
+                className={`inline-flex items-center gap-2 rounded-xl border px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition shadow-2xs ${
+                  showFilterPanel || activeFiltersCount > 0
+                    ? "border-blue-500 bg-blue-50 text-blue-700 font-extrabold"
+                    : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50 hover:border-slate-400"
+                }`}
               >
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2.5"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
+                  />
                 </svg>
                 <span>Filter</span>
                 {activeFiltersCount > 0 && (
@@ -474,8 +600,12 @@ export default function LearningHubPage() {
                     className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-xs text-slate-900 focus:border-blue-600 focus:bg-white focus:outline-none"
                   >
                     <option value="All Levels">All Levels</option>
-                    <option value="Beginner to Advanced">Beginner to Advanced</option>
-                    <option value="Intermediate">Intermediate / Advanced</option>
+                    <option value="Beginner to Advanced">
+                      Beginner to Advanced
+                    </option>
+                    <option value="Intermediate">
+                      Intermediate / Advanced
+                    </option>
                   </select>
                 </div>
 
@@ -490,8 +620,12 @@ export default function LearningHubPage() {
                     className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-xs text-slate-900 focus:border-blue-600 focus:bg-white focus:outline-none"
                   >
                     <option value="All Durations">All Durations</option>
-                    <option value="10-12 Weeks">Fast Track (10 - 12 Weeks)</option>
-                    <option value="14-16 Weeks">Comprehensive (14 - 16 Weeks)</option>
+                    <option value="10-12 Weeks">
+                      Fast Track (10 - 12 Weeks)
+                    </option>
+                    <option value="14-16 Weeks">
+                      Comprehensive (14 - 16 Weeks)
+                    </option>
                   </select>
                 </div>
 
@@ -506,8 +640,12 @@ export default function LearningHubPage() {
                     className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-xs text-slate-900 focus:border-blue-600 focus:bg-white focus:outline-none"
                   >
                     <option value="popular">Most Popular</option>
-                    <option value="duration-asc">Duration: Shortest First</option>
-                    <option value="duration-desc">Duration: Longest First</option>
+                    <option value="duration-asc">
+                      Duration: Shortest First
+                    </option>
+                    <option value="duration-desc">
+                      Duration: Longest First
+                    </option>
                     <option value="title">Alphabetical (A - Z)</option>
                   </select>
                 </div>
@@ -524,25 +662,49 @@ export default function LearningHubPage() {
               {selectedCategory !== "All" && (
                 <span className="inline-flex items-center gap-1 rounded-lg bg-blue-50 border border-blue-200 px-2.5 py-1 text-xs font-semibold text-blue-700">
                   Category: {selectedCategory}
-                  <button type="button" onClick={() => setSelectedCategory("All")} className="hover:text-blue-900 font-bold ml-1">✕</button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCategory("All")}
+                    className="hover:text-blue-900 font-bold ml-1"
+                  >
+                    ✕
+                  </button>
                 </span>
               )}
               {selectedLevel !== "All Levels" && (
                 <span className="inline-flex items-center gap-1 rounded-lg bg-indigo-50 border border-indigo-200 px-2.5 py-1 text-xs font-semibold text-indigo-700">
                   Level: {selectedLevel}
-                  <button type="button" onClick={() => setSelectedLevel("All Levels")} className="hover:text-indigo-900 font-bold ml-1">✕</button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedLevel("All Levels")}
+                    className="hover:text-indigo-900 font-bold ml-1"
+                  >
+                    ✕
+                  </button>
                 </span>
               )}
               {selectedDuration !== "All Durations" && (
                 <span className="inline-flex items-center gap-1 rounded-lg bg-cyan-50 border border-cyan-200 px-2.5 py-1 text-xs font-semibold text-cyan-700">
                   Duration: {selectedDuration}
-                  <button type="button" onClick={() => setSelectedDuration("All Durations")} className="hover:text-cyan-900 font-bold ml-1">✕</button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedDuration("All Durations")}
+                    className="hover:text-cyan-900 font-bold ml-1"
+                  >
+                    ✕
+                  </button>
                 </span>
               )}
               {searchQuery && (
                 <span className="inline-flex items-center gap-1 rounded-lg bg-amber-50 border border-amber-200 px-2.5 py-1 text-xs font-semibold text-amber-700">
                   Search: "{searchQuery}"
-                  <button type="button" onClick={() => setSearchQuery("")} className="hover:text-amber-900 font-bold ml-1">✕</button>
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                    className="hover:text-amber-900 font-bold ml-1"
+                  >
+                    ✕
+                  </button>
                 </span>
               )}
               <button
@@ -590,7 +752,8 @@ export default function LearningHubPage() {
                 No bootcamps match your criteria
               </h3>
               <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-sm mx-auto">
-                We couldn't find any courses matching your search and filter parameters. Try resetting your filters.
+                We couldn't find any courses matching your search and filter
+                parameters. Try resetting your filters.
               </p>
               <button
                 type="button"
@@ -609,12 +772,20 @@ export default function LearningHubPage() {
                 >
                   <div className="relative my-2 overflow-hidden rounded-xl bg-slate-100 h-44 flex items-center justify-center">
                     <img
-                      src={program.bannerImage || program.image || program.thumbnail || getCategoryDefaultImage(program.category, program.title)}
+                      src={
+                        program.bannerImage ||
+                        program.image ||
+                        program.thumbnail ||
+                        getCategoryDefaultImage(program.category, program.title)
+                      }
                       alt={program.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       onError={(e) => {
                         const target = e.currentTarget;
-                        const fallback = getCategoryDefaultImage(program.category, program.title);
+                        const fallback = getCategoryDefaultImage(
+                          program.category,
+                          program.title,
+                        );
                         if (target.src !== fallback) {
                           target.src = fallback;
                         }
@@ -644,7 +815,9 @@ export default function LearningHubPage() {
                     </div>
 
                     <h3 className="mt-3 font-heading text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition">
-                      <Link href={`/learninghub/${program.slug || program.id || program._id}`}>
+                      <Link
+                        href={`/learninghub/${program.slug || program.id || program._id}`}
+                      >
                         {program.title}
                       </Link>
                     </h3>
@@ -662,24 +835,34 @@ export default function LearningHubPage() {
                     {/* Specs */}
                     <div className="mt-4 grid grid-cols-2 gap-2 rounded-xl bg-slate-50 p-2.5 text-xs border border-slate-100">
                       <div>
-                        <span className="text-slate-400 block text-[10px] uppercase font-bold">Duration</span>
-                        <span className="font-semibold text-slate-800">{program.duration}</span>
+                        <span className="text-slate-400 block text-[10px] uppercase font-bold">
+                          Duration
+                        </span>
+                        <span className="font-semibold text-slate-800">
+                          {program.duration}
+                        </span>
                       </div>
                       <div>
-                        <span className="text-slate-400 block text-[10px] uppercase font-bold">Level</span>
-                        <span className="font-semibold text-slate-800 truncate block">{program.level}</span>
+                        <span className="text-slate-400 block text-[10px] uppercase font-bold">
+                          Level
+                        </span>
+                        <span className="font-semibold text-slate-800 truncate block">
+                          {program.level}
+                        </span>
                       </div>
                     </div>
 
                     <div className="mt-3 flex flex-wrap gap-1">
-                      {(program.techStack || []).slice(0, 4).map((tech: string) => (
-                        <span
-                          key={tech}
-                          className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-700"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                      {(program.techStack || [])
+                        .slice(0, 4)
+                        .map((tech: string) => (
+                          <span
+                            key={tech}
+                            className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-700"
+                          >
+                            {tech}
+                          </span>
+                        ))}
                     </div>
                   </div>
 
@@ -689,16 +872,25 @@ export default function LearningHubPage() {
                       {program.discountedPrice ? (
                         <div className="flex items-baseline gap-1.5">
                           <span className="text-base font-extrabold font-mono text-slate-900">
-                            ₹{Number(program.discountedPrice).toLocaleString('en-IN')}
+                            ₹
+                            {Number(program.discountedPrice).toLocaleString(
+                              "en-IN",
+                            )}
                           </span>
-                          {program.originalPrice && program.originalPrice > program.discountedPrice && (
-                            <span className="text-xs text-slate-400 line-through font-mono">
-                              ₹{Number(program.originalPrice).toLocaleString('en-IN')}
-                            </span>
-                          )}
+                          {program.originalPrice &&
+                            program.originalPrice > program.discountedPrice && (
+                              <span className="text-xs text-slate-400 line-through font-mono">
+                                ₹
+                                {Number(program.originalPrice).toLocaleString(
+                                  "en-IN",
+                                )}
+                              </span>
+                            )}
                         </div>
                       ) : (
-                        <span className="text-xs font-bold text-emerald-600">Free / Sponsored</span>
+                        <span className="text-xs font-bold text-emerald-600">
+                          Free / Sponsored
+                        </span>
                       )}
                     </div>
 
@@ -740,7 +932,10 @@ export default function LearningHubPage() {
                   {isSubmitted ? "Admission Registered" : "Program Enrollment"}
                 </h3>
                 <p className="text-[11px] text-slate-500 truncate max-w-[260px] sm:max-w-xs">
-                  Track: <strong className="text-blue-600">{enrollmentForm.programName}</strong>
+                  Track:{" "}
+                  <strong className="text-blue-600">
+                    {enrollmentForm.programName}
+                  </strong>
                 </p>
               </div>
 
@@ -764,7 +959,12 @@ export default function LearningHubPage() {
                     Application Confirmed!
                   </h4>
                   <p className="mx-auto mt-2 max-w-xs text-xs text-slate-600 leading-relaxed">
-                    Thank you, <strong className="text-slate-900">{enrollmentForm.fullName}</strong>. An admissions mentor will reach out within 24 hours to review your profile and batch schedule.
+                    Thank you,{" "}
+                    <strong className="text-slate-900">
+                      {enrollmentForm.fullName}
+                    </strong>
+                    . An admissions mentor will reach out within 24 hours to
+                    review your profile and batch schedule.
                   </p>
                   <button
                     type="button"
@@ -783,12 +983,14 @@ export default function LearningHubPage() {
                         Curriculum ({selectedProgram.duration})
                       </p>
                       <ul className="mt-1.5 space-y-1 text-xs text-slate-700">
-                        {selectedProgram.modules.slice(0, 3).map((m: string, i: number) => (
-                          <li key={i} className="flex items-start gap-1.5">
-                            <span className="text-blue-600 font-bold">✓</span>
-                            <span className="line-clamp-1">{m}</span>
-                          </li>
-                        ))}
+                        {selectedProgram.modules
+                          .slice(0, 3)
+                          .map((m: string, i: number) => (
+                            <li key={i} className="flex items-start gap-1.5">
+                              <span className="text-blue-600 font-bold">✓</span>
+                              <span className="line-clamp-1">{m}</span>
+                            </li>
+                          ))}
                       </ul>
                     </div>
                   )}
@@ -875,9 +1077,15 @@ export default function LearningHubPage() {
                           onChange={handleInputChange}
                           className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-xs sm:text-sm text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20 bg-white"
                         >
-                          <option value="College Student / Graduate">College Student / Graduate</option>
-                          <option value="Working Professional (Tech)">Working Professional (Tech)</option>
-                          <option value="Career Switcher (Non-Tech)">Career Switcher (Non-Tech)</option>
+                          <option value="College Student / Graduate">
+                            College Student / Graduate
+                          </option>
+                          <option value="Working Professional (Tech)">
+                            Working Professional (Tech)
+                          </option>
+                          <option value="Career Switcher (Non-Tech)">
+                            Career Switcher (Non-Tech)
+                          </option>
                         </select>
                       </div>
 
@@ -891,9 +1099,15 @@ export default function LearningHubPage() {
                           onChange={handleInputChange}
                           className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-xs sm:text-sm text-slate-900 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20 bg-white"
                         >
-                          <option value="Weekend Batch (Sat & Sun)">Weekend (Sat & Sun)</option>
-                          <option value="Weekday Evening Batch (Mon - Thu)">Weekday Evening</option>
-                          <option value="Self-Paced with Mentorship">Self-Paced</option>
+                          <option value="Weekend Batch (Sat & Sun)">
+                            Weekend (Sat & Sun)
+                          </option>
+                          <option value="Weekday Evening Batch (Mon - Thu)">
+                            Weekday Evening
+                          </option>
+                          <option value="Self-Paced with Mentorship">
+                            Self-Paced
+                          </option>
                         </select>
                       </div>
                     </div>

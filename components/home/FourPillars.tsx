@@ -2,6 +2,7 @@
 
 import React, { useState, MouseEvent } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Cpu,
   Users,
@@ -13,6 +14,7 @@ import {
   Cloud,
   CheckCircle2,
   Sparkles,
+  ArrowRight,
 } from "lucide-react";
 
 interface Pillar {
@@ -166,7 +168,7 @@ const pillars: Pillar[] = [
         delay: "1.5s",
       },
     ],
-    route: "/solution",
+    route: "/contact",
     stats: "ROI Driven",
   },
 ];
@@ -177,7 +179,7 @@ export default function FourPillars() {
     [key: string]: { rotateX: number; rotateY: number; isHovered: boolean };
   }>({});
 
-  const handleMouseMove = (id: string, e: MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (id: string, e: MouseEvent<HTMLElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -250,8 +252,8 @@ export default function FourPillars() {
           </p>
         </div>
 
-        {/* 3D Pillar Cards Stage */}
-        <div className="mt-14 sm:mt-16 lg:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 perspective-[1400px]">
+        {/* 3D Pillar Cards Stage - 2 cards per row on mobile & md view */}
+        <div className="mt-10 sm:mt-14 lg:mt-16 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 perspective-[1400px]">
           {pillars.map((pillar) => {
             const tilt = tiltStates[pillar.id] || {
               rotateX: 0,
@@ -261,22 +263,23 @@ export default function FourPillars() {
             const isTargeted = activePillar === pillar.id;
 
             return (
-              <div
+              <Link
                 key={pillar.id}
+                href={pillar.route}
                 id={`pillar-${pillar.id}`}
                 onMouseMove={(e) => handleMouseMove(pillar.id, e)}
                 onMouseEnter={() => setActivePillar(pillar.id)}
                 onMouseLeave={() => handleMouseLeave(pillar.id)}
-                className="group relative flex flex-col rounded-3xl bg-white/95 border transition-all duration-300 shadow-[0_12px_40px_-15px_rgba(0,0,0,0.07)] backdrop-blur-xl cursor-pointer"
+                className="group relative flex flex-col rounded-2xl sm:rounded-3xl bg-white/95 border transition-all duration-300 shadow-[0_12px_40px_-15px_rgba(0,0,0,0.07)] backdrop-blur-xl cursor-pointer block no-underline overflow-hidden"
                 style={{
                   transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) ${tilt.isHovered
-                      ? "scale3d(1.025, 1.025, 1.025) translateY(-6px)"
+                      ? "scale3d(1.02, 1.02, 1.02) translateY(-4px)"
                       : "scale3d(1, 1, 1)"
                     }`,
                   transformStyle: "preserve-3d",
                   borderColor: isTargeted ? pillar.primaryColor : undefined,
                   boxShadow: isTargeted
-                    ? `0 24px 50px -12px ${pillar.glowColor}, 0 0 0 1px ${pillar.primaryColor}`
+                    ? `0 20px 45px -12px ${pillar.glowColor}, 0 0 0 1px ${pillar.primaryColor}`
                     : undefined,
                   transition: tilt.isHovered
                     ? "box-shadow 0.25s ease-out, border-color 0.25s ease-out"
@@ -285,20 +288,20 @@ export default function FourPillars() {
               >
                 {/* 3D Floating Top Anchor Node (connects visual line) */}
                 <div
-                  className="relative px-6 pt-7 pb-4 flex flex-col items-center text-center"
+                  className="relative px-3 sm:px-5 lg:px-6 pt-5 sm:pt-6 pb-2 sm:pb-3 flex flex-col items-center text-center"
                   style={{ transform: "translateZ(25px)" }}
                 >
                   {/* Circular 3D Icon Badge */}
-                  <div className="relative mb-4 flex items-center justify-center">
+                  <div className="relative mb-2.5 sm:mb-3 flex items-center justify-center">
                     {/* Glowing Aura Ring */}
                     <div
-                      className="absolute -inset-2.5 rounded-full opacity-0 blur-md transition-opacity duration-400 group-hover:opacity-100"
+                      className="absolute -inset-2 rounded-full opacity-0 blur-md transition-opacity duration-400 group-hover:opacity-100"
                       style={{ backgroundColor: pillar.glowColor }}
                     />
 
                     {/* Gradient Sphere Icon Container */}
                     <div
-                      className={`relative flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full shadow-[0_10px_25px_-5px_rgba(0,0,0,0.2)] transition-transform duration-300 group-hover:scale-110 ${pillar.accentBadgeBg}`}
+                      className={`relative flex h-11 w-11 sm:h-13 sm:w-13 lg:h-16 lg:w-16 items-center justify-center rounded-full shadow-[0_10px_25px_-5px_rgba(0,0,0,0.2)] transition-transform duration-300 group-hover:scale-110 ${pillar.accentBadgeBg}`}
                       style={{
                         background:
                           pillar.id === "tech"
@@ -312,41 +315,41 @@ export default function FourPillars() {
                     >
                       {/* Inner 3D Specular Highlight Ring */}
                       <div className="absolute inset-0 rounded-full border border-white/40 pointer-events-none" />
-                      <div className="relative z-10">{pillar.icon}</div>
+                      <div className="relative z-10 scale-90 sm:scale-100">{pillar.icon}</div>
                     </div>
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-heading text-xl sm:text-2xl font-black tracking-tight text-slate-900 group-hover:text-slate-950 transition-colors">
+                  <h3 className="font-heading text-base sm:text-xl lg:text-2xl font-black tracking-tight text-slate-900 group-hover:text-slate-950 transition-colors">
                     {pillar.name}
                   </h3>
 
                   {/* Subtitle / Tagline */}
                   <p
-                    className="mt-1 font-mono text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.2em]"
+                    className="mt-0.5 sm:mt-1 font-mono text-[8.5px] sm:text-[10px] lg:text-[11px] font-extrabold uppercase tracking-[0.15em] sm:tracking-[0.2em]"
                     style={{ color: pillar.primaryColor }}
                   >
                     {pillar.tagline}
                   </p>
 
                   {/* Description Paragraph */}
-                  <p className="mt-3 text-xs sm:text-[13px] leading-relaxed text-slate-500 font-normal min-h-[56px]">
+                  <p className="mt-2 text-[11px] sm:text-xs lg:text-[13px] leading-snug sm:leading-relaxed text-slate-500 font-normal line-clamp-3 sm:line-clamp-none min-h-[44px] sm:min-h-[52px]">
                     {pillar.description}
                   </p>
                 </div>
 
                 {/* 3D Visual Stage Graphic with Parallax Layers */}
                 <div
-                  className="relative mt-auto w-full px-4 pb-5 pt-1 overflow-hidden"
+                  className="relative mt-auto w-full px-2.5 sm:px-4 pb-2 sm:pb-3 pt-1 overflow-hidden"
                   style={{ transform: "translateZ(35px)" }}
                 >
-                  <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-100/70 border border-slate-200/60 shadow-inner group/img">
+                  <div className="relative aspect-[4/3] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-slate-100/70 border border-slate-200/60 shadow-inner group/img">
                     {/* Realistic 3D Visual Asset */}
                     <Image
                       src={pillar.image}
                       alt={`${pillar.name} - ${pillar.tagline}`}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108"
                     />
 
@@ -357,37 +360,68 @@ export default function FourPillars() {
                     {pillar.floatingBadges.map((badge, idx) => (
                       <div
                         key={idx}
-                        className={`absolute ${badge.position} z-20 flex items-center gap-1.5 rounded-full border border-white/80 bg-white/90 px-2.5 py-1 text-[10px] font-extrabold text-slate-800 shadow-[0_8px_20px_rgba(0,0,0,0.12)] backdrop-blur-md transition-all duration-300 group-hover:scale-105 pointer-events-none`}
+                        className={`absolute ${badge.position} z-20 flex items-center gap-1 rounded-full border border-white/80 bg-white/90 px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[8px] sm:text-[10px] font-extrabold text-slate-800 shadow-[0_8px_20px_rgba(0,0,0,0.12)] backdrop-blur-md transition-all duration-300 group-hover:scale-105 pointer-events-none`}
                         style={{
                           transform: "translateZ(45px)",
                           animation: `float 4s ease-in-out infinite`,
                           animationDelay: badge.delay,
                         }}
                       >
-                        {badge.icon}
-                        <span>{badge.label}</span>
+                        <span className="scale-75 sm:scale-100">{badge.icon}</span>
+                        <span className="truncate max-w-[65px] sm:max-w-none">{badge.label}</span>
                       </div>
                     ))}
 
                     {/* Quick Metric Badge Bottom Corner */}
-                    <div className="absolute bottom-2 left-2 z-10">
-                      <span className="inline-flex items-center rounded-md bg-slate-950/70 px-2 py-0.5 text-[9px] font-bold tracking-wide text-white backdrop-blur-md">
+                    <div className="absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 z-10">
+                      <span className="inline-flex items-center rounded-md bg-slate-950/70 px-1.5 sm:px-2 py-0.5 text-[8px] sm:text-[9px] font-bold tracking-wide text-white backdrop-blur-md">
                         {pillar.stats}
                       </span>
                     </div>
                   </div>
                 </div>
 
+                {/* Interactive Click Indicator CTA */}
+                <div
+                  className="px-3 sm:px-4 lg:px-5 pt-1.5 pb-3 sm:pb-4 flex items-center justify-between"
+                  style={{ transform: "translateZ(25px)" }}
+                >
+                  <span
+                    className="inline-flex items-center gap-0.5 sm:gap-1 text-[10.5px] sm:text-xs font-bold transition-all group-hover:gap-1.5"
+                    style={{ color: pillar.primaryColor }}
+                  >
+                    <span className="truncate">
+                      {pillar.id === "tech"
+                        ? "Explore Solutions"
+                        : pillar.id === "talent"
+                          ? "Explore Careers"
+                          : pillar.id === "training"
+                            ? "Learning Hub"
+                            : "Connect"}
+                    </span>
+                    <ArrowRight size={11} className="transition-transform duration-200 group-hover:translate-x-1 shrink-0" />
+                  </span>
+                  <span
+                    className="flex h-5 w-5 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110 shadow-2xs"
+                    style={{
+                      backgroundColor: `${pillar.primaryColor}18`,
+                      color: pillar.primaryColor,
+                    }}
+                  >
+                    <ArrowRight size={11} strokeWidth={2.5} className="sm:scale-110" />
+                  </span>
+                </div>
+
                 {/* Base Anchor Point with Optical Fiber Port */}
                 <div className="relative mx-auto -mb-2.5 z-20">
                   <div
-                    className="relative flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-white shadow-md transition-transform duration-300 group-hover:scale-125"
+                    className="relative flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full border-2 border-white bg-white shadow-md transition-transform duration-300 group-hover:scale-125"
                     style={{
                       borderColor: isTargeted ? pillar.primaryColor : "#cbd5e1",
                     }}
                   >
                     <div
-                      className="h-2 w-2 rounded-full transition-colors duration-300"
+                      className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full transition-colors duration-300"
                       style={{
                         backgroundColor: isTargeted
                           ? pillar.primaryColor
@@ -396,7 +430,7 @@ export default function FourPillars() {
                     />
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

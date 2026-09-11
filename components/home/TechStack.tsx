@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import {
   BrainCircuit,
   CloudCog,
@@ -10,7 +11,6 @@ import {
   Sparkles,
   Check,
 } from "lucide-react";
-
 const technologies = [
   {
     title: "AI / ML",
@@ -20,6 +20,7 @@ const technologies = [
     icon: BrainCircuit,
     gradient: "from-blue-500 to-cyan-400",
     glow: "bg-blue-500/20",
+    href: "/learninghub?category=AI+%26+Data",
     skills: [
       "Generative AI",
       "LLM & RAG",
@@ -36,6 +37,7 @@ const technologies = [
     icon: CloudCog,
     gradient: "from-violet-500 to-indigo-400",
     glow: "bg-violet-500/20",
+    href: "/learninghub?category=Cloud+%26+DevOps",
     skills: [
       "AWS / GCP",
       "Docker & Kubernetes",
@@ -52,6 +54,7 @@ const technologies = [
     icon: ShieldCheck,
     gradient: "from-emerald-500 to-teal-400",
     glow: "bg-emerald-500/20",
+    href: "/learninghub?category=Cybersecurity",
     skills: [
       "Application Security",
       "API Security",
@@ -68,6 +71,7 @@ const technologies = [
     icon: Layers3,
     gradient: "from-orange-500 to-pink-400",
     glow: "bg-orange-500/20",
+    href: "/learninghub?category=Development",
     skills: [
       "React / Next.js",
       "Node.js / Python",
@@ -125,9 +129,10 @@ export default function TechnologyCapabilities() {
             const Icon = tech.icon;
 
             return (
-              <div
+              <Link
                 key={tech.title}
-                className="group relative [perspective:1200px]"
+                href={tech.href}
+                className="group relative [perspective:1200px] block no-underline cursor-pointer"
               >
                 {/* Glow */}
                 <div
@@ -255,8 +260,11 @@ export default function TechnologyCapabilities() {
 
                   {/* Footer */}
                   <div className="mt-7 flex items-center justify-between border-t border-slate-100 pt-5">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 transition-colors group-hover:text-slate-600">
-                      Explore capability
+                    <span
+                      className="text-[11px] font-bold uppercase tracking-wider text-slate-400 transition-colors group-hover:text-blue-600 flex items-center gap-1"
+                    >
+                      <span>Explore capability</span>
+                      <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                     </span>
 
                     <div
@@ -289,7 +297,7 @@ export default function TechnologyCapabilities() {
                     className={`absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r ${tech.gradient} transition-all duration-500 group-hover:w-full`}
                   />
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

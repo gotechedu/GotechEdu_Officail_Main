@@ -1231,7 +1231,7 @@ export default function CourseDetailPage({
         currency: orderData.currency || "INR",
         name: "GoTechEdu Learning Hub",
         description: `Enrollment for ${course.title}`,
-        image: "https://hrmsgotechedu.vercel.app/favicon.ico",
+        image: "/icons.png",
         order_id: orderData.orderId,
         handler: async function (response: any) {
           try {
@@ -1946,7 +1946,7 @@ export default function CourseDetailPage({
                   </div>
 
                   <a
-                    href="https://hrmsgotechedu.vercel.app/"
+                    href="https://portal.gotechedu.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 py-3 font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-500/25 hover:opacity-95 cursor-pointer"

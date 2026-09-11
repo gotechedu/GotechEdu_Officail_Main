@@ -222,7 +222,7 @@ export default function EnrollmentCheckoutPage({
         currency: orderData.currency || "INR",
         name: "GoTechEdu Learning Hub",
         description: `Enrollment Fee for ${courseData?.title || slug.replace(/-/g, " ").toUpperCase()}`,
-        image: "https://hrmsgotechedu.vercel.app/favicon.ico",
+        image: "/icons.png",
         handler: async function (response: any) {
           // 3. Verify Payment Signature & Auto Send Email Invoice via Backend API
           setLoading(true);
@@ -257,7 +257,7 @@ export default function EnrollmentCheckoutPage({
                 orderId: response.razorpay_order_id || orderData.orderId,
                 amount: finalPayable,
                 application: verifyData.application,
-                portalUrl: verifyData.portalUrl || "https://hrmsgotechedu.vercel.app/",
+                portalUrl: verifyData.portalUrl || process.env.NEXT_PUBLIC_PORTAL_URL || "https://portal.gotechedu.com",
               });
               setPaymentSuccess(true);
             } else {
@@ -265,7 +265,7 @@ export default function EnrollmentCheckoutPage({
                 paymentId: response.razorpay_payment_id || `pay_verified_${Date.now()}`,
                 orderId: orderData.orderId,
                 amount: finalPayable,
-                portalUrl: "https://hrmsgotechedu.vercel.app/",
+                portalUrl: process.env.NEXT_PUBLIC_PORTAL_URL || "https://portal.gotechedu.com",
               });
               setPaymentSuccess(true);
             }
@@ -275,7 +275,7 @@ export default function EnrollmentCheckoutPage({
               paymentId: response.razorpay_payment_id || `pay_dev_${Date.now()}`,
               orderId: orderData.orderId || `ord_dev_${Date.now()}`,
               amount: finalPayable,
-              portalUrl: "https://hrmsgotechedu.vercel.app/",
+              portalUrl: process.env.NEXT_PUBLIC_PORTAL_URL || "https://portal.gotechedu.com",
             });
             setPaymentSuccess(true);
           } finally {
@@ -361,7 +361,7 @@ export default function EnrollmentCheckoutPage({
             </h2>
 
             <p className="mt-2 text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
-              Congratulations <strong className="text-slate-900">{formData.fullName}</strong>! Your Razorpay payment has been verified and an official tax invoice email was dispatched to <strong className="text-blue-600">{formData.email}</strong> via Nodemailer.
+              Congratulations <strong className="text-slate-900">{formData.fullName}</strong>! Your Razorpay payment has been verified and an official tax invoice email was dispatched to <strong className="text-blue-600">{formData.email}</strong> via Brevo Mail Service.
             </p>
 
             {/* Receipt Dossier Box */}
@@ -387,7 +387,7 @@ export default function EnrollmentCheckoutPage({
             {/* Prominent Action Button Linking to https://hrmsgotechedu.vercel.app/ */}
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="https://hrmsgotechedu.vercel.app/"
+                href={receiptData?.portalUrl || "https://portal.gotechedu.com"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 px-8 py-4 text-sm font-black uppercase tracking-wider text-white shadow-xl shadow-blue-500/25 hover:opacity-95 transition active:scale-95 cursor-pointer"
@@ -735,7 +735,7 @@ export default function EnrollmentCheckoutPage({
                 <div className="p-3.5 bg-white border border-blue-100 rounded-2xl text-[11px] text-slate-600 space-y-1">
                   <p className="font-bold text-blue-800">Included Admission Benefits:</p>
                   <p>✓ Automated HRMS Student Portal Login</p>
-                  <p>✓ Instant Nodemailer Tax Invoice Email</p>
+                  <p>✓ Instant Brevo Tax Invoice Email</p>
                   <p>✓ 1:1 Live Mentor Code Reviews</p>
                 </div>
               </div>
