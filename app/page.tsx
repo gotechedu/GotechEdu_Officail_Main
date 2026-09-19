@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
-// import Stats from "@/components/home/Stats";
 import FourPillars from "@/components/home/FourPillars";
-import Services from "@/components/home/Services";
+import SolutionsSection from "@/components/home/SolutionsSection";
+import LeadCapture from "@/components/home/LeadCapture";
 import TechStack from "@/components/home/TechStack";
-import WhyChooseUs from "@/components/home/WhyChooseUs";
 import Testimonials from "@/components/home/Testimonials";
-import CTASection from "@/components/home/CTASection";
+import AboutSection from "@/components/home/AboutSection";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -27,14 +26,29 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="bg-slate-50 min-h-screen">
+    <main className="bg-white min-h-screen">
+      {/* 1. Hero Section with 3 Floating Highlight Cards */}
       <Hero />
-      {/* <Stats /> */}
+
+      {/* 2. Four Foundation Pillars (Tech, Talent, Training, Transformation) */}
       <FourPillars />
-      <Services />
+
+      {/* 3. Welcome to GoTechEdu & Why Choose Us (Left Accent Bar + Staggered Images + Trust Badge) */}
+
+
+      {/* 4. End-to-End Solutions for Every Growth Stage */}
+      <SolutionsSection />
+
+
+
+
+      {/* 7. Industry Engineering & Tech Stack */}
       <TechStack />
-      <WhyChooseUs />
+
+      {/* 8. Testimonials - What they are saying? (Top Colored Accent Bar Cards) */}
       <Testimonials />
+
+      <AboutSection />
     </main>
   );
 }

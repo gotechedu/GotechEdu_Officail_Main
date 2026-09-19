@@ -39,7 +39,7 @@ export const organizationSchema = {
   image: DEFAULT_OG_IMAGE,
   description:
     "GoTechEdu is an enterprise technology solutions provider and modern tech academy specializing in software engineering, autonomous AI systems, multi-cloud DevOps, and cybersecurity.",
-  email: "gotecheduofficial@gmail.com",
+  email: "gotecheduoffical@gmail.com",
   telephone: "+91-9608094837",
   address: {
     "@type": "PostalAddress",
@@ -48,15 +48,15 @@ export const organizationSchema = {
     addressCountry: "IN",
   },
   sameAs: [
-    "https://www.linkedin.com/gotechedu",
+    "https://www.linkedin.com/in/gotechedu",
     "https://www.instagram.com/gotecheduofficial",
-    "https://www.facebook.com/profile.php?id=61593275925756",
+    "https://www.facebook.com/gotechedu",
   ],
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+91-9608094837",
     contactType: "customer service",
-    email: "gotecheduofficial@gmail.com",
+    email: "gotecheduoffical@gmail.com",
     availableLanguage: ["English", "Hindi"],
   },
 };

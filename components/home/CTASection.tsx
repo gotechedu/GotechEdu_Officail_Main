@@ -40,7 +40,7 @@ function CTASection() {
               </Link>
 
               <a
-                href="mailto:gotecheduofficial@gmail.com"
+                href="mailto:gotecheduoffical@gmail.com"
                 className="inline-flex items-center justify-center rounded-2xl border border-white/40 bg-white/10 px-8 py-4 text-sm sm:text-base font-extrabold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/20 hover:scale-[1.03] active:scale-100"
               >
                 Contact Sales Team

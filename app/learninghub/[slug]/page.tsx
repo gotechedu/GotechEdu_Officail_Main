@@ -956,20 +956,32 @@ function getFallbackCourse(slug: string, apiCourse?: any): CourseDetail {
             ];
 
     const instructorsList =
-      apiCourse.instructors && apiCourse.instructors.length > 0
-        ? apiCourse.instructors
-        : apiCourse.instructor && apiCourse.instructor.name
+      apiCourse.instructors && Array.isArray(apiCourse.instructors) && apiCourse.instructors.length > 0
+        ? apiCourse.instructors.map((ins: any) => ({
+            name: typeof ins === "string" ? ins : (ins?.name || "GoTechEdu Mentor"),
+            role: typeof ins === "object" ? (ins?.role || "Lead Engineering Mentor") : "Lead Engineering Mentor",
+            organization: typeof ins === "object" ? (ins?.organization || "GoTechEdu") : "GoTechEdu",
+            rating: typeof ins === "object" && typeof ins?.rating === "number" ? ins.rating : 4.92,
+            students: typeof ins === "object" && ins?.students ? String(ins.students) : "45,000+",
+            coursesCount: typeof ins === "object" && ins?.coursesCount ? Number(ins.coursesCount) : 5,
+            bio: typeof ins === "object" && ins?.bio ? String(ins.bio) : "Senior technical architect with 12+ years building enterprise architectures and mentoring high-performance developer teams.",
+            avatar:
+              typeof ins === "object" && ins?.avatar
+                ? ins.avatar
+                : "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+          }))
+        : apiCourse.instructor
           ? [
               {
-                name: apiCourse.instructor.name,
-                role: apiCourse.instructor.role || "Lead Engineering Mentor",
-                organization: apiCourse.instructor.organization || "GoTechEdu",
+                name: typeof apiCourse.instructor === "string" ? apiCourse.instructor : (apiCourse.instructor.name || "Lead Engineering Mentor"),
+                role: (typeof apiCourse.instructor === "object" && apiCourse.instructor.role) || "Lead Engineering Mentor",
+                organization: (typeof apiCourse.instructor === "object" && apiCourse.instructor.organization) || "GoTechEdu",
                 rating: 4.92,
                 students: "45,000+",
                 coursesCount: 5,
                 bio: "Senior technical architect with 12+ years building enterprise architectures and mentoring high-performance developer teams.",
                 avatar:
-                  apiCourse.instructor.avatar ||
+                  (typeof apiCourse.instructor === "object" && apiCourse.instructor.avatar) ||
                   "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
               },
             ]
@@ -1130,16 +1142,21 @@ export default function CourseDetailPage({
     notes: "",
   });
 
+  const [isLoadingCourse, setIsLoadingCourse] = useState(true);
+
   // Fetch dynamic course data from backend if available
   useEffect(() => {
     const fetchCourse = async () => {
       try {
+        setIsLoadingCourse(true);
         const res = await officialApi.getCourseById(slug);
         if (res && res.course) {
           setCourse(getFallbackCourse(slug, res.course));
         }
       } catch (err) {
         // Fall back gracefully
+      } finally {
+        setIsLoadingCourse(false);
       }
     };
     fetchCourse();
@@ -1292,6 +1309,40 @@ export default function CourseDetailPage({
       setIsSubmitting(false);
     }
   };
+
+  if (isLoadingCourse) {
+    return (
+      <main className="min-h-screen bg-slate-50 text-slate-900 pb-24 animate-pulse">
+        {/* Hero Header Skeleton */}
+        <section className="bg-slate-900 py-12 lg:py-16 text-white border-b border-slate-800">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4">
+            <div className="h-4 w-44 rounded bg-slate-800" />
+            <div className="h-10 w-2/3 rounded-xl bg-slate-800" />
+            <div className="h-5 w-1/2 rounded bg-slate-800" />
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <div className="h-10 w-36 rounded-full bg-slate-800" />
+              <div className="h-8 w-24 rounded-full bg-slate-800" />
+              <div className="h-8 w-32 rounded-full bg-slate-800" />
+            </div>
+          </div>
+        </section>
+
+        {/* Content & Sidebar Skeleton */}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
+            <div className="lg:col-span-8 space-y-6">
+              <div className="h-48 rounded-2xl bg-slate-200" />
+              <div className="h-64 rounded-2xl bg-slate-200" />
+              <div className="h-48 rounded-2xl bg-slate-200" />
+            </div>
+            <div className="lg:col-span-4">
+              <div className="h-96 rounded-3xl bg-slate-200" />
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-[#f8fafc] text-slate-900 pb-24">

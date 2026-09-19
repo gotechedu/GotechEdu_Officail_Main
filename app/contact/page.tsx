@@ -195,16 +195,16 @@ export default function ContactPage() {
                         Email Us
                       </div>
                       <a
-                        href="mailto:gotecheduofficial@gmail.com"
+                        href="mailto:gotecheduoffical@gmail.com"
                         className="text-xs sm:text-sm font-bold text-slate-900 hover:text-blue-600 transition truncate block"
                       >
-                        gotecheduofficial@gmail.com
+                        gotecheduoffical@gmail.com
                       </a>
                     </div>
                     <button
                       type="button"
                       onClick={() =>
-                        handleCopy("gotecheduofficial@gmail.com", "email")
+                        handleCopy("gotecheduoffical@gmail.com", "email")
                       }
                       title="Copy email"
                       className="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg transition cursor-pointer"

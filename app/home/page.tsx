@@ -24,7 +24,7 @@ function HomePage() {
       <Hero />
       <FourPillars />
       <Services />
-      <WhyChooseUs />
+      {/* <WhyChooseUs /> */}
       <Testimonials />
       <CTASection />
     </main>
