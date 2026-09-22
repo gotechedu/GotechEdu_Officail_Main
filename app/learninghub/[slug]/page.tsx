@@ -3,6 +3,12 @@
 import Link from "next/link";
 import React, { useState, useEffect, use } from "react";
 import { officialApi } from "@/lib/api";
+import {
+  validateName,
+  validateEmail,
+  validatePhone,
+  sanitizeInput,
+} from "@/lib/validation";
 
 interface CourseDetail {
   id: string;
@@ -870,101 +876,128 @@ function getFallbackCourse(slug: string, apiCourse?: any): CourseDetail {
               title: les.title,
               duration: les.duration || "30 mins",
               isPreview: !!les.isPreview,
-              type: les.contentType === "pdf" ? ("doc" as const) : les.contentType === "external_link" ? ("lab" as const) : ("video" as const),
+              type:
+                les.contentType === "pdf"
+                  ? ("doc" as const)
+                  : les.contentType === "external_link"
+                    ? ("lab" as const)
+                    : ("video" as const),
             })),
           }))
         : apiCourse.syllabusModules && apiCourse.syllabusModules.length > 0
-        ? apiCourse.syllabusModules
-        : apiCourse.modules && apiCourse.modules.length > 0
-          ? apiCourse.modules.map((m: string, i: number) => ({
-              moduleNumber: i + 1,
-              title: m,
-              duration: "3hr 30min",
-              lectures: [
-                {
-                  title: `${m} - Core Principles & Setup`,
-                  duration: "45 Min",
-                  isPreview: true,
-                  type: "video" as const,
-                },
-                {
-                  title: `${m} - In-Depth Architecture & Production Patterns`,
-                  duration: "60 Min",
-                  isPreview: false,
-                  type: "video" as const,
-                },
-                {
-                  title: `${m} - Hands-On Implementation Lab`,
-                  duration: "75 Min",
-                  isPreview: false,
-                  type: "lab" as const,
-                },
-              ],
-            }))
-          : [
-              {
-                moduleNumber: 1,
-                title: "Introduction to Core Principles & Environment Setup",
-                duration: "2hr 30min",
+          ? apiCourse.syllabusModules
+          : apiCourse.modules && apiCourse.modules.length > 0
+            ? apiCourse.modules.map((m: string, i: number) => ({
+                moduleNumber: i + 1,
+                title: m,
+                duration: "3hr 30min",
                 lectures: [
                   {
-                    title: "Program Overview, Architecture & Career Roadmap",
-                    duration: "25 Min",
+                    title: `${m} - Core Principles & Setup`,
+                    duration: "45 Min",
                     isPreview: true,
                     type: "video" as const,
                   },
                   {
-                    title: "Development Tooling & Tool Installation",
-                    duration: "35 Min",
-                    isPreview: true,
-                    type: "video" as const,
-                  },
-                  {
-                    title: "Lab: Foundational Practical Implementation",
-                    duration: "40 Min",
-                    isPreview: false,
-                    type: "lab" as const,
-                  },
-                ],
-              },
-              {
-                moduleNumber: 2,
-                title: "Advanced Implementations, Architecture & Integrations",
-                duration: "4hr 15min",
-                lectures: [
-                  {
-                    title:
-                      "Component Architecture & Scalability Best Practices",
+                    title: `${m} - In-Depth Architecture & Production Patterns`,
                     duration: "60 Min",
                     isPreview: false,
                     type: "video" as const,
                   },
                   {
-                    title: "Database Modeling, APIs & Asynchronous Flow",
-                    duration: "65 Min",
-                    isPreview: false,
-                    type: "video" as const,
-                  },
-                  {
-                    title: "Lab: High-Throughput Module Service",
+                    title: `${m} - Hands-On Implementation Lab`,
                     duration: "75 Min",
                     isPreview: false,
                     type: "lab" as const,
                   },
                 ],
-              },
-            ];
+              }))
+            : [
+                {
+                  moduleNumber: 1,
+                  title: "Introduction to Core Principles & Environment Setup",
+                  duration: "2hr 30min",
+                  lectures: [
+                    {
+                      title: "Program Overview, Architecture & Career Roadmap",
+                      duration: "25 Min",
+                      isPreview: true,
+                      type: "video" as const,
+                    },
+                    {
+                      title: "Development Tooling & Tool Installation",
+                      duration: "35 Min",
+                      isPreview: true,
+                      type: "video" as const,
+                    },
+                    {
+                      title: "Lab: Foundational Practical Implementation",
+                      duration: "40 Min",
+                      isPreview: false,
+                      type: "lab" as const,
+                    },
+                  ],
+                },
+                {
+                  moduleNumber: 2,
+                  title:
+                    "Advanced Implementations, Architecture & Integrations",
+                  duration: "4hr 15min",
+                  lectures: [
+                    {
+                      title:
+                        "Component Architecture & Scalability Best Practices",
+                      duration: "60 Min",
+                      isPreview: false,
+                      type: "video" as const,
+                    },
+                    {
+                      title: "Database Modeling, APIs & Asynchronous Flow",
+                      duration: "65 Min",
+                      isPreview: false,
+                      type: "video" as const,
+                    },
+                    {
+                      title: "Lab: High-Throughput Module Service",
+                      duration: "75 Min",
+                      isPreview: false,
+                      type: "lab" as const,
+                    },
+                  ],
+                },
+              ];
 
     const instructorsList =
-      apiCourse.instructors && Array.isArray(apiCourse.instructors) && apiCourse.instructors.length > 0
+      apiCourse.instructors &&
+      Array.isArray(apiCourse.instructors) &&
+      apiCourse.instructors.length > 0
         ? apiCourse.instructors.map((ins: any) => ({
-            name: typeof ins === "string" ? ins : (ins?.name || "GoTechEdu Mentor"),
-            role: typeof ins === "object" ? (ins?.role || "Lead Engineering Mentor") : "Lead Engineering Mentor",
-            organization: typeof ins === "object" ? (ins?.organization || "GoTechEdu") : "GoTechEdu",
-            rating: typeof ins === "object" && typeof ins?.rating === "number" ? ins.rating : 4.92,
-            students: typeof ins === "object" && ins?.students ? String(ins.students) : "45,000+",
-            coursesCount: typeof ins === "object" && ins?.coursesCount ? Number(ins.coursesCount) : 5,
-            bio: typeof ins === "object" && ins?.bio ? String(ins.bio) : "Senior technical architect with 12+ years building enterprise architectures and mentoring high-performance developer teams.",
+            name:
+              typeof ins === "string" ? ins : ins?.name || "GoTechEdu Mentor",
+            role:
+              typeof ins === "object"
+                ? ins?.role || "Lead Engineering Mentor"
+                : "Lead Engineering Mentor",
+            organization:
+              typeof ins === "object"
+                ? ins?.organization || "GoTechEdu"
+                : "GoTechEdu",
+            rating:
+              typeof ins === "object" && typeof ins?.rating === "number"
+                ? ins.rating
+                : 4.92,
+            students:
+              typeof ins === "object" && ins?.students
+                ? String(ins.students)
+                : "45,000+",
+            coursesCount:
+              typeof ins === "object" && ins?.coursesCount
+                ? Number(ins.coursesCount)
+                : 5,
+            bio:
+              typeof ins === "object" && ins?.bio
+                ? String(ins.bio)
+                : "Senior technical architect with 12+ years building enterprise architectures and mentoring high-performance developer teams.",
             avatar:
               typeof ins === "object" && ins?.avatar
                 ? ins.avatar
@@ -973,15 +1006,25 @@ function getFallbackCourse(slug: string, apiCourse?: any): CourseDetail {
         : apiCourse.instructor
           ? [
               {
-                name: typeof apiCourse.instructor === "string" ? apiCourse.instructor : (apiCourse.instructor.name || "Lead Engineering Mentor"),
-                role: (typeof apiCourse.instructor === "object" && apiCourse.instructor.role) || "Lead Engineering Mentor",
-                organization: (typeof apiCourse.instructor === "object" && apiCourse.instructor.organization) || "GoTechEdu",
+                name:
+                  typeof apiCourse.instructor === "string"
+                    ? apiCourse.instructor
+                    : apiCourse.instructor.name || "Lead Engineering Mentor",
+                role:
+                  (typeof apiCourse.instructor === "object" &&
+                    apiCourse.instructor.role) ||
+                  "Lead Engineering Mentor",
+                organization:
+                  (typeof apiCourse.instructor === "object" &&
+                    apiCourse.instructor.organization) ||
+                  "GoTechEdu",
                 rating: 4.92,
                 students: "45,000+",
                 coursesCount: 5,
                 bio: "Senior technical architect with 12+ years building enterprise architectures and mentoring high-performance developer teams.",
                 avatar:
-                  (typeof apiCourse.instructor === "object" && apiCourse.instructor.avatar) ||
+                  (typeof apiCourse.instructor === "object" &&
+                    apiCourse.instructor.avatar) ||
                   "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
               },
             ]
@@ -1142,6 +1185,7 @@ export default function CourseDetailPage({
     notes: "",
   });
 
+  const [enrollError, setEnrollError] = useState("");
   const [isLoadingCourse, setIsLoadingCourse] = useState(true);
 
   // Fetch dynamic course data from backend if available
@@ -1223,6 +1267,26 @@ export default function CourseDetailPage({
   // Submit Enrollment with Razorpay Payment Gateway & User Password Integration
   const handleEnrollSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setEnrollError("");
+
+    const nameVal = validateName(enrollForm.fullName);
+    if (!nameVal.isValid) {
+      setEnrollError(nameVal.error!);
+      return;
+    }
+
+    const emailVal = validateEmail(enrollForm.email);
+    if (!emailVal.isValid) {
+      setEnrollError(emailVal.error!);
+      return;
+    }
+
+    const phoneVal = validatePhone(enrollForm.phone);
+    if (!phoneVal.isValid) {
+      setEnrollError(phoneVal.error!);
+      return;
+    }
+
     setIsSubmitting(true);
     const API_URL =
       process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
@@ -1621,7 +1685,7 @@ export default function CourseDetailPage({
             </div>
 
             {/* 4. Instructor Card (Matches Image UI) */}
-            <div className="rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs">
+            {/* <div className="rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs">
               <h2 className="font-heading text-xl font-bold text-slate-900 mb-5">
                 Instructor
               </h2>
@@ -1654,7 +1718,7 @@ export default function CourseDetailPage({
                   </p>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             {/* 5. Frequently Asked Questions (FAQ Accordion) */}
             <div className="rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xs">
@@ -1724,6 +1788,7 @@ export default function CourseDetailPage({
               <div className="space-y-2.5">
                 <Link
                   href={`/learninghub/${slug}/enroll`}
+                  // href={`/contact`}
                   className="w-full inline-flex items-center justify-center rounded-xl bg-[#0f766e] hover:bg-[#115e59] py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-md transition active:scale-98 cursor-pointer"
                 >
                   Enroll Now →
@@ -1731,15 +1796,11 @@ export default function CourseDetailPage({
 
                 <Link
                   href={`/learninghub/${slug}/enroll?coupon=FREEDEMO`}
+                  // href={`/contact`}
                   className="w-full inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 hover:bg-slate-50 transition cursor-pointer"
                 >
                   Book Free Demo Class
                 </Link>
-
-                <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-500 pt-1 font-medium">
-                  <span>🛡️</span>
-                  <span>14-Day 100% Money-Back Guarantee</span>
-                </div>
               </div>
 
               {/* Promo Coupon Box */}
@@ -1914,7 +1975,7 @@ export default function CourseDetailPage({
                   className="flex items-center justify-center gap-2 rounded-xl bg-emerald-50 border border-emerald-200 py-2.5 text-xs font-bold text-emerald-800 hover:bg-emerald-100 transition"
                 >
                   <span>📞</span>
-                  <span>Call Us: +91 98765 43210</span>
+                  <span>Call Us: +91 96080 94837</span>
                 </a>
               </div>
             </div>
@@ -2008,6 +2069,11 @@ export default function CourseDetailPage({
                 </div>
               ) : (
                 <form onSubmit={handleEnrollSubmit} className="space-y-4">
+                  {enrollError && (
+                    <div className="rounded-xl bg-red-50 p-2.5 text-xs font-semibold text-red-600 border border-red-200">
+                      {enrollError}
+                    </div>
+                  )}
                   <div>
                     <label className="block font-bold text-slate-700 mb-1">
                       Full Name *

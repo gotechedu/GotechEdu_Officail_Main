@@ -16,6 +16,8 @@ import {
   Layers,
   ChevronRight,
   Compass,
+  Clock,
+  Lock,
 } from "lucide-react";
 
 interface SolutionCard {
@@ -66,11 +68,7 @@ const leftSolutions: SolutionCard[] = [
     description:
       "Autonomous AI agents, enterprise RAG search pipelines, and custom fine-tuned LLMs.",
     href: "/solution#ai",
-    features: [
-      "Autonomous Agents",
-      "Enterprise RAG",
-      "Fine-Tuned LLMs",
-    ],
+    features: ["Autonomous Agents", "Enterprise RAG", "Fine-Tuned LLMs"],
     image: "/assets/solutions/ai-3d.jpg",
     accentColor: "text-purple-600",
     badgeBg: "bg-purple-50 border-purple-200 text-purple-700",
@@ -202,7 +200,9 @@ export default function SolutionsSection() {
           <div className="hidden lg:block absolute right-[-80px] top-[-10px] text-right">
             <span className="font-serif italic text-sm text-slate-400 font-medium rotate-6 inline-block">
               Technology <br />
-              <span className="text-blue-500 font-semibold">for a better tomorrow</span>
+              <span className="text-blue-500 font-semibold">
+                for a better tomorrow
+              </span>
             </span>
           </div>
 
@@ -216,8 +216,9 @@ export default function SolutionsSection() {
 
           {/* Subtitle */}
           <p className="mt-4 text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            From custom software engineering and AI automation to multi-cloud infrastructure,
-            cyber security defense, and tech training—we are your full-spectrum technology partner.
+            From custom software engineering and AI automation to multi-cloud
+            infrastructure, cyber security defense, and tech training—we are
+            your full-spectrum technology partner.
           </p>
 
           {/* Micro Progression Text */}
@@ -264,9 +265,13 @@ export default function SolutionsSection() {
                 {/* Top-Left wire from BUILD node (150, 200) to Left 01 (0, 80) */}
                 <path
                   d="M 140 230 C 70 210, 50 100, 0 85"
-                  stroke={activeCard === "tech-solutions" ? "#2563eb" : "#93c5fd"}
+                  stroke={
+                    activeCard === "tech-solutions" ? "#2563eb" : "#93c5fd"
+                  }
                   strokeWidth={activeCard === "tech-solutions" ? 2.5 : 1.5}
-                  strokeDasharray={activeCard === "tech-solutions" ? "none" : "3 3"}
+                  strokeDasharray={
+                    activeCard === "tech-solutions" ? "none" : "3 3"
+                  }
                   className="transition-all duration-300"
                 />
                 <circle
@@ -282,7 +287,9 @@ export default function SolutionsSection() {
                   d="M 110 290 C 60 290, 40 290, 0 290"
                   stroke={activeCard === "ai-solutions" ? "#9333ea" : "#d8b4fe"}
                   strokeWidth={activeCard === "ai-solutions" ? 2.5 : 1.5}
-                  strokeDasharray={activeCard === "ai-solutions" ? "none" : "3 3"}
+                  strokeDasharray={
+                    activeCard === "ai-solutions" ? "none" : "3 3"
+                  }
                   className="transition-all duration-300"
                 />
                 <circle
@@ -298,7 +305,9 @@ export default function SolutionsSection() {
                   d="M 140 360 C 70 380, 50 480, 0 495"
                   stroke={activeCard === "cloud-devops" ? "#d97706" : "#fcd34d"}
                   strokeWidth={activeCard === "cloud-devops" ? 2.5 : 1.5}
-                  strokeDasharray={activeCard === "cloud-devops" ? "none" : "3 3"}
+                  strokeDasharray={
+                    activeCard === "cloud-devops" ? "none" : "3 3"
+                  }
                   className="transition-all duration-300"
                 />
                 <circle
@@ -313,9 +322,13 @@ export default function SolutionsSection() {
                 {/* Top-Right wire from INNOVATE node (260, 230) to Right 04 (400, 85) */}
                 <path
                   d="M 260 230 C 330 210, 350 100, 400 85"
-                  stroke={activeCard === "cyber-security" ? "#059669" : "#6ee7b7"}
+                  stroke={
+                    activeCard === "cyber-security" ? "#059669" : "#6ee7b7"
+                  }
                   strokeWidth={activeCard === "cyber-security" ? 2.5 : 1.5}
-                  strokeDasharray={activeCard === "cyber-security" ? "none" : "3 3"}
+                  strokeDasharray={
+                    activeCard === "cyber-security" ? "none" : "3 3"
+                  }
                   className="transition-all duration-300"
                 />
                 <circle
@@ -329,9 +342,13 @@ export default function SolutionsSection() {
                 {/* Middle-Right wire from Center to Right 05 (400, 290) */}
                 <path
                   d="M 290 290 C 340 290, 360 290, 400 290"
-                  stroke={activeCard === "digital-growth" ? "#e11d48" : "#fda4af"}
+                  stroke={
+                    activeCard === "digital-growth" ? "#e11d48" : "#fda4af"
+                  }
                   strokeWidth={activeCard === "digital-growth" ? 2.5 : 1.5}
-                  strokeDasharray={activeCard === "digital-growth" ? "none" : "3 3"}
+                  strokeDasharray={
+                    activeCard === "digital-growth" ? "none" : "3 3"
+                  }
                   className="transition-all duration-300"
                 />
                 <circle
@@ -347,7 +364,9 @@ export default function SolutionsSection() {
                   d="M 260 360 C 330 380, 350 480, 400 495"
                   stroke={activeCard === "tech-academy" ? "#4f46e5" : "#a5b4fc"}
                   strokeWidth={activeCard === "tech-academy" ? 2.5 : 1.5}
-                  strokeDasharray={activeCard === "tech-academy" ? "none" : "3 3"}
+                  strokeDasharray={
+                    activeCard === "tech-academy" ? "none" : "3 3"
+                  }
                   className="transition-all duration-300"
                 />
                 <circle
@@ -434,7 +453,7 @@ export default function SolutionsSection() {
                 {/* 5. BOTTOM LEFT: SECURE */}
                 <div className="absolute bottom-7 left-[-8px] z-20 flex flex-col items-center">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500 text-white shadow-md shadow-amber-500/30 transition-transform hover:scale-110">
-                    <Shield className="w-4 h-4" />
+                    <Lock className="w-4 h-4" />
                   </div>
                   <span className="mt-1 text-[9px] font-mono font-black tracking-wider text-slate-600">
                     SECURE
@@ -491,7 +510,10 @@ export default function SolutionsSection() {
                 {[
                   { label: "BUILD", color: "bg-blue-100 text-blue-700" },
                   { label: "GROW", color: "bg-cyan-100 text-cyan-700" },
-                  { label: "INNOVATE", color: "bg-emerald-100 text-emerald-700" },
+                  {
+                    label: "INNOVATE",
+                    color: "bg-emerald-100 text-emerald-700",
+                  },
                   { label: "LEARN", color: "bg-indigo-100 text-indigo-700" },
                   { label: "SCALE", color: "bg-sky-100 text-sky-700" },
                   { label: "SECURE", color: "bg-amber-100 text-amber-700" },
@@ -521,8 +543,6 @@ export default function SolutionsSection() {
             </div>
           </div>
         </div>
-
-
       </div>
     </section>
   );
@@ -547,10 +567,11 @@ function SolutionCardItem({
       href={card.href}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
-      className={`group relative flex flex-col justify-between rounded-3xl border bg-white p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${isHovered
-        ? "border-blue-400 shadow-lg shadow-blue-500/10 ring-1 ring-blue-400"
-        : "border-slate-200/90 shadow-sm"
-        }`}
+      className={`group relative flex flex-col justify-between rounded-3xl border bg-white p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+        isHovered
+          ? "border-blue-400 shadow-lg shadow-blue-500/10 ring-1 ring-blue-400"
+          : "border-slate-200/90 shadow-sm"
+      }`}
     >
       {/* Top Card Row: Number badge, Title & Description */}
       <div className="flex items-start justify-between gap-4">

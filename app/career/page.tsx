@@ -29,6 +29,13 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import { officialApi } from "@/lib/api";
+import {
+  validateName,
+  validateEmail,
+  validatePhone,
+  validateUrl,
+  sanitizeInput,
+} from "@/lib/validation";
 
 const perks = [
   {
@@ -100,6 +107,7 @@ export default function CareerPage() {
   const [isApplying, setIsApplying] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [modalError, setModalError] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -248,6 +256,7 @@ export default function CareerPage() {
       position: jobTitle || "General Application",
       department: dept || "Engineering",
     }));
+    setModalError("");
     setIsApplying(true);
     setIsSubmitted(false);
   };
@@ -259,6 +268,7 @@ export default function CareerPage() {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (modalError) setModalError("");
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -272,25 +282,58 @@ export default function CareerPage() {
 
   const handleSubmitApplication = async (e: React.FormEvent) => {
     e.preventDefault();
+    setModalError("");
+
+    const nameValidation = validateName(formData.fullName);
+    if (!nameValidation.isValid) {
+      setModalError(nameValidation.error!);
+      return;
+    }
+
+    const emailValidation = validateEmail(formData.email);
+    if (!emailValidation.isValid) {
+      setModalError(emailValidation.error!);
+      return;
+    }
+
+    const phoneValidation = validatePhone(formData.phone);
+    if (!phoneValidation.isValid) {
+      setModalError(phoneValidation.error!);
+      return;
+    }
+
+    if (formData.portfolioUrl && formData.portfolioUrl.trim()) {
+      const urlValidation = validateUrl(formData.portfolioUrl);
+      if (!urlValidation.isValid) {
+        setModalError(urlValidation.error!);
+        return;
+      }
+    }
+
     setIsSubmitting(true);
     try {
-      await officialApi.submitJobApplication({
+      const res = await officialApi.submitJobApplication({
         jobTitle: formData.position,
         department: formData.department,
-        name: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
+        name: formData.fullName.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
         experience: formData.experience,
-        currentCompany: formData.currentCompany,
-        expectedCTC: formData.expectedCTC,
+        currentCompany: formData.currentCompany ? sanitizeInput(formData.currentCompany) : "",
+        expectedCTC: formData.expectedCTC ? sanitizeInput(formData.expectedCTC) : "",
         noticePeriod: formData.noticePeriod,
-        portfolioUrl: formData.portfolioUrl,
-        coverLetter: formData.message,
+        portfolioUrl: formData.portfolioUrl ? formData.portfolioUrl.trim() : "",
+        coverLetter: formData.message ? sanitizeInput(formData.message) : "",
       });
-      setIsSubmitted(true);
+
+      if (res && res.success === false) {
+        setModalError(res.message || "Failed to submit application. Please check your inputs.");
+      } else {
+        setIsSubmitted(true);
+      }
     } catch (err) {
       console.error("Submit application error:", err);
-      setIsSubmitted(true);
+      setModalError("A network error occurred. Please try submitting again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -811,6 +854,12 @@ export default function CareerPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmitApplication} className="space-y-4">
+                  {modalError && (
+                    <div className="rounded-xl bg-red-50 p-3 text-xs font-semibold text-red-600 border border-red-200">
+                      {modalError}
+                    </div>
+                  )}
+
                   {/* Full Name */}
                   <div>
                     <label className="block text-[11px] font-bold text-slate-700 mb-1">

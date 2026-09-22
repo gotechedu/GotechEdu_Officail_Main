@@ -51,6 +51,8 @@ async function fetchJson<T>(
   }
 }
 
+import { sanitizeInput } from "./validation";
+
 export const officialApi = {
   // 1. Learning Hub / Courses
   getCourses: async (params: { category?: string; search?: string } = {}) => {
@@ -79,13 +81,27 @@ export const officialApi = {
     learningGoal?: string;
     modePreference?: string;
   }) => {
-    return fetchJson<{ success: boolean; message: string; application: any }>(
-      "/course-applications",
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-      },
-    );
+    const cleanPayload = {
+      ...data,
+      studentName: sanitizeInput(data.studentName),
+      courseTitle: sanitizeInput(data.courseTitle),
+      email: data.email.trim().toLowerCase(),
+      phone: data.phone.trim(),
+      learningGoal: data.learningGoal ? sanitizeInput(data.learningGoal) : "",
+      collegeOrCompany: data.collegeOrCompany ? sanitizeInput(data.collegeOrCompany) : "",
+    };
+
+    return fetchJson<{
+      success: boolean;
+      message: string;
+      applicationId?: string;
+      studentName?: string;
+      courseTitle?: string;
+      portalUrl?: string;
+    }>("/course-applications", {
+      method: "POST",
+      body: JSON.stringify(cleanPayload),
+    });
   },
 
   // 2. Careers / Job Openings
@@ -117,13 +133,28 @@ export const officialApi = {
     portfolioUrl?: string;
     coverLetter?: string;
   }) => {
-    return fetchJson<{ success: boolean; message: string; application: any }>(
-      "/job-applications",
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-      },
-    );
+    const cleanPayload = {
+      ...data,
+      name: sanitizeInput(data.name),
+      jobTitle: sanitizeInput(data.jobTitle),
+      department: data.department ? sanitizeInput(data.department) : "Engineering",
+      email: data.email.trim().toLowerCase(),
+      phone: data.phone.trim(),
+      currentCompany: data.currentCompany ? sanitizeInput(data.currentCompany) : "",
+      portfolioUrl: data.portfolioUrl ? data.portfolioUrl.trim() : "",
+      coverLetter: data.coverLetter ? sanitizeInput(data.coverLetter) : "",
+    };
+
+    return fetchJson<{
+      success: boolean;
+      message: string;
+      applicationId?: string;
+      jobTitle?: string;
+      name?: string;
+    }>("/job-applications", {
+      method: "POST",
+      body: JSON.stringify(cleanPayload),
+    });
   },
 
   // 3. Blogs & Insights
@@ -153,14 +184,24 @@ export const officialApi = {
     message: string;
     source?: string;
   }) => {
+    const cleanPayload = {
+      ...data,
+      fullName: sanitizeInput(data.fullName),
+      email: data.email.trim().toLowerCase(),
+      phone: data.phone.trim(),
+      company: data.company ? sanitizeInput(data.company) : "",
+      service: data.service ? sanitizeInput(data.service) : "",
+      message: sanitizeInput(data.message),
+      source: data.source ? sanitizeInput(data.source) : "Official Portal Contact Form",
+    };
+
     return fetchJson<{
       success: boolean;
       message: string;
-      inquiryId?: string;
-      inquiry?: any;
+      referenceId?: string;
     }>("/contacts", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(cleanPayload),
     });
   },
 };

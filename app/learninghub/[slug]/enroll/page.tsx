@@ -3,6 +3,7 @@
 import React, { useState, useEffect, use } from "react";
 import Link from "next/link";
 import { officialApi } from "@/lib/api";
+import { validateName, validateEmail, validatePhone, sanitizeInput } from "@/lib/validation";
 
 declare global {
   interface Window {
@@ -168,8 +169,23 @@ export default function EnrollmentCheckoutPage({
 
   // Trigger Razorpay Payment Checkout
   const handleInitiatePayment = async () => {
-    if (!formData.fullName || !formData.email || !formData.phone) {
-      setErrorMsg("Please fill in your Full Name, Email, and Phone Number before proceeding.");
+    const nameVal = validateName(formData.fullName);
+    if (!nameVal.isValid) {
+      setErrorMsg(nameVal.error!);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const emailVal = validateEmail(formData.email);
+    if (!emailVal.isValid) {
+      setErrorMsg(emailVal.error!);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const phoneVal = validatePhone(formData.phone);
+    if (!phoneVal.isValid) {
+      setErrorMsg(phoneVal.error!);
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }

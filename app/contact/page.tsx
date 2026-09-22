@@ -19,6 +19,13 @@ import {
   Building,
 } from "lucide-react";
 import { officialApi } from "@/lib/api";
+import {
+  validateName,
+  validateEmail,
+  validatePhone,
+  validateMessage,
+  sanitizeInput,
+} from "@/lib/validation";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -86,21 +93,27 @@ export default function ContactPage() {
     e.preventDefault();
     setErrorMessage("");
 
-    // Basic Validation
-    if (!formData.fullName.trim()) {
-      setErrorMessage("Please enter your name.");
+    const nameValidation = validateName(formData.fullName);
+    if (!nameValidation.isValid) {
+      setErrorMessage(nameValidation.error!);
       return;
     }
-    if (!formData.email.trim() || !formData.email.includes("@")) {
-      setErrorMessage("Please enter a valid email address.");
+
+    const emailValidation = validateEmail(formData.email);
+    if (!emailValidation.isValid) {
+      setErrorMessage(emailValidation.error!);
       return;
     }
-    if (!formData.phone.trim()) {
-      setErrorMessage("Please enter your contact phone number.");
+
+    const phoneValidation = validatePhone(formData.phone);
+    if (!phoneValidation.isValid) {
+      setErrorMessage(phoneValidation.error!);
       return;
     }
-    if (!formData.message.trim()) {
-      setErrorMessage("Please write a short message or requirement.");
+
+    const messageValidation = validateMessage(formData.message, 5, 3000);
+    if (!messageValidation.isValid) {
+      setErrorMessage(messageValidation.error!);
       return;
     }
 
@@ -110,14 +123,14 @@ export default function ContactPage() {
         fullName: formData.fullName.trim(),
         email: formData.email.trim(),
         phone: formData.phone.trim(),
-        message: formData.message.trim(),
+        message: sanitizeInput(formData.message),
         service: "General Inquiry / Direct Contact",
         source: "Simple Contact Form",
       });
 
       if (res && res.success === false) {
         setErrorMessage(
-          res.message || "Something went wrong. Please try again.",
+          res.message || "Failed to submit inquiry. Please check your details.",
         );
       } else {
         setIsSuccess(true);

@@ -29,7 +29,7 @@ export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
-  name: SITE_NAME,
+  name: "GoTechEdu",
   url: SITE_URL,
   logo: {
     "@type": "ImageObject",
@@ -68,7 +68,7 @@ export const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
-  name: SITE_NAME,
+  name: "GoTechEdu",
   url: SITE_URL,
   publisher: {
     "@id": `${SITE_URL}/#organization`,

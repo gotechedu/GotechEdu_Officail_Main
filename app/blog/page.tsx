@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { officialApi } from "@/lib/api";
+import { validateEmail } from "@/lib/validation";
 
 const categories = ["All", "AI", "Cloud", "Technology", "Cybersecurity", "Education", "Marketing"];
 
@@ -14,6 +15,7 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [emailSubscribed, setEmailSubscribed] = useState(false);
   const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [subscribeError, setSubscribeError] = useState("");
 
   // Fetch live blogs from Backend API
   useEffect(() => {
@@ -66,9 +68,13 @@ export default function BlogPage() {
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    if (newsletterEmail) {
-      setEmailSubscribed(true);
+    setSubscribeError("");
+    const validation = validateEmail(newsletterEmail);
+    if (!validation.isValid) {
+      setSubscribeError(validation.error!);
+      return;
     }
+    setEmailSubscribed(true);
   };
 
   const featuredPost = allBlogs.length > 0 ? allBlogs[0] : null;
@@ -302,22 +308,32 @@ export default function BlogPage() {
                 ✓ You're Subscribed! Welcome to GotechEdu Insights.
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="mt-6 flex flex-col sm:flex-row gap-2.5 max-w-md mx-auto">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your work email..."
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  className="flex-1 rounded-xl border border-slate-700 bg-slate-900/90 px-4 py-2.5 text-xs sm:text-sm text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none"
-                />
-                <button
-                  type="submit"
-                  className="rounded-xl bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-blue-700 shadow-md hover:bg-slate-100 transition"
-                >
-                  Subscribe
-                </button>
-              </form>
+              <div className="mt-6 max-w-md mx-auto">
+                {subscribeError && (
+                  <div className="mb-2 text-xs font-semibold text-rose-300 bg-rose-950/60 p-2.5 rounded-xl border border-rose-500/30">
+                    {subscribeError}
+                  </div>
+                )}
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2.5">
+                  <input
+                    type="email"
+                    required
+                    placeholder="Enter your work email..."
+                    value={newsletterEmail}
+                    onChange={(e) => {
+                      setNewsletterEmail(e.target.value);
+                      if (subscribeError) setSubscribeError("");
+                    }}
+                    className="flex-1 rounded-xl border border-slate-700 bg-slate-900/90 px-4 py-2.5 text-xs sm:text-sm text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    className="rounded-xl bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-blue-700 shadow-md hover:bg-slate-100 transition cursor-pointer"
+                  >
+                    Subscribe
+                  </button>
+                </form>
+              </div>
             )}
           </div>
         </div>

@@ -14,6 +14,7 @@ import {
   MessageSquareQuote,
 } from "lucide-react";
 import { officialApi } from "@/lib/api";
+import { validateName, validateEmail, validatePhone, sanitizeInput } from "@/lib/validation";
 
 function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,16 +64,21 @@ function Hero() {
     e.preventDefault();
     setErrorMessage("");
 
-    if (!formData.fullName.trim()) {
-      setErrorMessage("Please enter your name.");
+    const nameValidation = validateName(formData.fullName);
+    if (!nameValidation.isValid) {
+      setErrorMessage(nameValidation.error!);
       return;
     }
-    if (!formData.phone.trim()) {
-      setErrorMessage("Please enter your phone number.");
+
+    const emailValidation = validateEmail(formData.email);
+    if (!emailValidation.isValid) {
+      setErrorMessage(emailValidation.error!);
       return;
     }
-    if (!formData.email.trim() || !formData.email.includes("@")) {
-      setErrorMessage("Please enter a valid email address.");
+
+    const phoneValidation = validatePhone(formData.phone);
+    if (!phoneValidation.isValid) {
+      setErrorMessage(phoneValidation.error!);
       return;
     }
 
@@ -83,12 +89,12 @@ function Hero() {
         email: formData.email.trim(),
         phone: formData.phone.trim(),
         service: formData.service,
-        message: formData.message.trim() || "Quick enquiry submitted from Hero modal.",
+        message: sanitizeInput(formData.message) || "Quick consultation enquiry submitted from hero portal modal.",
         source: "Hero Refresh Modal",
       });
 
       if (res && res.success === false) {
-        setErrorMessage(res.message || "Failed to submit. Please try again.");
+        setErrorMessage(res.message || "Failed to submit. Please check your details.");
       } else {
         setIsSuccess(true);
         setFormData({

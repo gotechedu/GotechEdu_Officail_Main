@@ -39,6 +39,7 @@ import {
   ArrowUpDown,
 } from "lucide-react";
 import { officialApi } from "@/lib/api";
+import { validateName, validateEmail, validatePhone, sanitizeInput } from "@/lib/validation";
 
 // Helper functions to safely extract instructor details without runtime object errors
 const getInstructorName = (instructor: any): string => {
@@ -54,15 +55,29 @@ const getInstructorName = (instructor: any): string => {
 };
 
 const getInstructorAvatar = (instructor: any, fallback?: string): string => {
-  if (instructor && typeof instructor === "object" && typeof instructor.avatar === "string") {
+  if (
+    instructor &&
+    typeof instructor === "object" &&
+    typeof instructor.avatar === "string"
+  ) {
     return instructor.avatar;
   }
   if (typeof fallback === "string" && fallback) return fallback;
   return "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80";
 };
 
-const experienceLevels = ["All Levels", "Beginner to Advanced", "Intermediate", "Advanced"];
-const durationOptions = ["All Durations", "Up to 12 Weeks", "14-16 Weeks", "12 Months (Diploma)"];
+const experienceLevels = [
+  "All Levels",
+  "Beginner to Advanced",
+  "Intermediate",
+  "Advanced",
+];
+const durationOptions = [
+  "All Durations",
+  "Up to 12 Weeks",
+  "14-16 Weeks",
+  "12 Months (Diploma)",
+];
 const ratingOptions = ["All Ratings", "4.8 & up", "4.5 & up"];
 
 export default function LearningHubPage() {
@@ -78,7 +93,8 @@ export default function LearningHubPage() {
 
   // Application Drawer / Modal State
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
-  const [selectedCourseForApply, setSelectedCourseForApply] = useState<any>(null);
+  const [selectedCourseForApply, setSelectedCourseForApply] =
+    useState<any>(null);
   const [applyForm, setApplyForm] = useState({
     fullName: "",
     email: "",
@@ -90,6 +106,7 @@ export default function LearningHubPage() {
   });
   const [isSubmittingApply, setIsSubmittingApply] = useState(false);
   const [isApplySuccess, setIsApplySuccess] = useState(false);
+  const [applyError, setApplyError] = useState("");
 
   // Fetch ONLY live courses from Backend API
   useEffect(() => {
@@ -101,31 +118,80 @@ export default function LearningHubPage() {
           const liveFormatted = res.courses.map((c: any) => ({
             id: c.slug || c._id,
             slug: c.slug || c._id,
-            title: typeof c.title === "string" ? c.title : (c.title?.name || "Professional Certification"),
-            category: typeof c.category === "string" && c.category.trim() ? c.category.trim() : "Development",
-            subCategory: typeof c.subCategory === "string" ? c.subCategory : (typeof c.category === "string" ? c.category : "Specialization"),
+            title:
+              typeof c.title === "string"
+                ? c.title
+                : c.title?.name || "Professional Certification",
+            category:
+              typeof c.category === "string" && c.category.trim()
+                ? c.category.trim()
+                : "Development",
+            subCategory:
+              typeof c.subCategory === "string"
+                ? c.subCategory
+                : typeof c.category === "string"
+                  ? c.category
+                  : "Specialization",
             duration: typeof c.duration === "string" ? c.duration : "14 Weeks",
-            totalHours: typeof c.totalHours === "string" ? c.totalHours : "100+ Hours",
-            lecturesCount: typeof c.lecturesCount === "number" ? c.lecturesCount : 50,
+            totalHours:
+              typeof c.totalHours === "string" ? c.totalHours : "100+ Hours",
+            lecturesCount:
+              typeof c.lecturesCount === "number" ? c.lecturesCount : 50,
             mode: typeof c.mode === "string" ? c.mode : "Live Online",
-            level: typeof c.level === "string" ? c.level : "Beginner to Advanced",
+            level:
+              typeof c.level === "string" ? c.level : "Beginner to Advanced",
             badge: typeof c.badge === "string" ? c.badge : "Accredited",
-            badgeStyle: typeof c.badgeStyle === "string" ? c.badgeStyle : "bg-blue-600 text-white",
-            color: typeof c.color === "string" ? c.color : "from-blue-600 to-indigo-600",
+            badgeStyle:
+              typeof c.badgeStyle === "string"
+                ? c.badgeStyle
+                : "bg-blue-600 text-white",
+            color:
+              typeof c.color === "string"
+                ? c.color
+                : "from-blue-600 to-indigo-600",
             description: typeof c.description === "string" ? c.description : "",
             instructor: getInstructorName(c.instructor),
-            instructorAvatar: getInstructorAvatar(c.instructor, c.instructorAvatar),
-            originalPrice: typeof c.originalPrice === "number" ? c.originalPrice : (c.price ? c.price * 2 : 49999),
-            discountedPrice: typeof c.discountedPrice === "number" ? c.discountedPrice : (c.price || 24999),
-            emiStartsAt: typeof c.emiStartsAt === "string" ? c.emiStartsAt : "₹2,083/mo",
+            instructorAvatar: getInstructorAvatar(
+              c.instructor,
+              c.instructorAvatar,
+            ),
+            originalPrice:
+              typeof c.originalPrice === "number"
+                ? c.originalPrice
+                : c.price
+                  ? c.price * 2
+                  : 49999,
+            discountedPrice:
+              typeof c.discountedPrice === "number"
+                ? c.discountedPrice
+                : c.price || 24999,
+            emiStartsAt:
+              typeof c.emiStartsAt === "string" ? c.emiStartsAt : "₹2,083/mo",
             rating: typeof c.rating === "number" ? c.rating : 4.9,
-            reviewsCount: typeof c.reviewsCount === "number" ? c.reviewsCount : 120,
-            enrolledStudents: typeof c.enrolledStudents === "number" ? `${c.enrolledStudents.toLocaleString()}+` : "3,500+",
-            nextBatchDate: typeof c.nextBatchDate === "string" ? c.nextBatchDate : "Upcoming Cohort",
-            careerOutcome: typeof c.careerOutcome === "string" ? c.careerOutcome : "Software Engineer",
-            image: typeof c.image === "string" && c.image.startsWith("http") ? c.image : (c.previewImage || c.thumbnail || "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80"),
+            reviewsCount:
+              typeof c.reviewsCount === "number" ? c.reviewsCount : 120,
+            enrolledStudents:
+              typeof c.enrolledStudents === "number"
+                ? `${c.enrolledStudents.toLocaleString()}+`
+                : "3,500+",
+            nextBatchDate:
+              typeof c.nextBatchDate === "string"
+                ? c.nextBatchDate
+                : "Upcoming Cohort",
+            careerOutcome:
+              typeof c.careerOutcome === "string"
+                ? c.careerOutcome
+                : "Software Engineer",
+            image:
+              typeof c.image === "string" && c.image.startsWith("http")
+                ? c.image
+                : c.previewImage ||
+                  c.thumbnail ||
+                  "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
             techStack: Array.isArray(c.techStack)
-              ? c.techStack.map((t: any) => (typeof t === "string" ? t : (t?.name || String(t))))
+              ? c.techStack.map((t: any) =>
+                  typeof t === "string" ? t : t?.name || String(t),
+                )
               : ["Next.js", "Cloud", "APIs"],
           }));
           setCourses(liveFormatted);
@@ -145,19 +211,28 @@ export default function LearningHubPage() {
   // Dynamically compute category tabs from loaded API courses
   const categoriesList = useMemo(() => {
     const uniqueCats = Array.from(
-      new Set(courses.map((c) => (c.category || "").trim()).filter(Boolean))
+      new Set(courses.map((c) => (c.category || "").trim()).filter(Boolean)),
     );
     const list: { id: string; name: string; icon: React.ReactNode }[] = [
-      { id: "All", name: "All Programs", icon: <Layers className="w-3.5 h-3.5" /> },
+      {
+        id: "All",
+        name: "All Programs",
+        icon: <Layers className="w-3.5 h-3.5" />,
+      },
     ];
     uniqueCats.forEach((cat) => {
       const lower = cat.toLowerCase();
       let icon = <Code2 className="w-3.5 h-3.5" />;
-      if (lower.includes("ai") || lower.includes("data")) icon = <Cpu className="w-3.5 h-3.5" />;
-      else if (lower.includes("cloud") || lower.includes("devops")) icon = <Cloud className="w-3.5 h-3.5" />;
-      else if (lower.includes("security") || lower.includes("cyber")) icon = <ShieldCheck className="w-3.5 h-3.5" />;
-      else if (lower.includes("diploma") || lower.includes("cert")) icon = <Award className="w-3.5 h-3.5" />;
-      else if (lower.includes("business")) icon = <Briefcase className="w-3.5 h-3.5" />;
+      if (lower.includes("ai") || lower.includes("data"))
+        icon = <Cpu className="w-3.5 h-3.5" />;
+      else if (lower.includes("cloud") || lower.includes("devops"))
+        icon = <Cloud className="w-3.5 h-3.5" />;
+      else if (lower.includes("security") || lower.includes("cyber"))
+        icon = <ShieldCheck className="w-3.5 h-3.5" />;
+      else if (lower.includes("diploma") || lower.includes("cert"))
+        icon = <Award className="w-3.5 h-3.5" />;
+      else if (lower.includes("business"))
+        icon = <Briefcase className="w-3.5 h-3.5" />;
       list.push({ id: cat, name: cat, icon });
     });
     return list;
@@ -169,7 +244,7 @@ export default function LearningHubPage() {
     categoriesList.forEach((cat) => {
       if (cat.id !== "All") {
         counts[cat.id] = courses.filter(
-          (c) => (c.category || "").toLowerCase() === cat.id.toLowerCase()
+          (c) => (c.category || "").toLowerCase() === cat.id.toLowerCase(),
         ).length;
       }
     });
@@ -182,14 +257,19 @@ export default function LearningHubPage() {
       .filter((course) => {
         // Category Filter
         if (selectedCategory !== "All") {
-          if ((course.category || "").toLowerCase() !== selectedCategory.toLowerCase()) {
+          if (
+            (course.category || "").toLowerCase() !==
+            selectedCategory.toLowerCase()
+          ) {
             return false;
           }
         }
 
         // Level Filter
         if (selectedLevel !== "All Levels") {
-          if (!course.level.toLowerCase().includes(selectedLevel.toLowerCase())) {
+          if (
+            !course.level.toLowerCase().includes(selectedLevel.toLowerCase())
+          ) {
             return false;
           }
         }
@@ -216,12 +296,15 @@ export default function LearningHubPage() {
         if (searchQuery.trim()) {
           const q = searchQuery.toLowerCase();
           const matchTitle = (course.title || "").toLowerCase().includes(q);
-          const matchDesc = (course.description || "").toLowerCase().includes(q);
+          const matchDesc = (course.description || "")
+            .toLowerCase()
+            .includes(q);
           const matchCat = (course.category || "").toLowerCase().includes(q);
-          const matchTech = (course.techStack || []).some((t: string) =>
-            typeof t === "string" && t.toLowerCase().includes(q)
+          const matchTech = (course.techStack || []).some(
+            (t: string) => typeof t === "string" && t.toLowerCase().includes(q),
           );
-          if (!matchTitle && !matchDesc && !matchCat && !matchTech) return false;
+          if (!matchTitle && !matchDesc && !matchCat && !matchTech)
+            return false;
         }
 
         return true;
@@ -229,11 +312,21 @@ export default function LearningHubPage() {
       .sort((a, b) => {
         if (sortBy === "popular") return b.reviewsCount - a.reviewsCount;
         if (sortBy === "rating") return b.rating - a.rating;
-        if (sortBy === "price-low") return a.discountedPrice - b.discountedPrice;
-        if (sortBy === "price-high") return b.discountedPrice - a.discountedPrice;
+        if (sortBy === "price-low")
+          return a.discountedPrice - b.discountedPrice;
+        if (sortBy === "price-high")
+          return b.discountedPrice - a.discountedPrice;
         return a.title.localeCompare(b.title);
       });
-  }, [courses, selectedCategory, selectedLevel, selectedDuration, selectedRating, searchQuery, sortBy]);
+  }, [
+    courses,
+    selectedCategory,
+    selectedLevel,
+    selectedDuration,
+    selectedRating,
+    searchQuery,
+    sortBy,
+  ]);
 
   const activeFiltersCount =
     (selectedCategory !== "All" ? 1 : 0) +
@@ -259,23 +352,48 @@ export default function LearningHubPage() {
 
   const handleApplySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setApplyError("");
+
+    const nameVal = validateName(applyForm.fullName);
+    if (!nameVal.isValid) {
+      setApplyError(nameVal.error!);
+      return;
+    }
+
+    const emailVal = validateEmail(applyForm.email);
+    if (!emailVal.isValid) {
+      setApplyError(emailVal.error!);
+      return;
+    }
+
+    const phoneVal = validatePhone(applyForm.phone);
+    if (!phoneVal.isValid) {
+      setApplyError(phoneVal.error!);
+      return;
+    }
+
     setIsSubmittingApply(true);
     try {
-      await officialApi.submitCourseApplication({
+      const res = await officialApi.submitCourseApplication({
         courseId: selectedCourseForApply?.id || null,
         courseTitle: selectedCourseForApply?.title || "General Application",
-        studentName: applyForm.fullName,
-        email: applyForm.email,
-        phone: applyForm.phone,
-        collegeOrCompany: applyForm.collegeOrCompany,
+        studentName: applyForm.fullName.trim(),
+        email: applyForm.email.trim(),
+        phone: applyForm.phone.trim(),
+        collegeOrCompany: applyForm.collegeOrCompany ? sanitizeInput(applyForm.collegeOrCompany) : "",
         experienceLevel: applyForm.experienceLevel,
-        learningGoal: applyForm.notes,
+        learningGoal: applyForm.notes ? sanitizeInput(applyForm.notes) : "",
         modePreference: applyForm.batchPreference,
       });
-      setIsApplySuccess(true);
+
+      if (res && res.success === false) {
+        setApplyError(res.message || "Failed to submit course application.");
+      } else {
+        setIsApplySuccess(true);
+      }
     } catch (err) {
       console.error("Enrollment error:", err);
-      setIsApplySuccess(true);
+      setApplyError("Network error occurred. Please try again.");
     } finally {
       setIsSubmittingApply(false);
     }
@@ -283,8 +401,6 @@ export default function LearningHubPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white">
-
-
       {/* =====================================================================
           2. SCHOLARSHIP ANNOUNCEMENT STRIP
       ====================================================================== */}
@@ -295,7 +411,8 @@ export default function LearningHubPage() {
               SCHOLARSHIP
             </span>
             <span className="text-xs sm:text-sm font-semibold">
-              🎓 50% Flat Launch Grant on all Full-Stack &amp; AI Cohorts with code{" "}
+              🎓 50% Flat Launch Grant on all Full-Stack &amp; AI Cohorts with
+              code{" "}
               <strong className="underline font-mono font-extrabold text-amber-300">
                 GOTECH50
               </strong>
@@ -370,7 +487,9 @@ export default function LearningHubPage() {
                   >
                     {durationOptions.map((dur) => (
                       <option key={dur} value={dur}>
-                        {dur === "All Durations" ? "All Durations" : `Duration: ${dur}`}
+                        {dur === "All Durations"
+                          ? "All Durations"
+                          : `Duration: ${dur}`}
                       </option>
                     ))}
                   </select>
@@ -386,7 +505,9 @@ export default function LearningHubPage() {
                   >
                     {ratingOptions.map((rat) => (
                       <option key={rat} value={rat}>
-                        {rat === "All Ratings" ? "All Ratings" : `Rating: ${rat}`}
+                        {rat === "All Ratings"
+                          ? "All Ratings"
+                          : `Rating: ${rat}`}
                       </option>
                     ))}
                   </select>
@@ -413,10 +534,11 @@ export default function LearningHubPage() {
                     type="button"
                     onClick={() => setViewMode("grid")}
                     aria-label="Grid view"
-                    className={`p-1.5 rounded-lg transition cursor-pointer ${viewMode === "grid"
-                      ? "bg-white text-blue-600 shadow-xs font-bold"
-                      : "text-slate-400 hover:text-slate-700"
-                      }`}
+                    className={`p-1.5 rounded-lg transition cursor-pointer ${
+                      viewMode === "grid"
+                        ? "bg-white text-blue-600 shadow-xs font-bold"
+                        : "text-slate-400 hover:text-slate-700"
+                    }`}
                   >
                     <LayoutGrid className="w-4 h-4" />
                   </button>
@@ -424,10 +546,11 @@ export default function LearningHubPage() {
                     type="button"
                     onClick={() => setViewMode("list")}
                     aria-label="List view"
-                    className={`p-1.5 rounded-lg transition cursor-pointer ${viewMode === "list"
-                      ? "bg-white text-blue-600 shadow-xs font-bold"
-                      : "text-slate-400 hover:text-slate-700"
-                      }`}
+                    className={`p-1.5 rounded-lg transition cursor-pointer ${
+                      viewMode === "list"
+                        ? "bg-white text-blue-600 shadow-xs font-bold"
+                        : "text-slate-400 hover:text-slate-700"
+                    }`}
                   >
                     <List className="w-4 h-4" />
                   </button>
@@ -457,20 +580,24 @@ export default function LearningHubPage() {
                       key={cat.id}
                       type="button"
                       onClick={() => setSelectedCategory(cat.id)}
-                      className={`group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all duration-200 cursor-pointer active:scale-95 ${isSelected
-                        ? "bg-blue-600 text-white shadow-md shadow-blue-500/25 ring-2 ring-blue-600/20"
-                        : "bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80"
-                        }`}
+                      className={`group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all duration-200 cursor-pointer active:scale-95 ${
+                        isSelected
+                          ? "bg-blue-600 text-white shadow-md shadow-blue-500/25 ring-2 ring-blue-600/20"
+                          : "bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80"
+                      }`}
                     >
-                      <span className={isSelected ? "text-white" : "text-blue-600"}>
+                      <span
+                        className={isSelected ? "text-white" : "text-blue-600"}
+                      >
                         {cat.icon}
                       </span>
                       <span>{cat.name}</span>
                       <span
-                        className={`rounded-full px-2 py-0.2 text-[10px] font-mono font-extrabold ${isSelected
-                          ? "bg-white/20 text-white"
-                          : "bg-slate-200/70 text-slate-600"
-                          }`}
+                        className={`rounded-full px-2 py-0.2 text-[10px] font-mono font-extrabold ${
+                          isSelected
+                            ? "bg-white/20 text-white"
+                            : "bg-slate-200/70 text-slate-600"
+                        }`}
                       >
                         {count}
                       </span>
@@ -574,8 +701,12 @@ export default function LearningHubPage() {
             <div className="flex items-center gap-2">
               <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>
-                Showing <strong className="font-bold text-slate-950">{filteredCourses.length}</strong>{" "}
-                of <span className="font-semibold">{courses.length}</span> accredited programs
+                Showing{" "}
+                <strong className="font-bold text-slate-950">
+                  {filteredCourses.length}
+                </strong>{" "}
+                of <span className="font-semibold">{courses.length}</span>{" "}
+                accredited programs
               </span>
             </div>
             <div className="text-xs text-slate-500 flex items-center gap-3">
@@ -624,7 +755,8 @@ export default function LearningHubPage() {
                 No matching programs found
               </h3>
               <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                Try loosening your filters or searching for different keywords like Next.js, Python, AWS, or DevOps.
+                Try loosening your filters or searching for different keywords
+                like Next.js, Python, AWS, or DevOps.
               </p>
               <button
                 type="button"
@@ -712,18 +844,20 @@ export default function LearningHubPage() {
 
                       {/* Tech Stack Pills */}
                       <div className="mt-3 flex flex-wrap gap-1.5">
-                        {(course.techStack || []).slice(0, 4).map((tech: string) => (
-                          <span
-                            key={tech}
-                            className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-700"
-                          >
-                            {tech}
-                          </span>
-                        ))}
+                        {(course.techStack || [])
+                          .slice(0, 4)
+                          .map((tech: string) => (
+                            <span
+                              key={tech}
+                              className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-medium text-slate-700"
+                            >
+                              {tech}
+                            </span>
+                          ))}
                       </div>
 
                       {/* Instructor Info (Object-Safe) */}
-                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-2">
+                      {/* <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-2">
                         <div className="relative h-6 w-6 rounded-full overflow-hidden shrink-0 border border-slate-200">
                           <Image
                             src={getInstructorAvatar(course.instructor, course.instructorAvatar)}
@@ -735,7 +869,7 @@ export default function LearningHubPage() {
                         <span className="text-[11px] font-medium text-slate-600 truncate">
                           {getInstructorName(course.instructor)}
                         </span>
-                      </div>
+                      </div> */}
                     </div>
 
                     {/* Pricing & Actions */}
@@ -841,8 +975,12 @@ export default function LearningHubPage() {
                     <div className="flex items-center gap-4 text-xs pt-1">
                       <div className="flex items-center gap-1">
                         <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                        <span className="font-bold">{course.rating.toFixed(2)}</span>
-                        <span className="text-slate-400">({course.reviewsCount})</span>
+                        <span className="font-bold">
+                          {course.rating.toFixed(2)}
+                        </span>
+                        <span className="text-slate-400">
+                          ({course.reviewsCount})
+                        </span>
                       </div>
                       <span className="text-slate-300">|</span>
                       <span className="text-slate-500 font-medium">
@@ -903,7 +1041,8 @@ export default function LearningHubPage() {
               Why Learn With GoTechEdu?
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-2">
-              Our engineering bootcamps and diplomas are engineered for real outcomes, not just theory.
+              Our engineering bootcamps and diplomas are engineered for real
+              outcomes, not just theory.
             </p>
           </div>
 
@@ -940,13 +1079,11 @@ export default function LearningHubPage() {
                 <h3 className="font-heading text-base font-bold text-slate-900 mb-1.5">
                   {pillar.title}
                 </h3>
-
               </div>
             ))}
           </div>
         </div>
       </section>
-
 
       {/* =====================================================================
           6. APPLICATION / ENROLLMENT MODAL DRAWER
@@ -976,10 +1113,15 @@ export default function LearningHubPage() {
               </h3>
               <div className="mt-1 flex items-center gap-2 text-xs text-slate-600">
                 <span>
-                  Fee: ₹{selectedCourseForApply?.discountedPrice?.toLocaleString("en-IN") || "24,999"}
+                  Fee: ₹
+                  {selectedCourseForApply?.discountedPrice?.toLocaleString(
+                    "en-IN",
+                  ) || "24,999"}
                 </span>
                 <span>•</span>
-                <span className="text-emerald-600 font-semibold">50% Scholarship Applied</span>
+                <span className="text-emerald-600 font-semibold">
+                  50% Scholarship Applied
+                </span>
               </div>
             </div>
 
@@ -990,7 +1132,9 @@ export default function LearningHubPage() {
                   Application Submitted Successfully!
                 </h4>
                 <p className="text-xs text-emerald-700 mt-1 leading-relaxed">
-                  Our admissions coordinator will contact you with batch onboarding details and scholarship confirmation within 2 hours.
+                  Our admissions coordinator will contact you with batch
+                  onboarding details and scholarship confirmation within 2
+                  hours.
                 </p>
                 <button
                   type="button"
@@ -1002,6 +1146,11 @@ export default function LearningHubPage() {
               </div>
             ) : (
               <form onSubmit={handleApplySubmit} className="mt-4 space-y-3.5">
+                {applyError && (
+                  <div className="rounded-xl bg-red-50 p-2.5 text-xs font-semibold text-red-600 border border-red-200">
+                    {applyError}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-[11px] font-bold text-slate-700 mb-1">

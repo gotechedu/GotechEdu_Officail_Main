@@ -3,12 +3,20 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CheckCircle2, ArrowRight, ShieldCheck, Award, Users2, Target, Briefcase } from "lucide-react";
+import {
+  CheckCircle2,
+  ArrowRight,
+  ShieldCheck,
+  Award,
+  Users2,
+  Target,
+  Briefcase,
+} from "lucide-react";
 
 export default function AboutSection() {
   const benefits = [
     {
-      title: "Government & Globally Certified",
+      title: "Accredited Credentials & Industry Standards",
       desc: "Accredited credentials aligned with industry benchmarks and enterprise standards.",
       icon: <ShieldCheck className="w-5 h-5 text-blue-600" />,
     },
@@ -112,14 +120,26 @@ export default function AboutSection() {
               {/* Floating Trust Badge matching Reference Page 2 */}
               <div className="absolute -bottom-6 right-2 sm:right-6 z-20 flex items-center gap-3.5 rounded-2xl border border-blue-100 bg-white/95 p-3.5 sm:p-4 shadow-xl shadow-blue-900/10 backdrop-blur-md transition-transform duration-300 hover:scale-105">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-md">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
                   </svg>
                 </div>
                 <div>
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <span key={i} className="text-amber-400 text-xs">★</span>
+                      <span key={i} className="text-amber-400 text-xs">
+                        ★
+                      </span>
                     ))}
                   </div>
                   <p className="font-heading text-sm font-black text-slate-900">
@@ -137,9 +157,10 @@ export default function AboutSection() {
           <div className="lg:col-span-7 space-y-6">
             <div>
               <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-                We focus on job-oriented skills that the market demands. No theory overload –
-                just pure practical knowledge that gets you hired. Every student gets hands-on
-                practice in a modern lab setup, with individual attention and real-world tasks.
+                We focus on job-oriented skills that the market demands. No
+                theory overload – just pure practical knowledge that gets you
+                hired. Every student gets hands-on practice in a modern lab
+                setup, with individual attention and real-world tasks.
               </p>
             </div>
 

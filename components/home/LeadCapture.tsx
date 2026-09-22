@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Sparkles, CheckCircle2, Loader2, ArrowRight } from "lucide-react";
 import { officialApi } from "@/lib/api";
 
+import { validateName, validateEmail, validatePhone, sanitizeInput } from "@/lib/validation";
+
 export default function LeadCapture() {
   const [formData, setFormData] = useState({
     name: "",
@@ -26,25 +28,45 @@ export default function LeadCapture() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim()) {
-      setErrorMessage("Please provide your name, email, and phone number.");
+    setErrorMessage("");
+
+    const nameValidation = validateName(formData.name);
+    if (!nameValidation.isValid) {
+      setErrorMessage(nameValidation.error!);
+      return;
+    }
+
+    const emailValidation = validateEmail(formData.email);
+    if (!emailValidation.isValid) {
+      setErrorMessage(emailValidation.error!);
+      return;
+    }
+
+    const phoneValidation = validatePhone(formData.phone);
+    if (!phoneValidation.isValid) {
+      setErrorMessage(phoneValidation.error!);
       return;
     }
 
     setLoading(true);
-    setErrorMessage("");
 
     try {
-      await officialApi.submitCourseApplication({
+      const cleanAddress = formData.address ? sanitizeInput(formData.address) : "";
+      const res = await officialApi.submitCourseApplication({
         courseTitle: formData.course,
-        studentName: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        learningGoal: `Application from home page. Location/Note: ${formData.address || "Not specified"}`,
+        studentName: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        learningGoal: `Application from home page. Location/Note: ${cleanAddress || "Not specified"}`,
       });
-      setSubmitted(true);
-    } catch (err) {
-      setSubmitted(true);
+
+      if (res && res.success === false) {
+        setErrorMessage(res.message || "Could not complete registration. Please check your details.");
+      } else {
+        setSubmitted(true);
+      }
+    } catch (err: any) {
+      setErrorMessage("Network error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
