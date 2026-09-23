@@ -30,6 +30,7 @@ export const organizationSchema = {
   "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
   name: "GoTechEdu",
+  alternateName: "GoTechEdu",
   url: SITE_URL,
   logo: {
     "@type": "ImageObject",
@@ -39,7 +40,7 @@ export const organizationSchema = {
   image: DEFAULT_OG_IMAGE,
   description:
     "GoTechEdu is an enterprise technology solutions provider and modern tech academy specializing in software engineering, autonomous AI systems, multi-cloud DevOps, and cybersecurity.",
-  email: "gotecheduoffical@gmail.com",
+  email: "gotecheduofficial@gmail.com",
   telephone: "+91-9608094837",
   address: {
     "@type": "PostalAddress",
@@ -56,7 +57,7 @@ export const organizationSchema = {
     "@type": "ContactPoint",
     telephone: "+91-9608094837",
     contactType: "customer service",
-    email: "gotecheduoffical@gmail.com",
+    email: "gotecheduofficial@gmail.com",
     availableLanguage: ["English", "Hindi"],
   },
 };
@@ -69,6 +70,7 @@ export const websiteSchema = {
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   name: "GoTechEdu",
+  alternateName: "GoTechEdu",
   url: SITE_URL,
   publisher: {
     "@id": `${SITE_URL}/#organization`,

@@ -90,6 +90,19 @@ export default function LearningHubPage() {
   const [selectedRating, setSelectedRating] = useState("All Ratings");
   const [sortBy, setSortBy] = useState("popular");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+
+  // Prevent background scrolling when mobile filter drawer is open
+  useEffect(() => {
+    if (isMobileFilterOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileFilterOpen]);
 
   // Application Drawer / Modal State
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
@@ -186,12 +199,12 @@ export default function LearningHubPage() {
               typeof c.image === "string" && c.image.startsWith("http")
                 ? c.image
                 : c.previewImage ||
-                  c.thumbnail ||
-                  "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+                c.thumbnail ||
+                "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
             techStack: Array.isArray(c.techStack)
               ? c.techStack.map((t: any) =>
-                  typeof t === "string" ? t : t?.name || String(t),
-                )
+                typeof t === "string" ? t : t?.name || String(t),
+              )
               : ["Next.js", "Cloud", "APIs"],
           }));
           setCourses(liveFormatted);
@@ -434,18 +447,20 @@ export default function LearningHubPage() {
       <section className="py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* PROFESSIONAL FILTER & DISCOVERY COMMAND HUB */}
-          <div className="rounded-3xl border border-slate-200/90 bg-white/95 backdrop-blur-md p-5 sm:p-7 shadow-xs hover:shadow-md transition-all duration-300 mb-8 space-y-5">
-            {/* ROW 1: Integrated Omni-Search & Quick Facet Controls */}
-            <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5">
-              {/* Integrated Instant Search Input */}
-              <div className="relative flex-1 min-w-[280px]">
+          <div className="rounded-3xl border border-slate-200/90 bg-white/95 backdrop-blur-md p-4 sm:p-7 shadow-xs hover:shadow-md transition-all duration-300 mb-8 space-y-4 sm:space-y-5">
+            {/* ==============================================================
+                MOBILE INTERFACE (< lg)
+            ============================================================== */}
+            <div className="block lg:hidden space-y-3">
+              {/* Mobile Search Bar */}
+              <div className="relative">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search 12+ programs: Next.js, AI Agents, Cloud DevOps, Python, AWS..."
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50/80 pl-10 pr-9 py-2.5 text-xs sm:text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-3 focus:ring-blue-500/15 transition shadow-xs"
+                  placeholder="Search programs: AI, Fullstack, AWS, DevOps..."
+                  className="w-full rounded-2xl border border-slate-200 bg-slate-50/90 pl-10 pr-9 py-2.5 text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-3 focus:ring-blue-500/15 transition shadow-2xs"
                 />
                 {searchQuery && (
                   <button
@@ -459,159 +474,276 @@ export default function LearningHubPage() {
                 )}
               </div>
 
-              {/* Facet Dropdowns & View Mode Strip */}
-              <div className="flex flex-wrap items-center gap-2.5">
-                {/* Level Dropdown */}
-                <div className="relative flex items-center">
-                  <GraduationCap className="w-3.5 h-3.5 text-blue-600 absolute left-3 pointer-events-none" />
-                  <select
-                    value={selectedLevel}
-                    onChange={(e) => setSelectedLevel(e.target.value)}
-                    className="rounded-xl border border-slate-200 bg-slate-50/80 pl-8 pr-7 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
-                  >
-                    {experienceLevels.map((lvl) => (
-                      <option key={lvl} value={lvl}>
-                        {lvl === "All Levels" ? "All Levels" : `Level: ${lvl}`}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              {/* Mobile Action Row: Filter Drawer Trigger + Quick Sort + View Mode */}
+              <div className="flex items-center gap-2">
+                {/* Master Filter Button */}
+                <button
+                  type="button"
+                  onClick={() => setIsMobileFilterOpen(true)}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3.5 rounded-2xl font-bold text-xs shadow-xs transition active:scale-95 cursor-pointer ${activeFiltersCount > 0
+                      ? "bg-blue-600 text-white shadow-blue-500/25"
+                      : "bg-slate-900 text-white hover:bg-slate-800"
+                    }`}
+                >
+                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  <span>Filters</span>
+                  {activeFiltersCount > 0 && (
+                    <span className="rounded-full bg-white text-blue-600 px-1.5 py-0.2 text-[10px] font-mono font-extrabold">
+                      {activeFiltersCount}
+                    </span>
+                  )}
+                </button>
 
-                {/* Duration Dropdown */}
-                <div className="relative flex items-center">
-                  <Clock className="w-3.5 h-3.5 text-indigo-600 absolute left-3 pointer-events-none" />
-                  <select
-                    value={selectedDuration}
-                    onChange={(e) => setSelectedDuration(e.target.value)}
-                    className="rounded-xl border border-slate-200 bg-slate-50/80 pl-8 pr-7 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
-                  >
-                    {durationOptions.map((dur) => (
-                      <option key={dur} value={dur}>
-                        {dur === "All Durations"
-                          ? "All Durations"
-                          : `Duration: ${dur}`}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Rating Filter Dropdown */}
-                <div className="relative flex items-center">
-                  <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-400 absolute left-3 pointer-events-none" />
-                  <select
-                    value={selectedRating}
-                    onChange={(e) => setSelectedRating(e.target.value)}
-                    className="rounded-xl border border-slate-200 bg-slate-50/80 pl-8 pr-7 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
-                  >
-                    {ratingOptions.map((rat) => (
-                      <option key={rat} value={rat}>
-                        {rat === "All Ratings"
-                          ? "All Ratings"
-                          : `Rating: ${rat}`}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Sort By Dropdown */}
-                <div className="relative flex items-center">
-                  <ArrowUpDown className="w-3.5 h-3.5 text-slate-500 absolute left-3 pointer-events-none" />
+                {/* Quick Sort Select */}
+                <div className="relative flex items-center shrink-0">
+                  <ArrowUpDown className="w-3.5 h-3.5 text-slate-500 absolute left-2.5 pointer-events-none" />
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="rounded-xl border border-slate-200 bg-slate-50/80 pl-8 pr-7 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
+                    className="rounded-2xl border border-slate-200 bg-slate-50 pl-7 pr-3 py-2.5 text-xs font-bold text-slate-700 focus:border-blue-500 focus:bg-white focus:outline-none transition cursor-pointer"
                   >
-                    <option value="popular">Most Popular</option>
-                    <option value="rating">Highest Rated</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
+                    <option value="popular">Popular</option>
+                    <option value="rating">Top Rated</option>
+                    <option value="price-low">Price: Low-High</option>
+                    <option value="price-high">Price: High-Low</option>
                   </select>
                 </div>
 
-                {/* View Mode Toggle Switcher */}
-                <div className="flex items-center rounded-xl border border-slate-200 bg-slate-50 p-1">
+                {/* View Mode Toggle */}
+                <div className="flex items-center rounded-2xl border border-slate-200 bg-slate-50 p-1 shrink-0">
                   <button
                     type="button"
                     onClick={() => setViewMode("grid")}
                     aria-label="Grid view"
-                    className={`p-1.5 rounded-lg transition cursor-pointer ${
-                      viewMode === "grid"
+                    className={`p-1.5 rounded-xl transition cursor-pointer ${viewMode === "grid"
                         ? "bg-white text-blue-600 shadow-xs font-bold"
                         : "text-slate-400 hover:text-slate-700"
-                    }`}
+                      }`}
                   >
-                    <LayoutGrid className="w-4 h-4" />
+                    <LayoutGrid className="w-3.5 h-3.5" />
                   </button>
                   <button
                     type="button"
                     onClick={() => setViewMode("list")}
                     aria-label="List view"
-                    className={`p-1.5 rounded-lg transition cursor-pointer ${
-                      viewMode === "list"
+                    className={`p-1.5 rounded-xl transition cursor-pointer ${viewMode === "list"
                         ? "bg-white text-blue-600 shadow-xs font-bold"
                         : "text-slate-400 hover:text-slate-700"
-                    }`}
+                      }`}
                   >
-                    <List className="w-4 h-4" />
+                    <List className="w-3.5 h-3.5" />
                   </button>
+                </div>
+              </div>
+
+              {/* Mobile Horizontal Swipeable Specialization Rail */}
+              <div className="pt-2 border-t border-slate-100">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono font-extrabold uppercase tracking-wider text-slate-500">
+                    Specializations ({courses.length})
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-medium">
+                    Swipe →
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sm:mx-0 sm:px-0">
+                  {categoriesList.map((cat) => {
+                    const isSelected = selectedCategory === cat.id;
+                    const count = categoryCounts[cat.id] || 0;
+
+                    return (
+                      <button
+                        key={cat.id}
+                        type="button"
+                        onClick={() => setSelectedCategory(cat.id)}
+                        className={`shrink-0 inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95 ${isSelected
+                            ? "bg-blue-600 text-white shadow-xs shadow-blue-500/20"
+                            : "bg-slate-100/80 text-slate-700 hover:bg-slate-200/80 border border-slate-200/60"
+                          }`}
+                      >
+                        <span className={isSelected ? "text-white" : "text-blue-600"}>
+                          {cat.icon}
+                        </span>
+                        <span className="whitespace-nowrap">{cat.name}</span>
+                        <span
+                          className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-extrabold ${isSelected
+                              ? "bg-white/20 text-white"
+                              : "bg-slate-200 text-slate-600"
+                            }`}
+                        >
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
 
-            {/* ROW 2: Coursera & Udemy-style Specialization Rail */}
-            <div className="pt-4 border-t border-slate-100">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-slate-500 flex items-center gap-1.5">
-                  <SlidersHorizontal className="w-3.5 h-3.5 text-blue-600" />
-                  Explore by Specialization
-                </span>
-                <span className="text-xs text-slate-400 font-medium">
-                  {courses.length} verified programs
-                </span>
+            {/* ==============================================================
+                DESKTOP INTERFACE (>= lg)
+            ============================================================== */}
+            <div className="hidden lg:block space-y-5">
+              {/* ROW 1: Integrated Omni-Search & Quick Facet Controls */}
+              <div className="flex items-center justify-between gap-3.5">
+                {/* Search Bar Input */}
+                <div className="relative flex-1 min-w-[280px]">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search 12+ programs: Next.js, AI Agents, Cloud DevOps, Python, AWS..."
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50/80 pl-10 pr-9 py-2.5 text-xs sm:text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-3 focus:ring-blue-500/15 transition shadow-xs"
+                  />
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition"
+                      aria-label="Clear search"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Facet Dropdowns & View Mode Strip */}
+                <div className="flex items-center gap-2.5">
+                  {/* Level Dropdown */}
+                  <div className="relative flex items-center">
+                    <GraduationCap className="w-3.5 h-3.5 text-blue-600 absolute left-3 pointer-events-none" />
+                    <select
+                      value={selectedLevel}
+                      onChange={(e) => setSelectedLevel(e.target.value)}
+                      className="rounded-xl border border-slate-200 bg-slate-50/80 pl-8 pr-7 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
+                    >
+                      {experienceLevels.map((lvl) => (
+                        <option key={lvl} value={lvl}>
+                          {lvl === "All Levels" ? "All Levels" : `Level: ${lvl}`}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Duration Dropdown */}
+                  <div className="relative flex items-center">
+                    <Clock className="w-3.5 h-3.5 text-indigo-600 absolute left-3 pointer-events-none" />
+                    <select
+                      value={selectedDuration}
+                      onChange={(e) => setSelectedDuration(e.target.value)}
+                      className="rounded-xl border border-slate-200 bg-slate-50/80 pl-8 pr-7 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
+                    >
+                      {durationOptions.map((dur) => (
+                        <option key={dur} value={dur}>
+                          {dur === "All Durations"
+                            ? "All Durations"
+                            : `Duration: ${dur}`}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Rating Filter Dropdown */}
+                  <div className="relative flex items-center">
+                    <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-400 absolute left-3 pointer-events-none" />
+                    <select
+                      value={selectedRating}
+                      onChange={(e) => setSelectedRating(e.target.value)}
+                      className="rounded-xl border border-slate-200 bg-slate-50/80 pl-8 pr-7 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
+                    >
+                      {ratingOptions.map((rat) => (
+                        <option key={rat} value={rat}>
+                          {rat === "All Ratings"
+                            ? "All Ratings"
+                            : `Rating: ${rat}`}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+
+                  {/* View Mode Toggle Switcher */}
+                  <div className="flex items-center rounded-xl border border-slate-200 bg-slate-50 p-1">
+                    <button
+                      type="button"
+                      onClick={() => setViewMode("grid")}
+                      aria-label="Grid view"
+                      className={`p-1.5 rounded-lg transition cursor-pointer ${viewMode === "grid"
+                          ? "bg-white text-blue-600 shadow-xs font-bold"
+                          : "text-slate-400 hover:text-slate-700"
+                        }`}
+                    >
+                      <LayoutGrid className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setViewMode("list")}
+                      aria-label="List view"
+                      className={`p-1.5 rounded-lg transition cursor-pointer ${viewMode === "list"
+                          ? "bg-white text-blue-600 shadow-xs font-bold"
+                          : "text-slate-400 hover:text-slate-700"
+                        }`}
+                    >
+                      <List className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2">
-                {categoriesList.map((cat) => {
-                  const isSelected = selectedCategory === cat.id;
-                  const count = categoryCounts[cat.id] || 0;
+              {/* ROW 2: Specialization Category Chips Grid */}
+              <div className="pt-4 border-t border-slate-100">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-slate-500 flex items-center gap-1.5">
+                    <SlidersHorizontal className="w-3.5 h-3.5 text-blue-600" />
+                    Explore by Specialization
+                  </span>
+                  <span className="text-xs text-slate-400 font-medium">
+                    {courses.length} verified programs
+                  </span>
+                </div>
 
-                  return (
-                    <button
-                      key={cat.id}
-                      type="button"
-                      onClick={() => setSelectedCategory(cat.id)}
-                      className={`group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all duration-200 cursor-pointer active:scale-95 ${
-                        isSelected
-                          ? "bg-blue-600 text-white shadow-md shadow-blue-500/25 ring-2 ring-blue-600/20"
-                          : "bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80"
-                      }`}
-                    >
-                      <span
-                        className={isSelected ? "text-white" : "text-blue-600"}
+                <div className="flex flex-wrap items-center gap-2">
+                  {categoriesList.map((cat) => {
+                    const isSelected = selectedCategory === cat.id;
+                    const count = categoryCounts[cat.id] || 0;
+
+                    return (
+                      <button
+                        key={cat.id}
+                        type="button"
+                        onClick={() => setSelectedCategory(cat.id)}
+                        className={`group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all duration-200 cursor-pointer active:scale-95 ${isSelected
+                            ? "bg-blue-600 text-white shadow-md shadow-blue-500/25 ring-2 ring-blue-600/20"
+                            : "bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80"
+                          }`}
                       >
-                        {cat.icon}
-                      </span>
-                      <span>{cat.name}</span>
-                      <span
-                        className={`rounded-full px-2 py-0.2 text-[10px] font-mono font-extrabold ${
-                          isSelected
-                            ? "bg-white/20 text-white"
-                            : "bg-slate-200/70 text-slate-600"
-                        }`}
-                      >
-                        {count}
-                      </span>
-                    </button>
-                  );
-                })}
+                        <span
+                          className={isSelected ? "text-white" : "text-blue-600"}
+                        >
+                          {cat.icon}
+                        </span>
+                        <span>{cat.name}</span>
+                        <span
+                          className={`rounded-full px-2 py-0.2 text-[10px] font-mono font-extrabold ${isSelected
+                              ? "bg-white/20 text-white"
+                              : "bg-slate-200/70 text-slate-600"
+                            }`}
+                        >
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
-            {/* ROW 3: Active Filters Tags Tray & Reset */}
+            {/* ROW 3: Active Filters Tags Tray & Reset (Shared Mobile & Desktop) */}
             {activeFiltersCount > 0 && (
-              <div className="pt-3.5 border-t border-slate-100 flex flex-wrap items-center gap-2 animate-fadeIn">
+              <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-2">
                 <span className="text-xs text-slate-500 font-semibold mr-1">
-                  Active Filters ({activeFiltersCount}):
+                  Active ({activeFiltersCount}):
                 </span>
 
                 {selectedCategory !== "All" && (
@@ -672,7 +804,7 @@ export default function LearningHubPage() {
 
                 {searchQuery.trim() !== "" && (
                   <span className="inline-flex items-center gap-1.5 rounded-lg bg-slate-100 border border-slate-300 px-2.5 py-1 text-xs font-bold text-slate-800 shadow-2xs">
-                    <span>Search: &ldquo;{searchQuery}&rdquo;</span>
+                    <span>&ldquo;{searchQuery}&rdquo;</span>
                     <button
                       type="button"
                       onClick={() => setSearchQuery("")}
@@ -687,14 +819,234 @@ export default function LearningHubPage() {
                 <button
                   type="button"
                   onClick={resetAllFilters}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-red-600 hover:text-red-700 hover:underline ml-2 cursor-pointer transition"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-red-600 hover:text-red-700 hover:underline ml-1 cursor-pointer transition"
                 >
                   <RotateCcw className="w-3 h-3" />
-                  <span>Clear All Filters</span>
+                  <span>Reset</span>
                 </button>
               </div>
             )}
           </div>
+
+          {/* ==============================================================
+              MOBILE BOTTOM SHEET FILTER DRAWER (MODAL)
+          ============================================================== */}
+          {isMobileFilterOpen && (
+            <div className="fixed inset-0 z-50 flex flex-col justify-end bg-slate-950/70 backdrop-blur-sm lg:hidden animate-fadeIn">
+              {/* Backdrop Click Dismiss */}
+              <div
+                className="absolute inset-0"
+                onClick={() => setIsMobileFilterOpen(false)}
+              />
+
+              {/* Bottom Sheet Card */}
+              <div className="relative w-full max-h-[85vh] bg-white rounded-t-3xl shadow-2xl flex flex-col z-10 animate-slideUp">
+                {/* Pull Indicator Pill */}
+                <div className="w-12 h-1 bg-slate-300 rounded-full mx-auto my-3 shrink-0" />
+
+                {/* Header */}
+                <div className="flex items-center justify-between px-5 pb-3 border-b border-slate-100 shrink-0">
+                  <div className="flex items-center gap-2">
+                    <SlidersHorizontal className="w-4 h-4 text-blue-600" />
+                    <h3 className="font-heading text-base font-bold text-slate-900">
+                      Filter &amp; Refine
+                    </h3>
+                    {activeFiltersCount > 0 && (
+                      <span className="rounded-full bg-blue-100 text-blue-700 px-2 py-0.5 text-[10px] font-mono font-bold">
+                        {activeFiltersCount} active
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    {activeFiltersCount > 0 && (
+                      <button
+                        type="button"
+                        onClick={resetAllFilters}
+                        className="text-xs font-bold text-red-600 hover:text-red-700 cursor-pointer"
+                      >
+                        Reset All
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setIsMobileFilterOpen(false)}
+                      className="p-1 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition cursor-pointer"
+                      aria-label="Close filters"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Scrollable Body */}
+                <div className="overflow-y-auto p-5 space-y-6 flex-1">
+                  {/* Section 1: Sort By */}
+                  <div>
+                    <label className="block text-[11px] font-mono font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                      Sort Programs By
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { id: "popular", label: "Most Popular", icon: <Flame className="w-3.5 h-3.5 text-amber-500" /> },
+                        { id: "rating", label: "Highest Rated", icon: <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" /> },
+                        { id: "price-low", label: "Price: Low to High", icon: <ArrowUpDown className="w-3.5 h-3.5 text-slate-500" /> },
+                        { id: "price-high", label: "Price: High to Low", icon: <ArrowUpDown className="w-3.5 h-3.5 text-slate-500" /> },
+                      ].map((item) => (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => setSortBy(item.id)}
+                          className={`flex items-center justify-between p-3 rounded-2xl border text-xs font-bold transition text-left cursor-pointer ${sortBy === item.id
+                              ? "border-blue-600 bg-blue-50/70 text-blue-700 ring-2 ring-blue-600/20"
+                              : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                            }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            {item.icon}
+                            <span>{item.label}</span>
+                          </div>
+                          {sortBy === item.id && (
+                            <Check className="w-3.5 h-3.5 text-blue-600" />
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Section 2: Specialization */}
+                  <div>
+                    <label className="block text-[11px] font-mono font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                      Specialization Track
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {categoriesList.map((cat) => {
+                        const isSelected = selectedCategory === cat.id;
+                        const count = categoryCounts[cat.id] || 0;
+                        return (
+                          <button
+                            key={cat.id}
+                            type="button"
+                            onClick={() => setSelectedCategory(cat.id)}
+                            className={`inline-flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold transition cursor-pointer ${isSelected
+                                ? "bg-blue-600 text-white shadow-xs"
+                                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                              }`}
+                          >
+                            <span className={isSelected ? "text-white" : "text-blue-600"}>
+                              {cat.icon}
+                            </span>
+                            <span>{cat.name}</span>
+                            <span
+                              className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-extrabold ${isSelected ? "bg-white/20 text-white" : "bg-slate-200 text-slate-600"
+                                }`}
+                            >
+                              {count}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Section 3: Experience Level */}
+                  <div>
+                    <label className="block text-[11px] font-mono font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                      Experience Level
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {experienceLevels.map((lvl) => {
+                        const isSelected = selectedLevel === lvl;
+                        return (
+                          <button
+                            key={lvl}
+                            type="button"
+                            onClick={() => setSelectedLevel(lvl)}
+                            className={`p-2.5 rounded-xl border text-xs font-bold transition text-center cursor-pointer ${isSelected
+                                ? "border-blue-600 bg-blue-50 text-blue-700 font-black ring-1 ring-blue-600/30"
+                                : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                              }`}
+                          >
+                            {lvl}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Section 4: Duration */}
+                  <div>
+                    <label className="block text-[11px] font-mono font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                      Program Duration
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {durationOptions.map((dur) => {
+                        const isSelected = selectedDuration === dur;
+                        return (
+                          <button
+                            key={dur}
+                            type="button"
+                            onClick={() => setSelectedDuration(dur)}
+                            className={`p-2.5 rounded-xl border text-xs font-bold transition text-center cursor-pointer ${isSelected
+                                ? "border-indigo-600 bg-indigo-50 text-indigo-700 font-black ring-1 ring-indigo-600/30"
+                                : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                              }`}
+                          >
+                            {dur}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Section 5: Minimum Rating */}
+                  <div>
+                    <label className="block text-[11px] font-mono font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                      Minimum Rating
+                    </label>
+                    <div className="flex gap-2">
+                      {ratingOptions.map((rat) => {
+                        const isSelected = selectedRating === rat;
+                        return (
+                          <button
+                            key={rat}
+                            type="button"
+                            onClick={() => setSelectedRating(rat)}
+                            className={`flex-1 p-2.5 rounded-xl border text-xs font-bold transition text-center flex items-center justify-center gap-1.5 cursor-pointer ${isSelected
+                                ? "border-amber-500 bg-amber-50 text-amber-800 font-black ring-1 ring-amber-500/30"
+                                : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                              }`}
+                          >
+                            {rat !== "All Ratings" && (
+                              <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
+                            )}
+                            <span>{rat}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sticky Action Footer */}
+                <div className="p-4 border-t border-slate-100 bg-white/95 backdrop-blur-md shrink-0 flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={resetAllFilters}
+                    className="w-1/3 py-3 rounded-2xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 active:scale-95 transition cursor-pointer"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileFilterOpen(false)}
+                    className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-extrabold text-xs shadow-md shadow-blue-500/25 hover:brightness-105 active:scale-95 transition cursor-pointer"
+                  >
+                    Show {filteredCourses.length} Programs
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Results Counter & Trust Markers */}
           <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm text-slate-600">

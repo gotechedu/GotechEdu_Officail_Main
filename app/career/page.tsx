@@ -102,6 +102,19 @@ export default function CareerPage() {
   const [selectedExperience, setSelectedExperience] = useState("All Experience");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("recommended");
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+
+  // Prevent background scrolling when mobile filter drawer is open
+  useEffect(() => {
+    if (isMobileFilterOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileFilterOpen]);
 
   // Application Drawer / Modal State
   const [isApplying, setIsApplying] = useState(false);
@@ -419,18 +432,20 @@ export default function CareerPage() {
           </div>
 
           {/* DISCOVERY & FILTER COMMAND CARD */}
-          <div className="rounded-3xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-xs mb-8 space-y-5">
-            {/* ROW 1: Integrated Omni-Search & Facet Dropdowns */}
-            <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5">
-              {/* Search Bar Input */}
-              <div className="relative flex-1 min-w-[280px]">
+          <div className="rounded-3xl border border-slate-200/90 bg-white p-4 sm:p-6 shadow-xs mb-8 space-y-4 sm:space-y-5">
+            {/* ==============================================================
+                MOBILE INTERFACE (< lg)
+            ============================================================== */}
+            <div className="block lg:hidden space-y-3">
+              {/* Mobile Search Bar */}
+              <div className="relative">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="text"
-                  placeholder="Search role, skills (e.g. Python, OWASP, Linux), keywords..."
+                  placeholder="Search role, skills (Python, Cloud, Linux)..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50/80 pl-10 pr-9 py-2.5 text-xs sm:text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-3 focus:ring-blue-500/15 transition shadow-xs"
+                  className="w-full rounded-2xl border border-slate-200 bg-slate-50/90 pl-10 pr-9 py-2.5 text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-3 focus:ring-blue-500/15 transition shadow-2xs"
                 />
                 {searchQuery && (
                   <button
@@ -444,101 +459,211 @@ export default function CareerPage() {
                 )}
               </div>
 
-              {/* Facet Controls */}
-              <div className="flex flex-wrap items-center gap-2.5">
-                {/* Location Filter */}
-                <div className="relative flex items-center">
-                  <MapPin className="w-3.5 h-3.5 text-blue-600 absolute left-3 pointer-events-none" />
-                  <select
-                    value={selectedLocation}
-                    onChange={(e) => setSelectedLocation(e.target.value)}
-                    className="rounded-xl border border-slate-200 bg-slate-50/80 pl-8 pr-7 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
-                  >
-                    {locationsList.map((loc) => (
-                      <option key={loc} value={loc}>
-                        {loc === "All Locations" ? "All Locations" : `Mode: ${loc}`}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              {/* Mobile Action Row: Filter Drawer Trigger + Quick Sort */}
+              <div className="flex items-center gap-2">
+                {/* Master Filter Button */}
+                <button
+                  type="button"
+                  onClick={() => setIsMobileFilterOpen(true)}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3.5 rounded-2xl font-bold text-xs shadow-xs transition active:scale-95 cursor-pointer ${
+                    activeFiltersCount > 0
+                      ? "bg-blue-600 text-white shadow-blue-500/25"
+                      : "bg-slate-900 text-white hover:bg-slate-800"
+                  }`}
+                >
+                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  <span>Filters</span>
+                  {activeFiltersCount > 0 && (
+                    <span className="rounded-full bg-white text-blue-600 px-1.5 py-0.2 text-[10px] font-mono font-extrabold">
+                      {activeFiltersCount}
+                    </span>
+                  )}
+                </button>
 
-                {/* Experience Filter */}
-                <div className="relative flex items-center">
-                  <Clock className="w-3.5 h-3.5 text-indigo-600 absolute left-3 pointer-events-none" />
-                  <select
-                    value={selectedExperience}
-                    onChange={(e) => setSelectedExperience(e.target.value)}
-                    className="rounded-xl border border-slate-200 bg-slate-50/80 pl-8 pr-7 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
-                  >
-                    {experiencesList.map((exp) => (
-                      <option key={exp} value={exp}>
-                        {exp === "All Experience" ? "All Experience" : `Exp: ${exp}`}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Sort Order */}
-                <div className="relative flex items-center">
+                {/* Quick Sort Select */}
+                <div className="relative flex items-center shrink-0">
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
+                    className="rounded-2xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs font-bold text-slate-700 focus:border-blue-500 focus:bg-white focus:outline-none transition cursor-pointer"
                   >
-                    <option value="recommended">Sort: Featured Roles</option>
-                    <option value="title">Sort: Title (A - Z)</option>
+                    <option value="recommended">Featured Roles</option>
+                    <option value="title">Title (A - Z)</option>
                   </select>
+                </div>
+              </div>
+
+              {/* Mobile Horizontal Swipeable Department Pills Rail */}
+              <div className="pt-2 border-t border-slate-100">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono font-extrabold uppercase tracking-wider text-slate-500">
+                    Departments ({allJobs.length})
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-medium">
+                    Swipe →
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sm:mx-0 sm:px-0">
+                  {dynamicDepartments.map((dept) => {
+                    const isSelected = selectedDept === dept;
+                    const count = departmentCounts[dept] || 0;
+
+                    return (
+                      <button
+                        key={dept}
+                        type="button"
+                        onClick={() => setSelectedDept(dept)}
+                        className={`shrink-0 inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95 ${
+                          isSelected
+                            ? "bg-blue-600 text-white shadow-xs shadow-blue-500/20"
+                            : "bg-slate-100/80 text-slate-700 hover:bg-slate-200/80 border border-slate-200/60"
+                        }`}
+                      >
+                        <span className="whitespace-nowrap">
+                          {dept === "All" ? "All Departments" : dept}
+                        </span>
+                        <span
+                          className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-extrabold ${
+                            isSelected
+                              ? "bg-white/20 text-white"
+                              : "bg-slate-200 text-slate-600"
+                          }`}
+                        >
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
 
-            {/* ROW 2: Department Pills Rail */}
-            <div className="pt-4 border-t border-slate-100">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-slate-500 flex items-center gap-1.5">
-                  <Layers className="w-3.5 h-3.5 text-blue-600" />
-                  Filter by Department
-                </span>
-                <span className="text-xs text-slate-400 font-medium">
-                  {allJobs.length} active roles
-                </span>
+            {/* ==============================================================
+                DESKTOP INTERFACE (>= lg)
+            ============================================================== */}
+            <div className="hidden lg:block space-y-5">
+              {/* ROW 1: Integrated Omni-Search & Facet Dropdowns */}
+              <div className="flex items-center justify-between gap-3.5">
+                {/* Search Bar Input */}
+                <div className="relative flex-1 min-w-[280px]">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    placeholder="Search role, skills (e.g. Python, OWASP, Linux), keywords..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50/80 pl-10 pr-9 py-2.5 text-xs sm:text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-3 focus:ring-blue-500/15 transition shadow-xs"
+                  />
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery("")}
+                      aria-label="Clear search"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Facet Controls */}
+                <div className="flex items-center gap-2.5">
+                  {/* Location Filter */}
+                  <div className="relative flex items-center">
+                    <MapPin className="w-3.5 h-3.5 text-blue-600 absolute left-3 pointer-events-none" />
+                    <select
+                      value={selectedLocation}
+                      onChange={(e) => setSelectedLocation(e.target.value)}
+                      className="rounded-xl border border-slate-200 bg-slate-50/80 pl-8 pr-7 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
+                    >
+                      {locationsList.map((loc) => (
+                        <option key={loc} value={loc}>
+                          {loc === "All Locations" ? "All Locations" : `Mode: ${loc}`}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Experience Filter */}
+                  <div className="relative flex items-center">
+                    <Clock className="w-3.5 h-3.5 text-indigo-600 absolute left-3 pointer-events-none" />
+                    <select
+                      value={selectedExperience}
+                      onChange={(e) => setSelectedExperience(e.target.value)}
+                      className="rounded-xl border border-slate-200 bg-slate-50/80 pl-8 pr-7 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
+                    >
+                      {experiencesList.map((exp) => (
+                        <option key={exp} value={exp}>
+                          {exp === "All Experience" ? "All Experience" : `Exp: ${exp}`}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Sort Order */}
+                  <div className="relative flex items-center">
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-xs font-bold text-slate-700 hover:border-slate-300 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition cursor-pointer"
+                    >
+                      <option value="recommended">Sort: Featured Roles</option>
+                      <option value="title">Sort: Title (A - Z)</option>
+                    </select>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2">
-                {dynamicDepartments.map((dept) => {
-                  const isSelected = selectedDept === dept;
-                  const count = departmentCounts[dept] || 0;
+              {/* ROW 2: Department Pills Rail */}
+              <div className="pt-4 border-t border-slate-100">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-slate-500 flex items-center gap-1.5">
+                    <Layers className="w-3.5 h-3.5 text-blue-600" />
+                    Filter by Department
+                  </span>
+                  <span className="text-xs text-slate-400 font-medium">
+                    {allJobs.length} active roles
+                  </span>
+                </div>
 
-                  return (
-                    <button
-                      key={dept}
-                      type="button"
-                      onClick={() => setSelectedDept(dept)}
-                      className={`group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all duration-200 cursor-pointer active:scale-95 ${isSelected
-                          ? "bg-blue-600 text-white shadow-md shadow-blue-500/25 ring-2 ring-blue-600/20"
-                          : "bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80"
+                <div className="flex flex-wrap items-center gap-2">
+                  {dynamicDepartments.map((dept) => {
+                    const isSelected = selectedDept === dept;
+                    const count = departmentCounts[dept] || 0;
+
+                    return (
+                      <button
+                        key={dept}
+                        type="button"
+                        onClick={() => setSelectedDept(dept)}
+                        className={`group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all duration-200 cursor-pointer active:scale-95 ${
+                          isSelected
+                            ? "bg-blue-600 text-white shadow-md shadow-blue-500/25 ring-2 ring-blue-600/20"
+                            : "bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80"
                         }`}
-                    >
-                      <span>{dept === "All" ? "All Departments" : dept}</span>
-                      <span
-                        className={`rounded-full px-2 py-0.2 text-[10px] font-mono font-extrabold ${isSelected
-                            ? "bg-white/20 text-white"
-                            : "bg-slate-200/70 text-slate-600"
-                          }`}
                       >
-                        {count}
-                      </span>
-                    </button>
-                  );
-                })}
+                        <span>{dept === "All" ? "All Departments" : dept}</span>
+                        <span
+                          className={`rounded-full px-2 py-0.2 text-[10px] font-mono font-extrabold ${
+                            isSelected
+                              ? "bg-white/20 text-white"
+                              : "bg-slate-200/70 text-slate-600"
+                          }`}
+                        >
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
-            {/* ROW 3: Active Filters Tags Tray & Reset */}
+            {/* ROW 3: Active Filters Tags Tray & Reset (Shared Mobile & Desktop) */}
             {activeFiltersCount > 0 && (
-              <div className="pt-3.5 border-t border-slate-100 flex flex-wrap items-center gap-2 animate-fadeIn">
+              <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-2">
                 <span className="text-xs text-slate-500 font-semibold mr-1">
-                  Active Filters ({activeFiltersCount}):
+                  Active ({activeFiltersCount}):
                 </span>
 
                 {selectedDept !== "All" && (
@@ -585,7 +710,7 @@ export default function CareerPage() {
 
                 {searchQuery.trim() !== "" && (
                   <span className="inline-flex items-center gap-1.5 rounded-lg bg-slate-100 border border-slate-300 px-2.5 py-1 text-xs font-bold text-slate-800 shadow-2xs">
-                    <span>Search: &ldquo;{searchQuery}&rdquo;</span>
+                    <span>&ldquo;{searchQuery}&rdquo;</span>
                     <button
                       type="button"
                       onClick={() => setSearchQuery("")}
@@ -600,14 +725,203 @@ export default function CareerPage() {
                 <button
                   type="button"
                   onClick={resetFilters}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-red-600 hover:text-red-700 hover:underline ml-2 cursor-pointer transition"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-red-600 hover:text-red-700 hover:underline ml-1 cursor-pointer transition"
                 >
                   <RotateCcw className="w-3 h-3" />
-                  <span>Clear All Filters</span>
+                  <span>Reset</span>
                 </button>
               </div>
             )}
           </div>
+
+          {/* ==============================================================
+              MOBILE BOTTOM SHEET FILTER DRAWER (MODAL)
+          ============================================================== */}
+          {isMobileFilterOpen && (
+            <div className="fixed inset-0 z-50 flex flex-col justify-end bg-slate-950/70 backdrop-blur-sm lg:hidden animate-fadeIn">
+              {/* Backdrop Click Dismiss */}
+              <div
+                className="absolute inset-0"
+                onClick={() => setIsMobileFilterOpen(false)}
+              />
+
+              {/* Bottom Sheet Card */}
+              <div className="relative w-full max-h-[85vh] bg-white rounded-t-3xl shadow-2xl flex flex-col z-10 animate-slideUp">
+                {/* Pull Indicator Pill */}
+                <div className="w-12 h-1 bg-slate-300 rounded-full mx-auto my-3 shrink-0" />
+
+                {/* Header */}
+                <div className="flex items-center justify-between px-5 pb-3 border-b border-slate-100 shrink-0">
+                  <div className="flex items-center gap-2">
+                    <SlidersHorizontal className="w-4 h-4 text-blue-600" />
+                    <h3 className="font-heading text-base font-bold text-slate-900">
+                      Filter Career Roles
+                    </h3>
+                    {activeFiltersCount > 0 && (
+                      <span className="rounded-full bg-blue-100 text-blue-700 px-2 py-0.5 text-[10px] font-mono font-bold">
+                        {activeFiltersCount} active
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    {activeFiltersCount > 0 && (
+                      <button
+                        type="button"
+                        onClick={resetFilters}
+                        className="text-xs font-bold text-red-600 hover:text-red-700 cursor-pointer"
+                      >
+                        Reset All
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setIsMobileFilterOpen(false)}
+                      className="p-1 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition cursor-pointer"
+                      aria-label="Close filters"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Scrollable Body */}
+                <div className="overflow-y-auto p-5 space-y-6 flex-1">
+                  {/* Section 1: Sort Roles */}
+                  <div>
+                    <label className="block text-[11px] font-mono font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                      Sort Roles By
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { id: "recommended", label: "Featured Roles" },
+                        { id: "title", label: "Title (A - Z)" },
+                      ].map((item) => (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => setSortBy(item.id)}
+                          className={`flex items-center justify-between p-3 rounded-2xl border text-xs font-bold transition text-left cursor-pointer ${
+                            sortBy === item.id
+                              ? "border-blue-600 bg-blue-50/70 text-blue-700 ring-2 ring-blue-600/20"
+                              : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                          }`}
+                        >
+                          <span>{item.label}</span>
+                          {sortBy === item.id && (
+                            <span className="text-blue-600 font-bold">✓</span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Section 2: Department */}
+                  <div>
+                    <label className="block text-[11px] font-mono font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                      Engineering Department
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {dynamicDepartments.map((dept) => {
+                        const isSelected = selectedDept === dept;
+                        const count = departmentCounts[dept] || 0;
+                        return (
+                          <button
+                            key={dept}
+                            type="button"
+                            onClick={() => setSelectedDept(dept)}
+                            className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-bold transition cursor-pointer ${
+                              isSelected
+                                ? "bg-blue-600 text-white shadow-xs"
+                                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                            }`}
+                          >
+                            <span>{dept === "All" ? "All Departments" : dept}</span>
+                            <span
+                              className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-extrabold ${
+                                isSelected ? "bg-white/20 text-white" : "bg-slate-200 text-slate-600"
+                              }`}
+                            >
+                              {count}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Section 3: Work Mode / Location */}
+                  <div>
+                    <label className="block text-[11px] font-mono font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                      Work Mode &amp; Location
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {locationsList.map((loc) => {
+                        const isSelected = selectedLocation === loc;
+                        return (
+                          <button
+                            key={loc}
+                            type="button"
+                            onClick={() => setSelectedLocation(loc)}
+                            className={`p-2.5 rounded-xl border text-xs font-bold transition text-center cursor-pointer ${
+                              isSelected
+                                ? "border-emerald-600 bg-emerald-50 text-emerald-800 font-black ring-1 ring-emerald-600/30"
+                                : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                            }`}
+                          >
+                            {loc}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Section 4: Experience Level */}
+                  <div>
+                    <label className="block text-[11px] font-mono font-extrabold uppercase tracking-wider text-slate-500 mb-2.5">
+                      Experience Required
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {experiencesList.map((exp) => {
+                        const isSelected = selectedExperience === exp;
+                        return (
+                          <button
+                            key={exp}
+                            type="button"
+                            onClick={() => setSelectedExperience(exp)}
+                            className={`p-2.5 rounded-xl border text-xs font-bold transition text-center cursor-pointer ${
+                              isSelected
+                                ? "border-indigo-600 bg-indigo-50 text-indigo-700 font-black ring-1 ring-indigo-600/30"
+                                : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                            }`}
+                          >
+                            {exp}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sticky Action Footer */}
+                <div className="p-4 border-t border-slate-100 bg-white/95 backdrop-blur-md shrink-0 flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={resetFilters}
+                    className="w-1/3 py-3 rounded-2xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 active:scale-95 transition cursor-pointer"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileFilterOpen(false)}
+                    className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-extrabold text-xs shadow-md shadow-blue-500/25 hover:brightness-105 active:scale-95 transition cursor-pointer"
+                  >
+                    Show {filteredJobs.length} Roles
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Results Counter Bar */}
           <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm text-slate-600">
