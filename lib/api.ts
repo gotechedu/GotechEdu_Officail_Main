@@ -206,6 +206,57 @@ export const officialApi = {
       body: JSON.stringify(cleanPayload),
     });
   },
+
+  // 5. Commercial & Educational Quotations
+  getPublicQuotation: async (id: string) => {
+    return fetchJson<{
+      success: boolean;
+      quotation?: any;
+      message?: string;
+    }>(`/quotations/public/${id}`);
+  },
+
+  submitQuotationRegistration: async (
+    id: string,
+    data: {
+      studentName: string;
+      email: string;
+      phone: string;
+      collegeOrCompany?: string;
+      qualification?: string;
+      utrNumber: string;
+      upiIdPaidTo?: string;
+      amountPaid?: number;
+      password?: string;
+      notes?: string;
+    },
+  ) => {
+    const cleanPayload = {
+      ...data,
+      studentName: sanitizeInput(data.studentName),
+      email: data.email.trim().toLowerCase(),
+      phone: data.phone.trim(),
+      collegeOrCompany: data.collegeOrCompany
+        ? sanitizeInput(data.collegeOrCompany)
+        : "",
+      qualification: data.qualification
+        ? sanitizeInput(data.qualification)
+        : "",
+      utrNumber: data.utrNumber.trim(),
+      upiIdPaidTo: data.upiIdPaidTo || "gotechedu@ybl",
+      notes: data.notes ? sanitizeInput(data.notes) : "",
+    };
+
+    return fetchJson<{
+      success: boolean;
+      message: string;
+      quotationNumber?: string;
+      status?: string;
+    }>(`/quotations/public/${id}/register`, {
+      method: "POST",
+      body: JSON.stringify(cleanPayload),
+    });
+  },
 };
 
 export default officialApi;

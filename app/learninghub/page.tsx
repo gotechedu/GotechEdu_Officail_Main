@@ -39,7 +39,12 @@ import {
   ArrowUpDown,
 } from "lucide-react";
 import { officialApi } from "@/lib/api";
-import { validateName, validateEmail, validatePhone, sanitizeInput } from "@/lib/validation";
+import {
+  validateName,
+  validateEmail,
+  validatePhone,
+  sanitizeInput,
+} from "@/lib/validation";
 
 // Helper functions to safely extract instructor details without runtime object errors
 const getInstructorName = (instructor: any): string => {
@@ -199,12 +204,12 @@ export default function LearningHubPage() {
               typeof c.image === "string" && c.image.startsWith("http")
                 ? c.image
                 : c.previewImage ||
-                c.thumbnail ||
-                "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+                  c.thumbnail ||
+                  "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
             techStack: Array.isArray(c.techStack)
               ? c.techStack.map((t: any) =>
-                typeof t === "string" ? t : t?.name || String(t),
-              )
+                  typeof t === "string" ? t : t?.name || String(t),
+                )
               : ["Next.js", "Cloud", "APIs"],
           }));
           setCourses(liveFormatted);
@@ -393,7 +398,9 @@ export default function LearningHubPage() {
         studentName: applyForm.fullName.trim(),
         email: applyForm.email.trim(),
         phone: applyForm.phone.trim(),
-        collegeOrCompany: applyForm.collegeOrCompany ? sanitizeInput(applyForm.collegeOrCompany) : "",
+        collegeOrCompany: applyForm.collegeOrCompany
+          ? sanitizeInput(applyForm.collegeOrCompany)
+          : "",
         experienceLevel: applyForm.experienceLevel,
         learningGoal: applyForm.notes ? sanitizeInput(applyForm.notes) : "",
         modePreference: applyForm.batchPreference,
@@ -480,10 +487,11 @@ export default function LearningHubPage() {
                 <button
                   type="button"
                   onClick={() => setIsMobileFilterOpen(true)}
-                  className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3.5 rounded-2xl font-bold text-xs shadow-xs transition active:scale-95 cursor-pointer ${activeFiltersCount > 0
+                  className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3.5 rounded-2xl font-bold text-xs shadow-xs transition active:scale-95 cursor-pointer ${
+                    activeFiltersCount > 0
                       ? "bg-blue-600 text-white shadow-blue-500/25"
                       : "bg-slate-900 text-white hover:bg-slate-800"
-                    }`}
+                  }`}
                 >
                   <SlidersHorizontal className="w-3.5 h-3.5" />
                   <span>Filters</span>
@@ -515,10 +523,11 @@ export default function LearningHubPage() {
                     type="button"
                     onClick={() => setViewMode("grid")}
                     aria-label="Grid view"
-                    className={`p-1.5 rounded-xl transition cursor-pointer ${viewMode === "grid"
+                    className={`p-1.5 rounded-xl transition cursor-pointer ${
+                      viewMode === "grid"
                         ? "bg-white text-blue-600 shadow-xs font-bold"
                         : "text-slate-400 hover:text-slate-700"
-                      }`}
+                    }`}
                   >
                     <LayoutGrid className="w-3.5 h-3.5" />
                   </button>
@@ -526,10 +535,11 @@ export default function LearningHubPage() {
                     type="button"
                     onClick={() => setViewMode("list")}
                     aria-label="List view"
-                    className={`p-1.5 rounded-xl transition cursor-pointer ${viewMode === "list"
+                    className={`p-1.5 rounded-xl transition cursor-pointer ${
+                      viewMode === "list"
                         ? "bg-white text-blue-600 shadow-xs font-bold"
                         : "text-slate-400 hover:text-slate-700"
-                      }`}
+                    }`}
                   >
                     <List className="w-3.5 h-3.5" />
                   </button>
@@ -556,20 +566,26 @@ export default function LearningHubPage() {
                         key={cat.id}
                         type="button"
                         onClick={() => setSelectedCategory(cat.id)}
-                        className={`shrink-0 inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95 ${isSelected
+                        className={`shrink-0 inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all cursor-pointer active:scale-95 ${
+                          isSelected
                             ? "bg-blue-600 text-white shadow-xs shadow-blue-500/20"
                             : "bg-slate-100/80 text-slate-700 hover:bg-slate-200/80 border border-slate-200/60"
-                          }`}
+                        }`}
                       >
-                        <span className={isSelected ? "text-white" : "text-blue-600"}>
+                        <span
+                          className={
+                            isSelected ? "text-white" : "text-blue-600"
+                          }
+                        >
                           {cat.icon}
                         </span>
                         <span className="whitespace-nowrap">{cat.name}</span>
                         <span
-                          className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-extrabold ${isSelected
+                          className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-extrabold ${
+                            isSelected
                               ? "bg-white/20 text-white"
                               : "bg-slate-200 text-slate-600"
-                            }`}
+                          }`}
                         >
                           {count}
                         </span>
@@ -620,7 +636,9 @@ export default function LearningHubPage() {
                     >
                       {experienceLevels.map((lvl) => (
                         <option key={lvl} value={lvl}>
-                          {lvl === "All Levels" ? "All Levels" : `Level: ${lvl}`}
+                          {lvl === "All Levels"
+                            ? "All Levels"
+                            : `Level: ${lvl}`}
                         </option>
                       ))}
                     </select>
@@ -662,17 +680,17 @@ export default function LearningHubPage() {
                     </select>
                   </div>
 
-
                   {/* View Mode Toggle Switcher */}
                   <div className="flex items-center rounded-xl border border-slate-200 bg-slate-50 p-1">
                     <button
                       type="button"
                       onClick={() => setViewMode("grid")}
                       aria-label="Grid view"
-                      className={`p-1.5 rounded-lg transition cursor-pointer ${viewMode === "grid"
+                      className={`p-1.5 rounded-lg transition cursor-pointer ${
+                        viewMode === "grid"
                           ? "bg-white text-blue-600 shadow-xs font-bold"
                           : "text-slate-400 hover:text-slate-700"
-                        }`}
+                      }`}
                     >
                       <LayoutGrid className="w-4 h-4" />
                     </button>
@@ -680,10 +698,11 @@ export default function LearningHubPage() {
                       type="button"
                       onClick={() => setViewMode("list")}
                       aria-label="List view"
-                      className={`p-1.5 rounded-lg transition cursor-pointer ${viewMode === "list"
+                      className={`p-1.5 rounded-lg transition cursor-pointer ${
+                        viewMode === "list"
                           ? "bg-white text-blue-600 shadow-xs font-bold"
                           : "text-slate-400 hover:text-slate-700"
-                        }`}
+                      }`}
                     >
                       <List className="w-4 h-4" />
                     </button>
@@ -713,22 +732,26 @@ export default function LearningHubPage() {
                         key={cat.id}
                         type="button"
                         onClick={() => setSelectedCategory(cat.id)}
-                        className={`group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all duration-200 cursor-pointer active:scale-95 ${isSelected
+                        className={`group inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold transition-all duration-200 cursor-pointer active:scale-95 ${
+                          isSelected
                             ? "bg-blue-600 text-white shadow-md shadow-blue-500/25 ring-2 ring-blue-600/20"
                             : "bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200/80"
-                          }`}
+                        }`}
                       >
                         <span
-                          className={isSelected ? "text-white" : "text-blue-600"}
+                          className={
+                            isSelected ? "text-white" : "text-blue-600"
+                          }
                         >
                           {cat.icon}
                         </span>
                         <span>{cat.name}</span>
                         <span
-                          className={`rounded-full px-2 py-0.2 text-[10px] font-mono font-extrabold ${isSelected
+                          className={`rounded-full px-2 py-0.2 text-[10px] font-mono font-extrabold ${
+                            isSelected
                               ? "bg-white/20 text-white"
                               : "bg-slate-200/70 text-slate-600"
-                            }`}
+                          }`}
                         >
                           {count}
                         </span>
@@ -887,19 +910,44 @@ export default function LearningHubPage() {
                     </label>
                     <div className="grid grid-cols-2 gap-2">
                       {[
-                        { id: "popular", label: "Most Popular", icon: <Flame className="w-3.5 h-3.5 text-amber-500" /> },
-                        { id: "rating", label: "Highest Rated", icon: <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" /> },
-                        { id: "price-low", label: "Price: Low to High", icon: <ArrowUpDown className="w-3.5 h-3.5 text-slate-500" /> },
-                        { id: "price-high", label: "Price: High to Low", icon: <ArrowUpDown className="w-3.5 h-3.5 text-slate-500" /> },
+                        {
+                          id: "popular",
+                          label: "Most Popular",
+                          icon: (
+                            <Flame className="w-3.5 h-3.5 text-amber-500" />
+                          ),
+                        },
+                        {
+                          id: "rating",
+                          label: "Highest Rated",
+                          icon: (
+                            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                          ),
+                        },
+                        {
+                          id: "price-low",
+                          label: "Price: Low to High",
+                          icon: (
+                            <ArrowUpDown className="w-3.5 h-3.5 text-slate-500" />
+                          ),
+                        },
+                        {
+                          id: "price-high",
+                          label: "Price: High to Low",
+                          icon: (
+                            <ArrowUpDown className="w-3.5 h-3.5 text-slate-500" />
+                          ),
+                        },
                       ].map((item) => (
                         <button
                           key={item.id}
                           type="button"
                           onClick={() => setSortBy(item.id)}
-                          className={`flex items-center justify-between p-3 rounded-2xl border text-xs font-bold transition text-left cursor-pointer ${sortBy === item.id
+                          className={`flex items-center justify-between p-3 rounded-2xl border text-xs font-bold transition text-left cursor-pointer ${
+                            sortBy === item.id
                               ? "border-blue-600 bg-blue-50/70 text-blue-700 ring-2 ring-blue-600/20"
                               : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
-                            }`}
+                          }`}
                         >
                           <div className="flex items-center gap-2">
                             {item.icon}
@@ -927,18 +975,26 @@ export default function LearningHubPage() {
                             key={cat.id}
                             type="button"
                             onClick={() => setSelectedCategory(cat.id)}
-                            className={`inline-flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold transition cursor-pointer ${isSelected
+                            className={`inline-flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold transition cursor-pointer ${
+                              isSelected
                                 ? "bg-blue-600 text-white shadow-xs"
                                 : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                              }`}
+                            }`}
                           >
-                            <span className={isSelected ? "text-white" : "text-blue-600"}>
+                            <span
+                              className={
+                                isSelected ? "text-white" : "text-blue-600"
+                              }
+                            >
                               {cat.icon}
                             </span>
                             <span>{cat.name}</span>
                             <span
-                              className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-extrabold ${isSelected ? "bg-white/20 text-white" : "bg-slate-200 text-slate-600"
-                                }`}
+                              className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-extrabold ${
+                                isSelected
+                                  ? "bg-white/20 text-white"
+                                  : "bg-slate-200 text-slate-600"
+                              }`}
                             >
                               {count}
                             </span>
@@ -961,10 +1017,11 @@ export default function LearningHubPage() {
                             key={lvl}
                             type="button"
                             onClick={() => setSelectedLevel(lvl)}
-                            className={`p-2.5 rounded-xl border text-xs font-bold transition text-center cursor-pointer ${isSelected
+                            className={`p-2.5 rounded-xl border text-xs font-bold transition text-center cursor-pointer ${
+                              isSelected
                                 ? "border-blue-600 bg-blue-50 text-blue-700 font-black ring-1 ring-blue-600/30"
                                 : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
-                              }`}
+                            }`}
                           >
                             {lvl}
                           </button>
@@ -986,10 +1043,11 @@ export default function LearningHubPage() {
                             key={dur}
                             type="button"
                             onClick={() => setSelectedDuration(dur)}
-                            className={`p-2.5 rounded-xl border text-xs font-bold transition text-center cursor-pointer ${isSelected
+                            className={`p-2.5 rounded-xl border text-xs font-bold transition text-center cursor-pointer ${
+                              isSelected
                                 ? "border-indigo-600 bg-indigo-50 text-indigo-700 font-black ring-1 ring-indigo-600/30"
                                 : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
-                              }`}
+                            }`}
                           >
                             {dur}
                           </button>
@@ -1011,10 +1069,11 @@ export default function LearningHubPage() {
                             key={rat}
                             type="button"
                             onClick={() => setSelectedRating(rat)}
-                            className={`flex-1 p-2.5 rounded-xl border text-xs font-bold transition text-center flex items-center justify-center gap-1.5 cursor-pointer ${isSelected
+                            className={`flex-1 p-2.5 rounded-xl border text-xs font-bold transition text-center flex items-center justify-center gap-1.5 cursor-pointer ${
+                              isSelected
                                 ? "border-amber-500 bg-amber-50 text-amber-800 font-black ring-1 ring-amber-500/30"
                                 : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
-                              }`}
+                            }`}
                           >
                             {rat !== "All Ratings" && (
                               <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
@@ -1239,7 +1298,7 @@ export default function LearningHubPage() {
                           </span>
                         </div>
                         <span className="text-[10px] font-mono text-slate-500 font-medium">
-                          EMI {course.emiStartsAt}
+                          EMI Available
                         </span>
                       </div>
 
@@ -1356,7 +1415,7 @@ export default function LearningHubPage() {
                         50% SCHOLARSHIP
                       </span>
                       <p className="text-[10px] text-slate-500 mt-1">
-                        EMI {course.emiStartsAt}
+                        EMI Available
                       </p>
                     </div>
 

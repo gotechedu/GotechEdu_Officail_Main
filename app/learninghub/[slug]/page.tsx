@@ -1787,16 +1787,16 @@ export default function CourseDetailPage({
               {/* Action Buttons (Matches UI image: Add to Cart & Buy Now) */}
               <div className="space-y-2.5">
                 <Link
-                  href={`/learninghub/${slug}/enroll`}
-                  // href={`/contact`}
+                  // href={`/learninghub/${slug}/enroll`}
+                  href={`/contact`}
                   className="w-full inline-flex items-center justify-center rounded-xl bg-[#0f766e] hover:bg-[#115e59] py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-md transition active:scale-98 cursor-pointer"
                 >
                   Enroll Now →
                 </Link>
 
                 <Link
-                  href={`/learninghub/${slug}/enroll?coupon=FREEDEMO`}
-                  // href={`/contact`}
+                  // href={`/learninghub/${slug}/enroll?coupon=FREEDEMO`}
+                  href={`/contact`}
                   className="w-full inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 hover:bg-slate-50 transition cursor-pointer"
                 >
                   Book Free Demo Class
