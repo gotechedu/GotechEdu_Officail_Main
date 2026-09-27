@@ -29,6 +29,7 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import { officialApi } from "@/lib/api";
+import { defaultCareers } from "@/lib/careerData";
 import {
   validateName,
   validateEmail,
@@ -122,6 +123,7 @@ export default function CareerPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [modalError, setModalError] = useState("");
   const [formData, setFormData] = useState({
+    jobId: "",
     fullName: "",
     email: "",
     phone: "",
@@ -142,9 +144,10 @@ export default function CareerPage() {
       try {
         setLoading(true);
         const data = await officialApi.getJobs();
-        if (data && data.jobs && Array.isArray(data.jobs)) {
+        if (data && data.jobs && Array.isArray(data.jobs) && data.jobs.length > 0) {
           const formatted = data.jobs.map((j: any) => ({
             id: j._id || j.slug,
+            slug: j.slug || (j.title ? j.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "") : j._id),
             title: j.title,
             department: j.department || "Engineering",
             type: j.type || "Full-Time",
@@ -158,11 +161,11 @@ export default function CareerPage() {
           }));
           setAllJobs(formatted);
         } else {
-          setAllJobs([]);
+          setAllJobs(defaultCareers);
         }
       } catch (err) {
         console.error("Failed to fetch live jobs:", err);
-        setAllJobs([]);
+        setAllJobs(defaultCareers);
       } finally {
         setLoading(false);
       }
@@ -263,9 +266,10 @@ export default function CareerPage() {
       });
   }, [allJobs, selectedDept, selectedLocation, selectedExperience, searchQuery, sortBy]);
 
-  const openApplyModal = (jobTitle?: string, dept?: string) => {
+  const openApplyModal = (jobTitle?: string, dept?: string, jobId?: string) => {
     setFormData((prev) => ({
       ...prev,
+      jobId: jobId || "",
       position: jobTitle || "General Application",
       department: dept || "Engineering",
     }));
@@ -326,6 +330,7 @@ export default function CareerPage() {
     setIsSubmitting(true);
     try {
       const res = await officialApi.submitJobApplication({
+        jobId: formData.jobId || undefined,
         jobTitle: formData.position,
         department: formData.department,
         name: formData.fullName.trim(),
@@ -1019,10 +1024,16 @@ export default function CareerPage() {
                       </span>
                     </div>
 
-                    {/* Job Title */}
-                    <h3 className="font-heading text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition">
-                      {job.title}
-                    </h3>
+                    {/* Job Title as Link */}
+                    <Link
+                      href={`/career/${job.slug || job.id}`}
+                      className="block group/link"
+                    >
+                      <h3 className="font-heading text-lg sm:text-xl font-bold text-slate-900 group-hover/link:text-blue-600 transition flex items-center gap-2">
+                        <span>{job.title}</span>
+                        <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover/link:text-blue-600 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition" />
+                      </h3>
+                    </Link>
 
                     {/* Description */}
                     <p className="text-xs sm:text-sm leading-relaxed text-slate-600 line-clamp-2">
@@ -1047,12 +1058,20 @@ export default function CareerPage() {
                     </div>
                   </div>
 
-                  {/* Apply CTA Button */}
-                  <div className="shrink-0 flex lg:flex-col items-center justify-end gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 border-slate-100">
+                  {/* Actions: View Details + Apply */}
+                  <div className="shrink-0 flex lg:flex-col items-center justify-end gap-2.5 pt-3 lg:pt-0 border-t lg:border-t-0 border-slate-100">
+                    <Link
+                      href={`/career/${job.slug || job.id}`}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-blue-300 px-4 py-2.5 text-xs font-bold text-slate-700 hover:text-blue-700 shadow-2xs transition active:scale-95 cursor-pointer"
+                    >
+                      <span>View Details</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </Link>
+
                     <button
                       type="button"
-                      onClick={() => openApplyModal(job.title, job.department)}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-blue-500/20 hover:brightness-105 active:scale-95 transition cursor-pointer"
+                      onClick={() => openApplyModal(job.title, job.department, job.id)}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-blue-500/20 hover:brightness-105 active:scale-95 transition cursor-pointer"
                     >
                       <span>Apply For Role</span>
                       <ArrowRight className="w-3.5 h-3.5" />

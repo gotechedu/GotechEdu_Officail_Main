@@ -35,15 +35,11 @@ export default function HomePage() {
 
       {/* 3. Welcome to GoTechEdu & Why Choose Us (Left Accent Bar + Staggered Images + Trust Badge) */}
 
-
       {/* 4. End-to-End Solutions for Every Growth Stage */}
       <SolutionsSection />
 
-
-
-
       {/* 7. Industry Engineering & Tech Stack */}
-      <TechStack />
+      {/* <TechStack /> */}
 
       {/* 8. Testimonials - What they are saying? (Top Colored Accent Bar Cards) */}
       <Testimonials />

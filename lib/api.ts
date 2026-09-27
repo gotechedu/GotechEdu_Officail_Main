@@ -123,6 +123,7 @@ export const officialApi = {
   },
 
   submitJobApplication: async (data: {
+    jobId?: string;
     jobTitle: string;
     department?: string;
     name: string;
@@ -132,17 +133,20 @@ export const officialApi = {
     currentCompany?: string;
     expectedCTC?: string;
     noticePeriod?: string;
+    resumeUrl?: string;
     portfolioUrl?: string;
     coverLetter?: string;
   }) => {
     const cleanPayload = {
       ...data,
+      jobId: data.jobId || undefined,
       name: sanitizeInput(data.name),
       jobTitle: sanitizeInput(data.jobTitle),
       department: data.department ? sanitizeInput(data.department) : "Engineering",
       email: data.email.trim().toLowerCase(),
       phone: data.phone.trim(),
       currentCompany: data.currentCompany ? sanitizeInput(data.currentCompany) : "",
+      resumeUrl: data.resumeUrl ? data.resumeUrl.trim() : "",
       portfolioUrl: data.portfolioUrl ? data.portfolioUrl.trim() : "",
       coverLetter: data.coverLetter ? sanitizeInput(data.coverLetter) : "",
     };

@@ -108,5 +108,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...coursePages, ...blogPages];
+  // 4. Dynamic Career Openings (Catalog + Live Backend)
+  const careerSlugs = new Set<string>([
+    "senior-frontend-engineer",
+    "full-stack-mern-developer",
+    "ai-machine-learning-engineer",
+    "cloud-devops-infrastructure-lead",
+    "lead-ui-ux-product-designer",
+    "technical-mentor-fullstack-devops",
+  ]);
+  try {
+    const jobRes = await officialApi.getJobs();
+    if (jobRes && jobRes.jobs && Array.isArray(jobRes.jobs)) {
+      jobRes.jobs.forEach((j: any) => {
+        const slug = j.slug || j._id;
+        if (slug && typeof slug === "string") {
+          careerSlugs.add(slug);
+        }
+      });
+    }
+  } catch {
+    // Graceful fallback to static career openings if API is offline
+  }
+
+  const careerPages: MetadataRoute.Sitemap = Array.from(careerSlugs).map((slug) => ({
+    url: `${SITE_URL}/career/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  return [...staticPages, ...coursePages, ...blogPages, ...careerPages];
 }
