@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState, use } from "react";
+import React, { useState, useEffect, use, useMemo } from "react";
+import { officialApi } from "@/lib/api";
 
 const articlesDatabase: Record<string, any> = {
   "how-ai-is-transforming-modern-businesses": {
@@ -152,11 +153,85 @@ export default function BlogDetailPage({
 }) {
   const { slug } = use(params);
   const [copied, setCopied] = useState(false);
+  const [liveBlog, setLiveBlog] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Fallback to default post if slug is not explicitly keyed
-  const post =
-    articlesDatabase[slug] ||
-    articlesDatabase["how-ai-is-transforming-modern-businesses"];
+  useEffect(() => {
+    let isMounted = true;
+    async function loadPost() {
+      try {
+        setLoading(true);
+        const res = await officialApi.getBlogBySlug(slug);
+        if (res && res.blog && isMounted) {
+          setLiveBlog(res.blog);
+        }
+      } catch (err) {
+        console.log("Could not load dynamic blog from API:", err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    }
+    loadPost();
+    return () => {
+      isMounted = false;
+    };
+  }, [slug]);
+
+  // Fallback to default post if slug is not found or mock article
+  const post = useMemo(() => {
+    if (liveBlog) {
+      const contentParts = (liveBlog.content || liveBlog.description || "")
+        .split("\n\n")
+        .map((p: string) => p.trim())
+        .filter((p: string) => p.length > 0);
+
+      return {
+        title: liveBlog.title,
+        category: liveBlog.category || "Technology",
+        date:
+          liveBlog.date ||
+          (liveBlog.createdAt
+            ? new Date(liveBlog.createdAt).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })
+            : "Recently"),
+        readTime: liveBlog.readTime || "5 min read",
+        coverImage:
+          liveBlog.coverImage ||
+          "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80",
+        author: liveBlog.author || {
+          name: "Editorial Team",
+          role: "Tech Author",
+          initials: "ET",
+          avatarBg: "bg-blue-600",
+          bio: "Technical research and editorial team at GoTechEdu.",
+        },
+        intro: liveBlog.description || "",
+        keyTakeaways:
+          liveBlog.tags && liveBlog.tags.length > 0
+            ? liveBlog.tags.map((t: string) => `Focus Topic: ${t}`)
+            : null,
+        sections:
+          contentParts.length > 0
+            ? contentParts.map((part: string, idx: number) => ({
+                heading: idx === 0 ? "Deep-Dive Insights" : `Key Consideration #${idx + 1}`,
+                content: part,
+              }))
+            : [
+                {
+                  heading: "Publication Overview",
+                  content: liveBlog.content || liveBlog.description,
+                },
+              ],
+      };
+    }
+    return (
+      articlesDatabase[slug] ||
+      articlesDatabase["how-ai-is-transforming-modern-businesses"]
+    );
+  }, [liveBlog, slug]);
 
   const handleCopyLink = () => {
     if (typeof window !== "undefined") {
