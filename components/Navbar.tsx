@@ -231,7 +231,7 @@ function Navbar() {
             <span className="text-slate-300">|</span>
             <div className="flex items-center gap-2.5 text-slate-500">
               <a
-                href="https://www.linkedin.com/in/gotechedu"
+                href="https://www.linkedin.com/company/gotechedu"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
