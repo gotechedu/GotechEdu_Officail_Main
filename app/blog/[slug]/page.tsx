@@ -255,18 +255,17 @@ export default function BlogDetailPage({
 
   return (
     <main className="min-h-screen bg-slate-50 mt-10">
-      {/* Breadcrumb Header */}
-
       {/* Article Cover Image Banner */}
       {post.coverImage && (
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 -mt-6">
-          <div className="relative h-64 sm:h-96 w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 bg-slate-900 shadow-xl">
+        <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 -mt-6">
+          <div className="relative w-full aspect-video overflow-hidden rounded-2xl sm:rounded-3xl bg-slate-900 shadow-xl">
             <Image
               src={post.coverImage}
               alt={post.title}
               fill
               className="object-cover"
               priority
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 896px"
             />
           </div>
         </div>
