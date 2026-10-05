@@ -6,7 +6,15 @@ import React, { useState, useEffect } from "react";
 import { officialApi } from "@/lib/api";
 import { validateEmail } from "@/lib/validation";
 
-const categories = ["All", "AI", "Cloud", "Technology", "Cybersecurity", "Education", "Marketing"];
+const categories = [
+  "All",
+  "AI",
+  "Cloud",
+  "Technology",
+  "Cybersecurity",
+  "Education",
+  "Marketing",
+];
 
 export default function BlogPage() {
   const [allBlogs, setAllBlogs] = useState<any[]>([]);
@@ -28,9 +36,19 @@ export default function BlogPage() {
             title: b.title,
             slug: b.slug || b._id,
             category: b.category || "Technology",
-            date: b.date || (b.createdAt ? new Date(b.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : "Recently"),
+            date:
+              b.date ||
+              (b.createdAt
+                ? new Date(b.createdAt).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })
+                : "Recently"),
             readTime: b.readTime || "5 min read",
-            coverImage: b.coverImage || "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80",
+            coverImage:
+              b.coverImage ||
+              "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80",
             author: b.author || {
               name: "Editorial Team",
               role: "Tech Author",
@@ -62,7 +80,9 @@ export default function BlogPage() {
     const matchesSearch =
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (post.tags || []).some((t: string) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      (post.tags || []).some((t: string) =>
+        t.toLowerCase().includes(searchQuery.toLowerCase()),
+      );
     return matchesCategory && matchesSearch;
   });
 
@@ -81,88 +101,6 @@ export default function BlogPage() {
 
   return (
     <main className="min-h-screen bg-slate-50">
-      {!loading && featuredPost && selectedCategory === "All" && !searchQuery && (
-        <section className="py-10 lg:py-14">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="group overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white shadow-lg transition-all hover:shadow-xl">
-              <div className="grid lg:grid-cols-12 gap-0 items-center">
-                {/* Real Image Visual Column */}
-                <div className="lg:col-span-6 relative h-64 sm:h-80 lg:h-full min-h-[320px] overflow-hidden bg-slate-900">
-                  <Image
-                    src={featuredPost.coverImage}
-                    alt={featuredPost.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="rounded-full bg-blue-600/90 px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider text-white backdrop-blur-md shadow-sm">
-                      🌟 {featuredPost.badge}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content Column */}
-                <div className="lg:col-span-6 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-2.5">
-                      <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-bold text-blue-700 border border-blue-100">
-                        {featuredPost.category}
-                      </span>
-                      <span className="text-xs text-slate-400">
-                        {featuredPost.date} • {featuredPost.readTime}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-3 font-heading text-xl sm:text-2xl font-bold text-slate-900 leading-tight group-hover:text-blue-600 transition">
-                      <Link href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</Link>
-                    </h3>
-
-                    <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600">
-                      {featuredPost.description}
-                    </p>
-
-                    <div className="mt-4 flex flex-wrap gap-1.5">
-                      {(featuredPost.tags || []).map((tag: string) => (
-                        <span
-                          key={tag}
-                          className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-mono font-medium text-slate-600"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className={`flex h-8 w-8 items-center justify-center rounded-full font-bold text-xs text-white ${featuredPost.author.avatarBg}`}>
-                        {featuredPost.author.initials}
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-slate-800">{featuredPost.author.name}</p>
-                        <p className="text-[10px] text-slate-400">{featuredPost.author.role}</p>
-                      </div>
-                    </div>
-
-                    <Link
-                      href={`/blog/${featuredPost.slug}`}
-                      className="inline-flex items-center rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-blue-700 transition"
-                    >
-                      Read Article →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* =====================================================
-          3. ARTICLES GRID WITH REAL IMAGES
-      ====================================================== */}
       <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between border-b border-slate-200 pb-3">
@@ -207,7 +145,8 @@ export default function BlogPage() {
                 No articles found
               </h3>
               <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-sm mx-auto">
-                There are currently no published articles matching your selected category or search.
+                There are currently no published articles matching your selected
+                category or search.
               </p>
             </div>
           ) : (
@@ -266,12 +205,18 @@ export default function BlogPage() {
                     {/* Author Footer */}
                     <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3">
                       <div className="flex items-center gap-2">
-                        <div className={`flex h-7 w-7 items-center justify-center rounded-full font-bold text-[11px] text-white ${post.author.avatarBg}`}>
+                        <div
+                          className={`flex h-7 w-7 items-center justify-center rounded-full font-bold text-[11px] text-white ${post.author.avatarBg}`}
+                        >
                           {post.author.initials}
                         </div>
                         <div>
-                          <p className="text-xs font-bold text-slate-800">{post.author.name}</p>
-                          <p className="text-[10px] text-slate-400">{post.date}</p>
+                          <p className="text-xs font-bold text-slate-800">
+                            {post.author.name}
+                          </p>
+                          <p className="text-[10px] text-slate-400">
+                            {post.date}
+                          </p>
                         </div>
                       </div>
 
@@ -300,7 +245,8 @@ export default function BlogPage() {
               Stay Ahead of the Engineering Curve
             </h2>
             <p className="mt-2 text-xs sm:text-sm text-blue-100 max-w-xl mx-auto">
-              Join 25,000+ CTOs and engineers receiving weekly breakdowns of LLMs, cloud infrastructure, and software architecture.
+              Join 25,000+ CTOs and engineers receiving weekly breakdowns of
+              LLMs, cloud infrastructure, and software architecture.
             </p>
 
             {emailSubscribed ? (
@@ -314,7 +260,10 @@ export default function BlogPage() {
                     {subscribeError}
                   </div>
                 )}
-                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2.5">
+                <form
+                  onSubmit={handleSubscribe}
+                  className="flex flex-col sm:flex-row gap-2.5"
+                >
                   <input
                     type="email"
                     required

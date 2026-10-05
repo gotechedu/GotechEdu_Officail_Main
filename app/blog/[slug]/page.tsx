@@ -7,11 +7,13 @@ import { officialApi } from "@/lib/api";
 
 const articlesDatabase: Record<string, any> = {
   "how-ai-is-transforming-modern-businesses": {
-    title: "How Autonomous AI Agents Are Transforming Enterprise Operations in 2026",
+    title:
+      "How Autonomous AI Agents Are Transforming Enterprise Operations in 2026",
     category: "Artificial Intelligence",
     date: "Aug 18, 2026",
     readTime: "6 min read",
-    coverImage: "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80",
+    coverImage:
+      "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1200&q=80",
     author: {
       name: "Dr. Vikram Sharma",
       role: "Head of AI Research & Solutions",
@@ -37,7 +39,8 @@ A modern enterprise workflow involves specialized agent teams:
 • Validation Agent: Verifies schema compliance, privacy policies, and security guardrails before committing database transactions.`,
       },
       {
-        heading: "2. Solving Hallucination with Enterprise RAG & Hybrid Vector Search",
+        heading:
+          "2. Solving Hallucination with Enterprise RAG & Hybrid Vector Search",
         content: `Data hallucination is unacceptable in finance, healthcare, and enterprise software. To achieve deterministic reliability, GotechEdu implements Hybrid Dense-Sparse Vector Search:
 
 Combining BM25 keyword matching with OpenAI/Cohere dense vector embeddings ensures that exact entity identifiers (e.g., invoice numbers, customer IDs) are matched alongside conceptual semantic context.`,
@@ -52,11 +55,13 @@ Combining BM25 keyword matching with OpenAI/Cohere dense vector embeddings ensur
     ],
   },
   "why-cloud-computing-matters-for-growing-businesses": {
-    title: "Multi-Cloud vs Hybrid Cloud: Choosing the Right Architecture for Scale",
+    title:
+      "Multi-Cloud vs Hybrid Cloud: Choosing the Right Architecture for Scale",
     category: "Cloud & DevOps",
     date: "Aug 14, 2026",
     readTime: "5 min read",
-    coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+    coverImage:
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
     author: {
       name: "Sarah Jenkins",
       role: "Principal Cloud Architect",
@@ -83,11 +88,13 @@ Combining BM25 keyword matching with OpenAI/Cohere dense vector embeddings ensur
     ],
   },
   "nextjs-vs-react-which-one-should-you-choose": {
-    title: "Next.js 16 App Router vs Traditional Single Page Apps: Production Benchmarks",
+    title:
+      "Next.js 16 App Router vs Traditional Single Page Apps: Production Benchmarks",
     category: "Technology",
     date: "Aug 10, 2026",
     readTime: "7 min read",
-    coverImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
+    coverImage:
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
     author: {
       name: "Aditya Verma",
       role: "Lead Frontend Architect",
@@ -114,11 +121,13 @@ Combining BM25 keyword matching with OpenAI/Cohere dense vector embeddings ensur
     ],
   },
   "zero-trust-cybersecurity-guide": {
-    title: "Zero-Trust Architecture: Safeguarding Enterprise Cloud Workloads Against Modern Threats",
+    title:
+      "Zero-Trust Architecture: Safeguarding Enterprise Cloud Workloads Against Modern Threats",
     category: "Cybersecurity",
     date: "Aug 08, 2026",
     readTime: "6 min read",
-    coverImage: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
+    coverImage:
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
     author: {
       name: "Rohan Mehra",
       role: "Chief Information Security Officer",
@@ -216,7 +225,10 @@ export default function BlogDetailPage({
         sections:
           contentParts.length > 0
             ? contentParts.map((part: string, idx: number) => ({
-                heading: idx === 0 ? "Deep-Dive Insights" : `Key Consideration #${idx + 1}`,
+                heading:
+                  idx === 0
+                    ? "Deep-Dive Insights"
+                    : `Key Consideration #${idx + 1}`,
                 content: part,
               }))
             : [
@@ -242,53 +254,8 @@ export default function BlogDetailPage({
   };
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-slate-50 mt-10">
       {/* Breadcrumb Header */}
-      <section className="bg-[#070e1b] pt-24 pb-14 lg:pt-32 lg:pb-16 text-white relative overflow-hidden">
-        <div className="absolute -left-20 top-20 h-72 w-72 rounded-full bg-blue-500/15 blur-3xl pointer-events-none" />
-        <div className="absolute right-0 top-1/3 h-72 w-72 rounded-full bg-cyan-400/15 blur-3xl pointer-events-none" />
-
-        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb Links */}
-          <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-            <Link href="/" className="hover:text-cyan-300 transition">
-              Home
-            </Link>
-            <span>/</span>
-            <Link href="/blog" className="hover:text-cyan-300 transition">
-              Blog
-            </Link>
-            <span>/</span>
-            <span className="text-cyan-400 font-semibold">{post.category}</span>
-          </div>
-
-          {/* Title */}
-          <h1 className="mt-4 font-heading text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white tracking-tight">
-            {post.title}
-          </h1>
-
-          {/* Author Metadata Bar */}
-          <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-slate-800 pt-5">
-            <div className="flex items-center gap-3">
-              <div
-                className={`flex h-10 w-10 items-center justify-center rounded-full font-bold text-xs text-white ${post.author.avatarBg}`}
-              >
-                {post.author.initials}
-              </div>
-              <div>
-                <p className="text-xs sm:text-sm font-bold text-white">{post.author.name}</p>
-                <p className="text-[11px] text-slate-400">{post.author.role}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 text-xs text-slate-400 font-mono">
-              <span>📅 {post.date}</span>
-              <span>•</span>
-              <span>⏱️ {post.readTime}</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Article Cover Image Banner */}
       {post.coverImage && (
@@ -338,7 +305,10 @@ export default function BlogDetailPage({
           {/* Main Sections */}
           <div className="mt-8 space-y-6">
             {post.sections.map((section: any, idx: number) => (
-              <div key={idx} className="rounded-2xl bg-white p-6 sm:p-8 border border-slate-200/90 shadow-2xs">
+              <div
+                key={idx}
+                className="rounded-2xl bg-white p-6 sm:p-8 border border-slate-200/90 shadow-2xs"
+              >
                 <h2 className="font-heading text-xl sm:text-2xl font-bold text-slate-900 leading-snug">
                   {section.heading}
                 </h2>
@@ -385,7 +355,9 @@ export default function BlogDetailPage({
                 <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600">
                   Written by
                 </span>
-                <h3 className="text-base font-bold text-slate-900">{post.author.name}</h3>
+                <h3 className="text-base font-bold text-slate-900">
+                  {post.author.name}
+                </h3>
                 <p className="text-xs text-slate-500">{post.author.role}</p>
                 <p className="mt-1 text-xs text-slate-600 leading-relaxed">
                   {post.author.bio}
@@ -400,7 +372,8 @@ export default function BlogDetailPage({
               Need Help Implementing This in Your Enterprise?
             </h3>
             <p className="mx-auto mt-2 max-w-lg text-xs sm:text-sm text-blue-100 leading-relaxed">
-              Connect directly with our engineering architects to audit your existing stack and deploy custom enterprise solutions.
+              Connect directly with our engineering architects to audit your
+              existing stack and deploy custom enterprise solutions.
             </p>
             <Link
               href="/contact"
