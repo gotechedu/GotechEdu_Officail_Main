@@ -558,64 +558,11 @@ export default function BlogDetailPage({ params }: PageProps) {
               </span>
             </div>
 
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setIsBookmarked(!isBookmarked)}
-                className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold transition cursor-pointer ${isBookmarked
-                    ? "border-blue-300 bg-blue-50 text-blue-700 shadow-2xs"
-                    : "border-slate-200 bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                  }`}
-                title={isBookmarked ? "Saved to reading list" : "Save article"}
-              >
-                <Bookmark
-                  className={`h-3.5 w-3.5 ${isBookmarked ? "fill-blue-600 text-blue-600" : ""
-                    }`}
-                />
-                <span className="hidden sm:inline">
-                  {isBookmarked ? "Saved" : "Save"}
-                </span>
-              </button>
-
-              {/* Highlighted Copy Link Button */}
-              <button
-                type="button"
-                onClick={handleCopyLink}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50/70 px-3 py-1.5 text-xs font-bold text-blue-700 hover:bg-blue-100 transition cursor-pointer shadow-2xs"
-                title="Copy article link"
-              >
-                {copied ? (
-                  <>
-                    <Check className="h-3.5 w-3.5 text-emerald-600" />
-                    <span className="text-emerald-700">Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-3.5 w-3.5 text-blue-600" />
-                    <span>Copy Link</span>
-                  </>
-                )}
-              </button>
-            </div>
           </nav>
 
           {/* Metadata Badges */}
           <div className="flex flex-wrap items-center gap-2.5 mb-4">
-            {/* Highlighted Category Badge Link */}
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-1 rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-[11px] font-bold text-blue-700 uppercase tracking-wide hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors shadow-2xs"
-            >
-              <Tag className="h-3 w-3" />
-              {blog.category || "Technology"}
-            </Link>
 
-            {blog.badge && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-cyan-50 border border-cyan-200 px-3 py-1 text-[11px] font-bold text-cyan-800">
-                <Sparkles className="h-3 w-3 text-cyan-600" />
-                {blog.badge}
-              </span>
-            )}
 
             <div className="flex items-center gap-3 text-xs text-slate-500 sm:ml-auto">
               <span className="inline-flex items-center gap-1 font-medium">
@@ -652,9 +599,9 @@ export default function BlogDetailPage({ params }: PageProps) {
                 <p className="text-sm font-bold text-slate-900 leading-snug">
                   {author.name}
                 </p>
-                <p className="text-xs text-slate-500 font-medium">
+                {/* <p className="text-xs text-slate-500 font-medium">
                   {author.role}
-                </p>
+                </p> */}
               </div>
             </div>
 
@@ -779,9 +726,7 @@ export default function BlogDetailPage({ params }: PageProps) {
                     <h3 className="text-base font-bold text-slate-900">
                       {author.name}
                     </h3>
-                    <p className="text-xs text-slate-500 font-medium">
-                      {author.role}
-                    </p>
+
                     <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
                       {author.bio}
                     </p>
