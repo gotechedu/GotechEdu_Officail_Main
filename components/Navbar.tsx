@@ -33,56 +33,56 @@ const solutionItems = [
   {
     name: "Software & Application",
     desc: "Custom ERP, CRM, enterprise software & scalable web/mobile apps",
-    href: "/solution#software",
+    href: "/solution/software",
     icon: <Code2 className="w-4 h-4 text-blue-600" />,
     badgeBg: "bg-blue-50 border-blue-200/80 text-blue-600",
   },
   {
     name: "Cloud DevOps & Automation",
     desc: "Multi-cloud AWS/Azure/GCP, Kubernetes clusters & CI/CD automation",
-    href: "/solution#cloud",
+    href: "/solution/cloud",
     icon: <Cloud className="w-4 h-4 text-sky-600" />,
     badgeBg: "bg-sky-50 border-sky-200/80 text-sky-600",
   },
   {
     name: "Digital Transformation",
     desc: "Legacy modernization, automated business workflows & analytics",
-    href: "/solution#marketing",
+    href: "/solution/transformation",
     icon: <TrendingUp className="w-4 h-4 text-purple-600" />,
     badgeBg: "bg-purple-50 border-purple-200/80 text-purple-600",
   },
   {
     name: "Emerging Technology",
     desc: "Autonomous systems, edge computing, smart IoT & Web3 architectures",
-    href: "/solution#ai",
+    href: "/solution/emerging-tech",
     icon: <Zap className="w-4 h-4 text-amber-600" />,
     badgeBg: "bg-amber-50 border-amber-200/80 text-amber-600",
   },
   {
     name: "IT & Managed Services",
     desc: "24/7 infrastructure support, SLA guarantees & system maintenance",
-    href: "/solution#software",
+    href: "/solution/managed-services",
     icon: <Wrench className="w-4 h-4 text-indigo-600" />,
     badgeBg: "bg-indigo-50 border-indigo-200/80 text-indigo-600",
   },
   {
     name: "AI & Machine Learning",
     desc: "Enterprise RAG pipelines, fine-tuned LLMs & autonomous AI agents",
-    href: "/solution#ai",
+    href: "/solution/ai",
     icon: <Cpu className="w-4 h-4 text-rose-600" />,
     badgeBg: "bg-rose-50 border-rose-200/80 text-rose-600",
   },
   {
     name: "Networking & Infrastructure",
     desc: "Secure enterprise routing, software-defined networks & data centers",
-    href: "/solution#cloud",
+    href: "/solution/networking",
     icon: <Network className="w-4 h-4 text-teal-600" />,
     badgeBg: "bg-teal-50 border-teal-200/80 text-teal-600",
   },
   {
     name: "Cybersecurity",
     desc: "Zero-Trust defense, SOC 2 compliance, pen testing & 24/7 SIEM",
-    href: "/solution#cybersecurity",
+    href: "/solution/cybersecurity",
     icon: <ShieldCheck className="w-4 h-4 text-emerald-600" />,
     badgeBg: "bg-emerald-50 border-emerald-200/80 text-emerald-600",
   },
@@ -298,16 +298,6 @@ function Navbar() {
                 </svg>
               </a>
             </div>
-            <span className="text-slate-300">|</span>
-            <a
-              href="https://portal.gotechedu.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="text-[11px] font-bold text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-full transition shadow-xs active:scale-95 flex items-center gap-1"
-            >
-              <span>Portal</span>
-              <ExternalLink className="w-2.5 h-2.5" />
-            </a>
           </div>
         </div>
       </div>
@@ -353,11 +343,10 @@ function Navbar() {
             {/* 1. Home */}
             <Link
               href="/"
-              className={`relative px-3.5 py-2 text-xs sm:text-sm font-bold transition-all duration-200 active:scale-95 ${
-                pathname === "/"
-                  ? "text-blue-600 font-extrabold"
-                  : "text-slate-700 hover:text-blue-600"
-              }`}
+              className={`relative px-3.5 py-2 text-xs sm:text-sm font-bold transition-all duration-200 active:scale-95 ${pathname === "/"
+                ? "text-blue-600 font-extrabold"
+                : "text-slate-700 hover:text-blue-600"
+                }`}
             >
               <span>Home</span>
               {pathname === "/" && (
@@ -379,19 +368,17 @@ function Navbar() {
                     setSolutionsOpen(!solutionsOpen);
                   }
                 }}
-                className={`group inline-flex items-center gap-1 px-3.5 py-2 text-xs sm:text-sm font-bold transition-all duration-200 active:scale-95 ${
-                  pathname.startsWith("/solution") || solutionsOpen
-                    ? "text-blue-600 font-extrabold"
-                    : "text-slate-700 hover:text-blue-600"
-                }`}
+                className={`group inline-flex items-center gap-1 px-3.5 py-2 text-xs sm:text-sm font-bold transition-all duration-200 active:scale-95 ${pathname.startsWith("/solution") || solutionsOpen
+                  ? "text-blue-600 font-extrabold"
+                  : "text-slate-700 hover:text-blue-600"
+                  }`}
               >
                 <span>Solutions</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                    solutionsOpen
-                      ? "rotate-180 text-blue-600"
-                      : "text-slate-400 group-hover:text-blue-600"
-                  }`}
+                  className={`w-3.5 h-3.5 transition-transform duration-300 ${solutionsOpen
+                    ? "rotate-180 text-blue-600"
+                    : "text-slate-400 group-hover:text-blue-600"
+                    }`}
                 />
                 {(pathname.startsWith("/solution") || solutionsOpen) && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500" />
@@ -480,19 +467,17 @@ function Navbar() {
                     setLearningHubOpen(!learningHubOpen);
                   }
                 }}
-                className={`group inline-flex items-center gap-1 px-3.5 py-2 text-xs sm:text-sm font-bold transition-all duration-200 active:scale-95 ${
-                  pathname.startsWith("/learninghub") || learningHubOpen
-                    ? "text-blue-600 font-extrabold"
-                    : "text-slate-700 hover:text-blue-600"
-                }`}
+                className={`group inline-flex items-center gap-1 px-3.5 py-2 text-xs sm:text-sm font-bold transition-all duration-200 active:scale-95 ${pathname.startsWith("/learninghub") || learningHubOpen
+                  ? "text-blue-600 font-extrabold"
+                  : "text-slate-700 hover:text-blue-600"
+                  }`}
               >
                 <span>Learning Hub</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                    learningHubOpen
-                      ? "rotate-180 text-blue-600"
-                      : "text-slate-400 group-hover:text-blue-600"
-                  }`}
+                  className={`w-3.5 h-3.5 transition-transform duration-300 ${learningHubOpen
+                    ? "rotate-180 text-blue-600"
+                    : "text-slate-400 group-hover:text-blue-600"
+                    }`}
                 />
                 {(pathname.startsWith("/learninghub") || learningHubOpen) && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500" />
@@ -633,11 +618,10 @@ function Navbar() {
             {/* 4. Career */}
             <Link
               href="/career"
-              className={`relative px-3.5 py-2 text-xs sm:text-sm font-bold transition-all duration-200 active:scale-95 ${
-                pathname === "/career"
-                  ? "text-blue-600 font-extrabold"
-                  : "text-slate-700 hover:text-blue-600"
-              }`}
+              className={`relative px-3.5 py-2 text-xs sm:text-sm font-bold transition-all duration-200 active:scale-95 ${pathname === "/career"
+                ? "text-blue-600 font-extrabold"
+                : "text-slate-700 hover:text-blue-600"
+                }`}
             >
               <span>Career</span>
               {pathname === "/career" && (
@@ -648,11 +632,10 @@ function Navbar() {
             {/* 5. Blog */}
             <Link
               href="/blog"
-              className={`relative px-3.5 py-2 text-xs sm:text-sm font-bold transition-all duration-200 active:scale-95 ${
-                pathname === "/blog"
-                  ? "text-blue-600 font-extrabold"
-                  : "text-slate-700 hover:text-blue-600"
-              }`}
+              className={`relative px-3.5 py-2 text-xs sm:text-sm font-bold transition-all duration-200 active:scale-95 ${pathname === "/blog"
+                ? "text-blue-600 font-extrabold"
+                : "text-slate-700 hover:text-blue-600"
+                }`}
             >
               <span>Blog</span>
               {pathname === "/blog" && (
@@ -715,11 +698,10 @@ function Navbar() {
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all ${
-                pathname === "/"
-                  ? "bg-blue-50/80 text-blue-600 font-extrabold"
-                  : "text-slate-800 hover:bg-slate-50"
-              }`}
+              className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all ${pathname === "/"
+                ? "bg-blue-50/80 text-blue-600 font-extrabold"
+                : "text-slate-800 hover:bg-slate-50"
+                }`}
             >
               <span>Home</span>
               {pathname === "/" && (
@@ -732,21 +714,19 @@ function Navbar() {
               <button
                 type="button"
                 onClick={() => setMobileSolutionsOpen(!mobileSolutionsOpen)}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 text-sm font-bold transition-all ${
-                  mobileSolutionsOpen || pathname.startsWith("/solution")
-                    ? "bg-blue-50/70 text-blue-600"
-                    : "bg-white text-slate-800 hover:bg-slate-50"
-                }`}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 text-sm font-bold transition-all ${mobileSolutionsOpen || pathname.startsWith("/solution")
+                  ? "bg-blue-50/70 text-blue-600"
+                  : "bg-white text-slate-800 hover:bg-slate-50"
+                  }`}
               >
                 <div className="flex items-center gap-2">
                   <span>Solutions</span>
                 </div>
                 <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-200 ${
-                    mobileSolutionsOpen
-                      ? "rotate-180 text-blue-600"
-                      : "text-slate-400"
-                  }`}
+                  className={`w-4 h-4 transition-transform duration-200 ${mobileSolutionsOpen
+                    ? "rotate-180 text-blue-600"
+                    : "text-slate-400"
+                    }`}
                 />
               </button>
 
@@ -817,21 +797,19 @@ function Navbar() {
               <button
                 type="button"
                 onClick={() => setMobileLearningHubOpen(!mobileLearningHubOpen)}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 text-sm font-bold transition-all ${
-                  mobileLearningHubOpen || pathname.startsWith("/learninghub")
-                    ? "bg-indigo-50/70 text-indigo-600"
-                    : "bg-white text-slate-800 hover:bg-slate-50"
-                }`}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 text-sm font-bold transition-all ${mobileLearningHubOpen || pathname.startsWith("/learninghub")
+                  ? "bg-indigo-50/70 text-indigo-600"
+                  : "bg-white text-slate-800 hover:bg-slate-50"
+                  }`}
               >
                 <div className="flex items-center gap-2">
                   <span>Learning Hub</span>
                 </div>
                 <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-200 ${
-                    mobileLearningHubOpen
-                      ? "rotate-180 text-indigo-600"
-                      : "text-slate-400"
-                  }`}
+                  className={`w-4 h-4 transition-transform duration-200 ${mobileLearningHubOpen
+                    ? "rotate-180 text-indigo-600"
+                    : "text-slate-400"
+                    }`}
                 />
               </button>
 
@@ -889,9 +867,8 @@ function Navbar() {
                                 {cat.countLabel}
                               </span>
                               <ChevronDown
-                                className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
-                                  isPillarOpen ? "rotate-180 text-blue-600" : ""
-                                }`}
+                                className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isPillarOpen ? "rotate-180 text-blue-600" : ""
+                                  }`}
                               />
                             </div>
                           </button>
@@ -952,11 +929,10 @@ function Navbar() {
             <Link
               href="/career"
               onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all ${
-                pathname === "/career"
-                  ? "bg-blue-50/80 text-blue-600 font-extrabold"
-                  : "text-slate-800 hover:bg-slate-50"
-              }`}
+              className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all ${pathname === "/career"
+                ? "bg-blue-50/80 text-blue-600 font-extrabold"
+                : "text-slate-800 hover:bg-slate-50"
+                }`}
             >
               <span>Career</span>
               {pathname === "/career" && (
@@ -968,11 +944,10 @@ function Navbar() {
             <Link
               href="/blog"
               onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all ${
-                pathname === "/blog"
-                  ? "bg-blue-50/80 text-blue-600 font-extrabold"
-                  : "text-slate-800 hover:bg-slate-50"
-              }`}
+              className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-bold transition-all ${pathname === "/blog"
+                ? "bg-blue-50/80 text-blue-600 font-extrabold"
+                : "text-slate-800 hover:bg-slate-50"
+                }`}
             >
               <span>Blog</span>
               {pathname === "/blog" && (
@@ -990,15 +965,6 @@ function Navbar() {
                 >
                   <Phone className="w-3.5 h-3.5 text-blue-600" />
                   <span>Call Us</span>
-                </a>
-                <a
-                  href="https://portal.gotechedu.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center justify-center gap-1.5 rounded-xl border border-blue-200 bg-blue-50/80 py-2.5 text-xs font-bold text-blue-700 hover:bg-blue-100 active:scale-95 transition"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Student Portal</span>
                 </a>
               </div>
 
